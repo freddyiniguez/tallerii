@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dbGED2</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">123456</property>
+    <mapping resource="edu/uv/modelo/pojos/Academia.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/Roles.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/Personal.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/Carrera.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/Usuarios.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/ExamenesGeneradosHasPregunta.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/ExamenesGenerados.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/Respuestas.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/ExperieciaEducativa.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/Temas.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/Pregunta.hbm.xml"/>
+    <mapping resource="edu/uv/modelo/pojos/Unidades.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

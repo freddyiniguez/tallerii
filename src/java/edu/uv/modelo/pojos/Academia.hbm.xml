@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08/05/2014 12:06:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="edu.uv.modelo.pojos.Academia" table="Academia" catalog="dbGED2">
+        <id name="idAcademia" type="java.lang.Integer">
+            <column name="idAcademia" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="personal" class="edu.uv.modelo.pojos.Personal" fetch="select">
+            <column name="Personal_Numero_personal" not-null="true" />
+        </many-to-one>
+        <property name="nombreAcad" type="string">
+            <column name="nombreAcad" length="60" not-null="true" />
+        </property>
+        <set name="carreras" table="carrera_has_Academia" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="Academia_idAcademia" not-null="true" />
+            </key>
+            <many-to-many entity-name="edu.uv.modelo.pojos.Carrera">
+                <column name="carrera_idcarrera" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="experieciaEducativas" table="ExperieciaEducativa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Academia_idAcademia" not-null="true" />
+            </key>
+            <one-to-many class="edu.uv.modelo.pojos.ExperieciaEducativa" />
+        </set>
+    </class>
+</hibernate-mapping>
