@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/05/2014 09:41:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="edu.uv.model.pojos.ExamenPregunta" table="ExamenPregunta" catalog="dbged">
+        <id name="idExamenPregunta" type="java.lang.Integer">
+            <column name="idExamenPregunta" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="examenesGenerados" class="edu.uv.model.pojos.ExamenesGenerados" fetch="select">
+            <column name="examenesGenerados_idexamenesGenerados" not-null="true" />
+        </many-to-one>
+        <many-to-one name="pregunta" class="edu.uv.model.pojos.Pregunta" fetch="select">
+            <column name="Pregunta_idPregunta" not-null="true" />
+        </many-to-one>
+        <property name="puntaje" type="java.lang.Integer">
+            <column name="puntaje" />
+        </property>
+    </class>
+</hibernate-mapping>

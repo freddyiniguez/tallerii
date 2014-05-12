@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/05/2014 09:41:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="edu.uv.model.pojos.Usuarios" table="Usuarios" catalog="dbged">
+        <id name="idUsuario" type="java.lang.Integer">
+            <column name="idUsuario" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="personal" class="edu.uv.model.pojos.Personal" fetch="select">
+            <column name="Personal_idPersonal" not-null="true" />
+        </many-to-one>
+        <property name="loginUsuario" type="string">
+            <column name="loginUsuario" length="10" not-null="true" />
+        </property>
+        <property name="passwordUsuario" type="string">
+            <column name="passwordUsuario" length="10" not-null="true" />
+        </property>
+        <property name="estadoUsuario" type="string">
+            <column name="estadoUsuario" length="8" />
+        </property>
+        <set name="usuarioRols" table="UsuarioRol" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Usuarios_idUsuario" not-null="true" />
+            </key>
+            <one-to-many class="edu.uv.model.pojos.UsuarioRol" />
+        </set>
+    </class>
+</hibernate-mapping>

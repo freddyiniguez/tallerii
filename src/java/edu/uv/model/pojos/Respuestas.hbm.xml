@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/05/2014 09:41:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="edu.uv.model.pojos.Respuestas" table="Respuestas" catalog="dbged">
+        <id name="idRespuesta" type="java.lang.Integer">
+            <column name="idRespuesta" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="pregunta" class="edu.uv.model.pojos.Pregunta" fetch="select">
+            <column name="Pregunta_idPregunta" not-null="true" />
+        </many-to-one>
+        <property name="descripcionRespuesta" type="string">
+            <column name="descripcionRespuesta" />
+        </property>
+        <property name="tipoResp" type="string">
+            <column name="tipoResp" length="10">
+                <comment>correcta / incorrecta</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

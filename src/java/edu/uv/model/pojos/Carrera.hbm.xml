@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/05/2014 09:41:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="edu.uv.model.pojos.Carrera" table="Carrera" catalog="dbged">
+        <id name="idCarrera" type="java.lang.Integer">
+            <column name="idCarrera" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreCarrera" type="string">
+            <column name="nombreCarrera" length="60" not-null="true" />
+        </property>
+        <set name="carreraAcademias" table="CarreraAcademia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Carrera_idCarrera" not-null="true" />
+            </key>
+            <one-to-many class="edu.uv.model.pojos.CarreraAcademia" />
+        </set>
+    </class>
+</hibernate-mapping>

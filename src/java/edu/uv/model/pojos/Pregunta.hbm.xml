@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/05/2014 09:41:03 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="edu.uv.model.pojos.Pregunta" table="Pregunta" catalog="dbged">
+        <id name="idPregunta" type="java.lang.Integer">
+            <column name="idPregunta" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="temas" class="edu.uv.model.pojos.Temas" fetch="select">
+            <column name="temas_idtemas" />
+        </many-to-one>
+        <property name="tipoPregunta" type="string">
+            <column name="tipoPregunta" length="18" not-null="true" />
+        </property>
+        <property name="descripcionPregunta" type="string">
+            <column name="descripcionPregunta" not-null="true" />
+        </property>
+        <property name="modalidadPregunta" type="string">
+            <column name="modalidadPregunta" length="8" not-null="true" />
+        </property>
+        <property name="complejidadPregunta" type="int">
+            <column name="complejidadPregunta" not-null="true" />
+        </property>
+        <property name="puntuacionPregunta" type="java.lang.Integer">
+            <column name="puntuacionPregunta" />
+        </property>
+        <property name="comentRetroalimentacion" type="string">
+            <column name="ComentRetroalimentacion" />
+        </property>
+        <set name="examenPreguntas" table="ExamenPregunta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Pregunta_idPregunta" not-null="true" />
+            </key>
+            <one-to-many class="edu.uv.model.pojos.ExamenPregunta" />
+        </set>
+        <set name="respuestases" table="Respuestas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Pregunta_idPregunta" not-null="true" />
+            </key>
+            <one-to-many class="edu.uv.model.pojos.Respuestas" />
+        </set>
+    </class>
+</hibernate-mapping>
