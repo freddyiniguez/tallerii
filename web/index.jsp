@@ -18,7 +18,7 @@
             <table border="0">
                 <tbody>
                     <tr>
-                        <td>Nombre de la carrera</td>
+                        <td>Nombre     sdsv dfdfhde la carrera</td>
                         <td><input type="text" name="nombreCarrera" value="" /></td>
                     </tr>
                     <tr>
