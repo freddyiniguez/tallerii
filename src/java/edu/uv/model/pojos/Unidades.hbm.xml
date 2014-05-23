@@ -8,13 +8,13 @@
             <column name="idUnidad" />
             <generator class="identity" />
         </id>
-        <many-to-one name="experieciaEducativa" class="edu.uv.model.pojos.ExperieciaEducativa" fetch="select">
+        <many-to-one name="experieciaEducativa" class="edu.uv.model.pojos.ExperieciaEducativa" fetch="select" lazy="false">
             <column name="ExperieciaEducativa_idExperieciaEducativa" not-null="true" />
         </many-to-one>
         <property name="nombreUnidad" type="string">
             <column name="nombreUnidad" length="60" not-null="true" />
         </property>
-        <set name="temases" table="Temas" inverse="true" lazy="true" fetch="select">
+        <set name="temases" table="Temas" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="Unidades_idUnidad" not-null="true" />
             </key>

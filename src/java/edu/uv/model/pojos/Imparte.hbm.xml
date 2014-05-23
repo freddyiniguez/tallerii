@@ -8,10 +8,10 @@
             <column name="idImparte" />
             <generator class="identity" />
         </id>
-        <many-to-one name="experieciaEducativa" class="edu.uv.model.pojos.ExperieciaEducativa" fetch="select">
+        <many-to-one name="experieciaEducativa" class="edu.uv.model.pojos.ExperieciaEducativa" fetch="select" lazy="false">
             <column name="ExperieciaEducativa_idExperieciaEducativa" not-null="true" />
         </many-to-one>
-        <many-to-one name="personal" class="edu.uv.model.pojos.Personal" fetch="select">
+        <many-to-one name="personal" class="edu.uv.model.pojos.Personal" fetch="select" lazy="false">
             <column name="Personal_idPersonal" not-null="true" />
         </many-to-one>
     </class>

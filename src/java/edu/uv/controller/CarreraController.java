@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package edu.uv.controller;
-
 import edu.uv.model.dao.CarreraDAO;
 import edu.uv.model.pojos.Carrera;
 import java.io.IOException;
@@ -16,30 +9,61 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author alex
- */
 @WebServlet(name = "CarreraController", urlPatterns = {"/CarreraController"})
 public class CarreraController extends HttpServlet {
+    static final String LIST = "";
+    static final String DELETE = "borrar";
+    static final String FIND ="buscar";
+    static final String ADD = "agregar";
+    static final String UPDATE = "actualizar";
+    static final String INSERT = "insertar";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        Carrera c = new Carrera(request.getParameter("nombreCarrera"));
-        CarreraDAO carreraDAO = new CarreraDAO();
-        carreraDAO.ingresarCarrera(c);
-        request.setAttribute("Carrera", c);
-        request.getRequestDispatcher("salida.jsp").forward(request, response);
+            String accion = request.getParameter("accion");
+            String id ="";
+            Carrera c = null;
+            response.setContentType("text/html;charset=UTF-8");
+            CarreraDAO Carrera_DAO = new CarreraDAO();
+        if (accion == null) {
+            request.setAttribute("list",Carrera_DAO.findAll());
+            request.getRequestDispatcher("Carrera_list.jsp").forward(request, response); 
+        } else switch(accion){
+            case INSERT:
+                c = new Carrera();
+                c.setNombreCarrera(request.getParameter("nombreCarrera"));
+                request.setAttribute("url","CarreraController");
+                Carrera_DAO.create(c);
+                request.getRequestDispatcher("success.jsp").forward(request, response);
+                break;
+            case DELETE:
+                id= request.getParameter("id");
+                Carrera_DAO.delete(Integer.parseInt(id));
+                request.setAttribute("url","CarreraController");
+                request.getRequestDispatcher("success.jsp").forward(request, response);
+                break;
+            case UPDATE:
+                c = new Carrera();
+                c.setNombreCarrera(request.getParameter("nombreCarrera"));
+                c.setIdCarrera(Integer.parseInt(request.getParameter("idCarrera")));
+                Carrera_DAO.update(c);
+                request.setAttribute("url","CarreraController");
+                request.getRequestDispatcher("success.jsp").forward(request, response);
+                break;
+            case FIND:
+                id= request.getParameter("id");
+                c = Carrera_DAO.find(Integer.parseInt(id));                
+                request.setAttribute("Carrera",c);
+                request.getRequestDispatcher("Carrera_edit.jsp").forward(request, response);
+            case ADD:
+                //request.setAttribute("Academias",AcademiaDAO.findAll());
+                request.getRequestDispatcher("Carrera_add.jsp").forward(request, response);
+                break;
+            default:
+                
+        }
+        
  }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

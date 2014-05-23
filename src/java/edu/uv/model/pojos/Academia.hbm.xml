@@ -8,23 +8,11 @@
             <column name="idAcademia" />
             <generator class="identity" />
         </id>
-        <many-to-one name="personal" class="edu.uv.model.pojos.Personal" fetch="select">
+        <many-to-one name="personal" class="edu.uv.model.pojos.Personal" fetch="select" lazy="false">
             <column name="Personal_idPersonal" />
         </many-to-one>
         <property name="nombreAcademia" type="string">
             <column name="nombreAcademia" length="60" not-null="true" />
         </property>
-        <set name="carreraAcademias" table="CarreraAcademia" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Academia_idAcademia" not-null="true" />
-            </key>
-            <one-to-many class="edu.uv.model.pojos.CarreraAcademia" />
-        </set>
-        <set name="experieciaEducativas" table="ExperieciaEducativa" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Academia_idAcademia" not-null="true" />
-            </key>
-            <one-to-many class="edu.uv.model.pojos.ExperieciaEducativa" />
-        </set>
     </class>
 </hibernate-mapping>

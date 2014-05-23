@@ -15,41 +15,21 @@ import org.hibernate.Transaction;
  *
  * @author alex
  */
-public class CarreraDAO {
-    public void ingresarCarrera(Carrera c){
-        SessionFactory sf = null;
-        Session sesion = null;
-        Transaction tx=null;
-        try {
-            sf = HibernateUtil.getSessionFactory();
-            sesion = sf.openSession();
-            tx = sesion.beginTransaction();
-            sesion.save(c);
-            tx.commit();
-            sesion.close();
-        }
-        catch (Exception ex){
-            tx.rollback();
-            throw new RuntimeException ("No se pudo agregar la carrera");
-        }
+
+public class CarreraDAO extends AbstractDao {
+    public void create(Carrera c) throws DataAccessLayerException {
+        super.save(c);
     }
-    public String buscaCarrera(int idcarrera){
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session sesion = sf.openSession();
-        Carrera c= (Carrera)sesion.get(Carrera.class, idcarrera);
-        sesion.close();
-        if (c!=null){
-            return "La carrera de identificador" +c.getIdCarrera()+" tiene por nombre "+c.getNombreCarrera();
-        }
-        else
-            return "La carrera " + idcarrera+" no está registrada";
+    public void update(Carrera c) throws DataAccessLayerException {
+        super.update(c);
     }
-    public List<Carrera> verCarreras(){
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session sesion = sf.openSession();
-        Query query = sesion.createQuery("from Carrera");
-        List <Carrera> lista = query.list();
-        sesion.close();
-        return lista;
+    public List findAll() throws DataAccessLayerException {
+        return super.findAll(Carrera.class);
+    }
+    public Carrera find(int id) throws DataAccessLayerException {
+        return (Carrera) super.find(Carrera.class, id);
+    }
+    public void delete(int id) throws DataAccessLayerException {
+        super.delete(Carrera.class,id);
     }
  }

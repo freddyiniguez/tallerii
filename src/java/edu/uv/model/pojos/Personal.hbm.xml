@@ -14,29 +14,6 @@
         <property name="nombreProfesor" type="string">
             <column name="nombreProfesor" length="60" not-null="true" />
         </property>
-        <set name="academias" table="Academia" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Personal_idPersonal" />
-            </key>
-            <one-to-many class="edu.uv.model.pojos.Academia" />
-        </set>
-        <set name="usuarioses" table="Usuarios" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Personal_idPersonal" not-null="true" />
-            </key>
-            <one-to-many class="edu.uv.model.pojos.Usuarios" />
-        </set>
-        <set name="impartes" table="Imparte" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Personal_idPersonal" not-null="true" />
-            </key>
-            <one-to-many class="edu.uv.model.pojos.Imparte" />
-        </set>
-        <set name="examenesGeneradoses" table="ExamenesGenerados" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Personal_idPersonal" />
-            </key>
-            <one-to-many class="edu.uv.model.pojos.ExamenesGenerados" />
-        </set>
+        
     </class>
 </hibernate-mapping>

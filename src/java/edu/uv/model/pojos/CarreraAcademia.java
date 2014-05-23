@@ -9,24 +9,24 @@ package edu.uv.model.pojos;
 public class CarreraAcademia  implements java.io.Serializable {
 
 
-     private String idCarreraAcademia;
+     private int idCarreraAcademia;
      private Carrera carrera;
      private Academia academia;
 
     public CarreraAcademia() {
     }
 
-    public CarreraAcademia(String idCarreraAcademia, Carrera carrera, Academia academia) {
+    public CarreraAcademia(int idCarreraAcademia, Carrera carrera, Academia academia) {
        this.idCarreraAcademia = idCarreraAcademia;
        this.carrera = carrera;
        this.academia = academia;
     }
    
-    public String getIdCarreraAcademia() {
+    public int getIdCarreraAcademia() {
         return this.idCarreraAcademia;
     }
     
-    public void setIdCarreraAcademia(String idCarreraAcademia) {
+    public void setIdCarreraAcademia(int idCarreraAcademia) {
         this.idCarreraAcademia = idCarreraAcademia;
     }
     public Carrera getCarrera() {
