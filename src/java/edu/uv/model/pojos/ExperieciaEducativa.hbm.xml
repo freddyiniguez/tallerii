@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 12/05/2014 09:41:03 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 23/05/2014 05:30:57 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="edu.uv.model.pojos.ExperieciaEducativa" table="ExperieciaEducativa" catalog="dbged">
         <id name="idExperieciaEducativa" type="java.lang.Integer">
@@ -14,6 +14,23 @@
         <property name="nombreEe" type="string">
             <column name="nombreEE" length="60" not-null="true" />
         </property>
-        
+        <set name="unidadeses" table="Unidades" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ExperieciaEducativa_idExperieciaEducativa" not-null="true" />
+            </key>
+            <one-to-many class="edu.uv.model.pojos.Unidades" />
+        </set>
+        <set name="impartes" table="Imparte" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ExperieciaEducativa_idExperieciaEducativa" not-null="true" />
+            </key>
+            <one-to-many class="edu.uv.model.pojos.Imparte" />
+        </set>
+        <set name="examenesGeneradoses" table="ExamenesGenerados" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ExperieciaEducativa_idExperieciaEducativa" />
+            </key>
+            <one-to-many class="edu.uv.model.pojos.ExamenesGenerados" />
+        </set>
     </class>
 </hibernate-mapping>

@@ -39,6 +39,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setLoginUsuario(request.getParameter("loginUsuario"));
                 c.setPasswordUsuario(request.getParameter("passwordUsuario"));
                 c.setEstadoUsuario(request.getParameter("estadoUsuario"));
+                c.setRol(request.getParameter("rol"));
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 request.setAttribute("url","UsuariosController");
                 Usuarios_DAO.create(c);
@@ -55,6 +56,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setLoginUsuario(request.getParameter("loginUsuario"));
                 c.setPasswordUsuario(request.getParameter("passwordUsuario"));
                 c.setEstadoUsuario(request.getParameter("estadoUsuario"));
+                c.setRol(request.getParameter("rol"));
                 int ass = Integer.parseInt(request.getParameter("personal"));
                 c.setPersonal(Personal_DAO.find(ass));
                 c.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));

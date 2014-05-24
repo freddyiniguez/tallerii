@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 12/05/2014 09:41:03 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 23/05/2014 05:30:57 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="edu.uv.model.pojos.Usuarios" table="Usuarios" catalog="dbged">
         <id name="idUsuario" type="java.lang.Integer">
@@ -20,6 +20,8 @@
         <property name="estadoUsuario" type="string">
             <column name="estadoUsuario" length="8" />
         </property>
-        
+        <property name="rol" type="string">
+            <column name="rol" length="14" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -7,8 +7,6 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dbged?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">123456</property>
-    <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.current_session_context_class">thread</property>
     <mapping resource="edu/uv/model/pojos/ExamenesGenerados.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/Academia.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/Pregunta.hbm.xml"/>
@@ -17,10 +15,8 @@
     <mapping resource="edu/uv/model/pojos/Respuestas.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/ExperieciaEducativa.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/Imparte.hbm.xml"/>
-    <mapping resource="edu/uv/model/pojos/UsuarioRol.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/ExamenPregunta.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/Personal.hbm.xml"/>
-    <mapping resource="edu/uv/model/pojos/Roles.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/CarreraAcademia.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/Carrera.hbm.xml"/>
     <mapping resource="edu/uv/model/pojos/Temas.hbm.xml"/>

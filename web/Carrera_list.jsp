@@ -5,7 +5,7 @@
     <tr>
       <td><c:out value="${item.idCarrera}"/></td>
       <td><c:out value="${item.nombreCarrera}"/></td>
-      <td><a class="btn btn-danger" href="CarreraController?accion=borrar&id=${item.idCarrera}">Borrar</a></td>
+      <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="CarreraController?accion=borrar&id=${item.idCarrera}" href="#">Borrar</a></td>
       <td><a class="btn btn-warning" href="CarreraController?accion=buscar&id=${item.idCarrera}">Editar</a></td>
     </tr>
   </c:forEach>

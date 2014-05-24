@@ -4,8 +4,9 @@
   <c:forEach items="${list}" var="item">
     <tr>
       <td><c:out value="${item.idCarreraAcademia}"/></td>
-      <td><c:out value="${item.Carrera_idCarrera}"/></td>,<td><c:out value="${item.Academia_idAcademia}"/></td>
-      <td><a class="btn btn-danger" href="CarreraAcademiaController?accion=borrar&id=${item.idCarreraAcademia}">Borrar</a></td>
+      <td><c:out value="${item.carrera.nombreCarrera}"/></td>
+      <td><c:out value="${item.academia.nombreAcademia}"/></td>
+      <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="CarreraAcademiaController?accion=borrar&id=${item.idCarreraAcademia}" href="#">Borrar</a></td>
       <td><a class="btn btn-warning" href="CarreraAcademiaController?accion=buscar&id=${item.idCarreraAcademia}">Editar</a></td>
     </tr>
   </c:forEach>

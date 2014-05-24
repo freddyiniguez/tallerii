@@ -6,7 +6,7 @@
       <td><c:out value="${item.idExperieciaEducativa}"/></td>
       <td><c:out value="${item.academia.nombreAcademia}"/></td>
       <td><c:out value="${item.nombreEe}"/></td>
-      <td><a class="btn btn-danger" href="ExperieciaEducativaController?accion=borrar&id=${item.idExperieciaEducativa}">Borrar</a></td>
+      <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="ExperieciaEducativaController?accion=borrar&id=${item.idExperieciaEducativa}" href="#">Borrar</a></td>
       <td><a class="btn btn-warning" href="ExperieciaEducativaController?accion=buscar&id=${item.idExperieciaEducativa}">Editar</a></td>
     </tr>
   </c:forEach>

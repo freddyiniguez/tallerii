@@ -14,9 +14,19 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="passwordUsuario">ContraseÃ±a<span class="required">*</span></label>
+                                    <label class="col-sm-2 control-label" for="passwordUsuario">Contraseña<span class="required">*</span></label>
                                     <div class="col-sm-10">  
                                     <input required class ="form-control" id="passwordUsuario" type="password" name="passwordUsuario" value="${Usuarios.passwordUsuario}"  />
+                                    </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="estadoUsuario">Rol<span class="required">*</span></label>
+                                    <div class="col-sm-10">                                
+                                    <select class="form-control" name="rol" id="estadoUsuario">
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Usuario">Usuario</option>
+                                    </select>
                                     </div>
                                     </div>
                                     

@@ -9,7 +9,7 @@
                                     
                                     <div class="col-sm-10">
                                       <div class="input-group">
-                                      <select class="form-control" name="academia">
+                                      <select class="form-control" name="carrera">
                                         <c:forEach items="${Carrera}" var="item">
                                                 <option value="${item.idCarrera}">${item.nombreCarrera}</option>
                                         </c:forEach>

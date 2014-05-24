@@ -1,5 +1,5 @@
 package edu.uv.model.pojos;
-// Generated 12/05/2014 09:41:03 AM by Hibernate Tools 3.6.0
+// Generated 23/05/2014 05:30:57 PM by Hibernate Tools 3.6.0
 
 
 
@@ -9,24 +9,23 @@ package edu.uv.model.pojos;
 public class CarreraAcademia  implements java.io.Serializable {
 
 
-     private int idCarreraAcademia;
+     private Integer idCarreraAcademia;
      private Carrera carrera;
      private Academia academia;
 
     public CarreraAcademia() {
     }
 
-    public CarreraAcademia(int idCarreraAcademia, Carrera carrera, Academia academia) {
-       this.idCarreraAcademia = idCarreraAcademia;
+    public CarreraAcademia(Carrera carrera, Academia academia) {
        this.carrera = carrera;
        this.academia = academia;
     }
    
-    public int getIdCarreraAcademia() {
+    public Integer getIdCarreraAcademia() {
         return this.idCarreraAcademia;
     }
     
-    public void setIdCarreraAcademia(int idCarreraAcademia) {
+    public void setIdCarreraAcademia(Integer idCarreraAcademia) {
         this.idCarreraAcademia = idCarreraAcademia;
     }
     public Carrera getCarrera() {

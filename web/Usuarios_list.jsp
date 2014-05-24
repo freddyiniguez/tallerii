@@ -5,10 +5,11 @@
     <tr>
       <td><c:out value="${item.idUsuario}"/></td>
       <td><c:out value="${item.loginUsuario}"/></td>
-      <td><c:out value="${item.passwordUsuario}"/></td>
+      <td><c:out value="${item.rol}"/></td>
       <td><c:out value="${item.estadoUsuario}"/></td>
       <td><c:out value="${item.personal.nombreProfesor}"/></td>
-      <td><a class="btn btn-danger" href="UsuariosController?accion=borrar&id=${item.idUsuario}">Borrar</a></td>
+        
+      <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="UsuariosController?accion=borrar&id=${item.idUsuario}" href="#">Borrar</a></td>
       <td><a class="btn btn-warning" href="UsuariosController?accion=buscar&id=${item.idUsuario}">Editar</a></td>
     </tr>
   </c:forEach>
