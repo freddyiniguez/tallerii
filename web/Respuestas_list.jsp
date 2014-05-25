@@ -7,6 +7,7 @@
       <td><c:out value="${item.descripcionRespuesta}"/></td>
       <td><c:out value="${item.tipoResp}"/></td>
       <td><c:out value="${item.pregunta.descripcionPregunta}"/></td>
+      
       <td><a class="btn btn-danger" href="RespuestasController?accion=borrar&id=${item.idRespuesta}">Borrar</a></td>
       <td><a class="btn btn-warning" href="RespuestasController?accion=buscar&id=${item.idRespuesta}">Editar</a></td>
     </tr>

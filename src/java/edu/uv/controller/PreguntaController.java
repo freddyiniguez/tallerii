@@ -1,7 +1,9 @@
 package edu.uv.controller;
 import edu.uv.model.dao.PreguntaDAO;
+import edu.uv.model.dao.RespuestasDAO;
 import edu.uv.model.dao.TemasDAO;
 import edu.uv.model.pojos.Pregunta;
+import edu.uv.model.pojos.Respuestas;
 import edu.uv.model.pojos.Temas;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,10 +28,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             String accion = request.getParameter("accion");
             String id ="";
             Pregunta c = null;
+            Respuestas r = null;
             Temas T = new Temas();
             response.setContentType("text/html;charset=UTF-8");
             PreguntaDAO Pregunta_DAO = new PreguntaDAO();
             TemasDAO Temas_DAO = new TemasDAO();
+            RespuestasDAO Respuestas_DAO = new RespuestasDAO();
         if (accion == null) {
             request.setAttribute("list",Pregunta_DAO.findAll());
             request.getRequestDispatcher("Pregunta_list.jsp").forward(request, response); 
@@ -43,8 +47,24 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setComplejidadPregunta(Integer.parseInt(request.getParameter("complejidadPregunta")));
                 c.setPuntuacionPregunta(Integer.parseInt(request.getParameter("puntuacionPregunta")));
                 c.setComentRetroalimentacion(request.getParameter("ComentRetroalimentacion"));
-                request.setAttribute("url","PreguntaController");
                 Pregunta_DAO.create(c);
+                // se agregan las respuestas
+                String[] descripciones = request.getParameterValues("descripcionRespuesta");
+                String correcta = request.getParameter("correct");
+                for(int i=0;i<descripciones.length;i++){
+                r = new Respuestas();
+                r.setDescripcionRespuesta(descripciones[i]);
+                        if(i==Integer.parseInt(correcta)){
+                            r.setTipoResp("Correcta");
+                        }else{
+                            r.setTipoResp("Incorrecta");
+                        }
+                r.setPregunta(c);
+                Respuestas_DAO.create(r);
+                }
+                
+                request.setAttribute("url","PreguntaController");
+                
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case DELETE:

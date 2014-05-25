@@ -84,10 +84,38 @@
                                     </div>
                                     </div>
                                     
+                                    <div id="respuestas">
+                                    <div id="respuesta">
+                                        <label for="1">Respuesta<div id="letter">A</div></label>
+                                          <div class="input-group">
+                                             <span class="input-group-addon">
+                                             <input name="correct" type="radio" value="0">
+                                             </span>
+                                             <textarea required class="form-control" id="descripcionRespuesta" name="descripcionRespuesta"></textarea>
+                                          </div>
+                                    </div>
+                                    
+                                    </div>
+                                    <a href="#" id="agregar" class="btn btn-success">Agregar respuesta</a>
+                                    
         <div class="col-md-12 ">
 			<div class="pull-right">
 				<input type="submit" class="btn btn-primary" name ="accion" value="insertar">
 			</div>
 		</div>
         </form>
+<script>
+    var letters = ['B','C','D','E'];
+    var n=0;
+        $(document).ready(function(){
+         $("#agregar").click(function(){
+           var respuesta = $("#respuesta").clone();
+           $(respuesta).find('#letter').text(letters[n]);
+           $(respuesta).find('input[type=radio]').attr('value',n+1);
+           $(respuesta).appendTo("#respuestas");
+           console.log("ok");
+           n++;
+         });
+        });
+        </script>
 <%@include file="footer.jsp" %>
