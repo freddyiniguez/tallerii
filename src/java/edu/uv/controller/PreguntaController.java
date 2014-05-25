@@ -1,0 +1,124 @@
+package edu.uv.controller;
+import edu.uv.model.dao.PreguntaDAO;
+import edu.uv.model.dao.TemasDAO;
+import edu.uv.model.pojos.Pregunta;
+import edu.uv.model.pojos.Temas;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(name = "PreguntaController", urlPatterns = {"/PreguntaController"})
+public class PreguntaController extends HttpServlet {
+    static final String LIST = "";
+    static final String DELETE = "borrar";
+    static final String FIND ="buscar";
+    static final String ADD = "agregar";
+    static final String UPDATE = "actualizar";
+    static final String INSERT = "insertar";
+
+
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            String accion = request.getParameter("accion");
+            String id ="";
+            Pregunta c = null;
+            Temas T = new Temas();
+            response.setContentType("text/html;charset=UTF-8");
+            PreguntaDAO Pregunta_DAO = new PreguntaDAO();
+            TemasDAO Temas_DAO = new TemasDAO();
+        if (accion == null) {
+            request.setAttribute("list",Pregunta_DAO.findAll());
+            request.getRequestDispatcher("Pregunta_list.jsp").forward(request, response); 
+        } else switch(accion){
+            case INSERT:
+                c = new Pregunta();
+                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
+                c.setTipoPregunta(request.getParameter("tipoPregunta"));
+                c.setDescripcionPregunta(request.getParameter("descripcionPregunta"));
+                c.setModalidadPregunta(request.getParameter("modalidadPregunta"));
+                c.setComplejidadPregunta(Integer.parseInt(request.getParameter("complejidadPregunta")));
+                c.setPuntuacionPregunta(Integer.parseInt(request.getParameter("puntuacionPregunta")));
+                c.setComentRetroalimentacion(request.getParameter("ComentRetroalimentacion"));
+                request.setAttribute("url","PreguntaController");
+                Pregunta_DAO.create(c);
+                request.getRequestDispatcher("success.jsp").forward(request, response);
+                break;
+            case DELETE:
+                id= request.getParameter("id");
+                Pregunta_DAO.delete(Integer.parseInt(id));
+                request.setAttribute("url","PreguntaController");
+                request.getRequestDispatcher("success.jsp").forward(request, response);
+                break;
+            case UPDATE:
+                c = new Pregunta();
+                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
+                c.setTipoPregunta(request.getParameter("tipoPregunta"));
+                c.setDescripcionPregunta(request.getParameter("descripcionPregunta"));
+                c.setModalidadPregunta(request.getParameter("modalidadPregunta"));
+                c.setComplejidadPregunta(Integer.parseInt(request.getParameter("complejidadPregunta")));
+                c.setPuntuacionPregunta(Integer.parseInt(request.getParameter("puntuacionPregunta")));
+                c.setComentRetroalimentacion(request.getParameter("ComentRetroalimentacion"));c.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
+                Pregunta_DAO.update(c);
+                request.setAttribute("url","PreguntaController");
+                request.getRequestDispatcher("success.jsp").forward(request, response);
+                break;
+            case FIND:
+                id= request.getParameter("id");
+                c = Pregunta_DAO.find(Integer.parseInt(id));           
+                request.setAttribute("Pregunta",c);
+                request.setAttribute("Temas",Temas_DAO.findAll());
+                request.getRequestDispatcher("Pregunta_edit.jsp").forward(request, response);
+            case ADD:
+                request.setAttribute("Temas",Temas_DAO.findAll());
+                request.getRequestDispatcher("Pregunta_add.jsp").forward(request, response);
+                break;
+            default:
+                
+        }
+        
+ }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
