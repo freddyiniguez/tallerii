@@ -1,5 +1,5 @@
 package edu.uv.model.pojos;
-// Generated 23/05/2014 05:30:57 PM by Hibernate Tools 3.6.0
+// Generated 25/05/2014 11:11:21 AM by Hibernate Tools 3.6.0
 
 
 

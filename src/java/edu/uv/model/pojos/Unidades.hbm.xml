@@ -8,7 +8,7 @@
             <column name="idUnidad" />
             <generator class="identity" />
         </id>
-        <many-to-one name="experieciaEducativa" class="edu.uv.model.pojos.ExperieciaEducativa"  fetch="select">
+        <many-to-one name="experieciaEducativa" class="edu.uv.model.pojos.ExperieciaEducativa"  fetch="select" lazy="false" >
             <column name="ExperieciaEducativa_idExperieciaEducativa" not-null="true" />
         </many-to-one>
         <property name="nombreUnidad" type="string">

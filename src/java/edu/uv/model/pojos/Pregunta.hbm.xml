@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23/05/2014 05:30:57 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 25/05/2014 11:11:22 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="edu.uv.model.pojos.Pregunta" table="Pregunta" catalog="dbged">
         <id name="idPregunta" type="java.lang.Integer">
@@ -18,7 +18,7 @@
             <column name="descripcionPregunta" not-null="true" />
         </property>
         <property name="modalidadPregunta" type="string">
-            <column name="modalidadPregunta" length="8" not-null="true" />
+            <column name="modalidadPregunta" length="12" not-null="true" />
         </property>
         <property name="complejidadPregunta" type="int">
             <column name="complejidadPregunta" not-null="true" />
