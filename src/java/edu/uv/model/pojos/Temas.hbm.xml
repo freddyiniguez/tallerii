@@ -8,10 +8,10 @@
             <column name="idTema" />
             <generator class="identity" />
         </id>
-        <many-to-one name="unidades" class="edu.uv.model.pojos.Unidades" fetch="select">
+        <many-to-one name="unidades" class="edu.uv.model.pojos.Unidades" fetch="select" lazy="false">
             <column name="Unidades_idUnidad" not-null="true" />
         </many-to-one>
-        <many-to-one name="temas" class="edu.uv.model.pojos.Temas" fetch="select">
+        <many-to-one name="temas" class="edu.uv.model.pojos.Temas" fetch="select" lazy="false">
             <column name="Temas_idTema" />
         </many-to-one>
         <property name="nombreTema" type="string">

@@ -38,8 +38,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case INSERT:
                 c = new Temas();
                 c.setNombreTema(request.getParameter("nombreTema"));
-                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("Temas_idTema"))));
-                c.setUnidades(Unidades_DAO.find(Integer.parseInt(request.getParameter("Unidades_idUnidad"))));
+                if(!request.getParameter("tema").equals("")){
+                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
+                }else{
+                c.setTemas(null);
+                }
+                c.setUnidades(Unidades_DAO.find(Integer.parseInt(request.getParameter("unidad"))));
                 request.setAttribute("url","TemasController");
                 Temas_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
@@ -53,8 +57,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case UPDATE:
                 c = new Temas();
                 c.setNombreTema(request.getParameter("nombreTema"));
-                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("Temas_idTema"))));
-                c.setUnidades(Unidades_DAO.find(Integer.parseInt(request.getParameter("Unidades_idUnidad"))));
+                if(!request.getParameter("tema").equals("")){
+                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
+                }else{
+                c.setTemas(null);
+                }
+                c.setUnidades(Unidades_DAO.find(Integer.parseInt(request.getParameter("unidad"))));
                 c.setIdTema(Integer.parseInt(request.getParameter("idTema")));
                 Temas_DAO.update(c);
                 request.setAttribute("url","TemasController");
@@ -64,7 +72,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 id= request.getParameter("id");
                 c = Temas_DAO.find(Integer.parseInt(id));           
                 request.setAttribute("Temas",c);
-                request.setAttribute("Temas",Temas_DAO.findAll());
+                request.setAttribute("Temas_list",Temas_DAO.findAll());
                 request.setAttribute("Unidades",Unidades_DAO.findAll());
                 request.getRequestDispatcher("Temas_edit.jsp").forward(request, response);
             case ADD:

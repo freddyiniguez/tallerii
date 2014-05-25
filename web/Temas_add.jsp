@@ -16,7 +16,8 @@
                                     
                                     <div class="col-sm-10">
                                       <div class="input-group">
-                                      <select class="form-control" name="academia">
+                                      <select class="form-control" name="tema">
+                                      <option value=""></option>
                                         <c:forEach items="${Temas}" var="item">
                                                 <option value="${item.idTema}">${item.nombreTema}</option>
                                         </c:forEach>
@@ -36,7 +37,7 @@
                                     
                                     <div class="col-sm-10">
                                       <div class="input-group">
-                                      <select class="form-control" name="academia">
+                                      <select class="form-control" name="unidad">
                                         <c:forEach items="${Unidades}" var="item">
                                                 <option value="${item.idUnidad}">${item.nombreUnidad}</option>
                                         </c:forEach>
