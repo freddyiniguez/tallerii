@@ -7,6 +7,7 @@ import edu.uv.model.pojos.ExperieciaEducativa;
 import edu.uv.model.pojos.Personal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +22,7 @@ public class ExamenesGeneradosController extends HttpServlet {
     static final String ADD = "agregar";
     static final String UPDATE = "actualizar";
     static final String INSERT = "insertar";
-
+    Date date;
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,6 +47,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setPorcTeoria(Integer.parseInt(request.getParameter("porcTeoria")));
                 c.setPorcPractica(Integer.parseInt(request.getParameter("porcPractica")));
                 c.setEstadoExamen(request.getParameter("estadoExamen"));
+                date = new Date();
+                c.setFechaCreacion(date);
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("ee"))));
                 request.setAttribute("url","ExamenesGeneradosController");
@@ -69,6 +72,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("ee"))));
                 c.setIdexamenesGenerados(Integer.parseInt(request.getParameter("idexamenesGenerados")));
+                date = new Date();
+                c.setFechaCreacion(date);
                 ExamenesGenerados_DAO.update(c);
                 request.setAttribute("url","ExamenesGeneradosController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
