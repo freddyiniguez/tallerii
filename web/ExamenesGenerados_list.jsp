@@ -13,7 +13,7 @@
       <td><c:out value="${item.estadoExamen}"/></td>
       <td><c:out value="${item.personal.nombreProfesor}"/></td>
       <td><c:out value="${item.experieciaEducativa.nombreEe}"/></td>
-      <td><a class="btn btn-danger" href="ExamenesGeneradosController?accion=borrar&id=${item.idexamenesGenerados}">Borrar</a></td>
+      <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="ExamenesGeneradosController?accion=borrar&id=${item.idexamenesGenerados}" href="#">Borrar</a></td>
       <td><a class="btn btn-warning" href="ExamenesGeneradosController?accion=buscar&id=${item.idexamenesGenerados}">Editar</a></td>
     </tr>
   </c:forEach>
