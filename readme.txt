@@ -1,5 +1,5 @@
-<h3>Facultad de Estadística e Informática </h3>
-<h4>Universidad Veracruzana</h4>
+Facultad de Estadística e Informática 
+Universidad Veracruzana
 Taller de Integración II
 
 Sistema: Generador de Exámenes Departamentales FEI
@@ -17,7 +17,7 @@ Instrucciones para clonar:
 5.- Sí necesitas hacer un cambio notifica antes en el grupo.
 
 Intrucciones de uso generales:
-1.- Despues de modificar tus archivos realizá un commit, esto indica que haz terminado al 100% una tarea, deja comentada tu tarea.
+1.- Despues de modificar tus archivos realiza un commit, esto indica que haz terminado al 100% una tarea, deja comentada tu tarea.
 2.- Realiza un pull.
 3.- Realiza un push.
 4.- Notifica en el grupo tus cambios.
