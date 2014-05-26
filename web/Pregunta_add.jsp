@@ -61,8 +61,15 @@
                                     <div class="clearfix"></div>
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="complejidadPregunta">Complejidad<span class="required">*</span></label>
-                                    <div class="col-sm-10">  
-                                    <input required class ="form-control" id="complejidadPregunta" type="number" name="complejidadPregunta" value=""  />
+                                    <div class="col-sm-10">                                
+                                    <select class="form-control" type="number" name="complejidadPregunta" id="complejidadPregunta">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select>
                                     </div>
                                     </div>
                                     

@@ -21,6 +21,7 @@ public class PreguntaController extends HttpServlet {
     static final String ADD = "agregar";
     static final String UPDATE = "actualizar";
     static final String INSERT = "insertar";
+    static final String LIST_APPROVE = "list_aprobar";
 
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -47,6 +48,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setComplejidadPregunta(Integer.parseInt(request.getParameter("complejidadPregunta")));
                 c.setPuntuacionPregunta(Integer.parseInt(request.getParameter("puntuacionPregunta")));
                 c.setComentRetroalimentacion(request.getParameter("ComentRetroalimentacion"));
+                c.setEstado("NoAprobado");
                 Pregunta_DAO.create(c);
                 // se agregan las respuestas
                 String[] descripciones = request.getParameterValues("descripcionRespuesta");
@@ -81,7 +83,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setModalidadPregunta(request.getParameter("modalidadPregunta"));
                 c.setComplejidadPregunta(Integer.parseInt(request.getParameter("complejidadPregunta")));
                 c.setPuntuacionPregunta(Integer.parseInt(request.getParameter("puntuacionPregunta")));
-                c.setComentRetroalimentacion(request.getParameter("ComentRetroalimentacion"));c.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
+                c.setComentRetroalimentacion(request.getParameter("ComentRetroalimentacion"));
+                c.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
+                c.setEstado("NoAprobado");
                 Pregunta_DAO.update(c);
                 request.setAttribute("url","PreguntaController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
@@ -95,6 +99,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case ADD:
                 request.setAttribute("Temas",Temas_DAO.findAll());
                 request.getRequestDispatcher("Pregunta_add.jsp").forward(request, response);
+                break;
+            case LIST_APPROVE:
+                request.setAttribute("list",Pregunta_DAO.findAll());
+                request.getRequestDispatcher("Pregunta_list_approve.jsp").forward(request, response);
                 break;
             default:
                 
