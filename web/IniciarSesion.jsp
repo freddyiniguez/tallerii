@@ -38,13 +38,6 @@
     </table>
 </form>
 
-<div class="clearfix"></div>
-<div class="form-group">
-    <label class="col-sm-2 control-label" for="loginUsuario">Usuario<span class="required">*</span></label>
-    <div class="col-sm-10">  
-        <input required class ="form-control" id="loginUsuario" type="text" name="loginUsuario" value=""  />
-    </div>
-</div>
 
 <script type="text/javascript" >
     function validateForm()

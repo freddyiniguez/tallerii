@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -15,24 +15,30 @@
             }
         </style>
     </head>
-
+    <%
+        if (session.getAttribute("user") == null) {
+            session.setAttribute("name", "No ha iniciado sesión");
+        } else {
+            session.setAttribute("name", session.getAttribute("user"));
+        }
+    %>
     <body>
         <div class="row clearfix">
             <div class="col-md-12 column">
                 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">GEDUV</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                        </button> <a class="navbar-brand" href="#">GED UV</a>
+                        </button> <a class="navbar-brand" href="/tallerii">GED UV</a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="#">Nombre del usuario</a>
+                                <a href="#"><%= session.getAttribute("name")%></a>
                             </li>
                             <li>
-                                <a href="#">Cerrar sesión</a>
+                                <a href="logout.jsp">Cerrar sesión</a>
                             </li>
                         </ul>
                     </div>
@@ -93,5 +99,5 @@
                                 </li>
                             </ul>
                             <hr>
-                </div>
-                <div class="col-md-10 column">
+                            </div>
+                            <div class="col-md-10 column">
