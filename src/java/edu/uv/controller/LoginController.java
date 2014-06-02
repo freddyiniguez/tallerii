@@ -21,7 +21,10 @@ public class LoginController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PersonalDAO personal=new PersonalDAO();
+        //PersonalDAO personal=new PersonalDAO();
+        
+        HttpSession session = request.getSession(true);
+        
         if (request.getParameter("usuario")!=null) {
             
         
@@ -31,21 +34,32 @@ public class LoginController extends HttpServlet {
         
         if (res!=null) {
             Personal per=res.getPersonal();
-            HttpSession session = request.getSession(true);
+            
+            if (res.getEstadoUsuario().equals("inactivo")) {
+                session.setAttribute("estado", "Su cuenta esta desactivada, consulte al administrador");
+                request.getRequestDispatcher("IniciarSesion.jsp").forward(request, response);
+            }else{
+            
             session.setAttribute("user", per.getNombreProfesor());
+            session.setAttribute("estado", "");
             request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+           
         }else{
+            session.setAttribute("estado", "su cuenta no existe");
             request.getRequestDispatcher("IniciarSesion.jsp").forward(request, response);
-        
+            
         }
         }else
         {
-            HttpSession session = request.getSession(true);
+            session = request.getSession(true);
             String ses=(String)session.getAttribute("user");
             if (ses==null) {
+            session.setAttribute("estado", "");
             request.getRequestDispatcher("IniciarSesion.jsp").forward(request, response);    
             }else{
-            request.getRequestDispatcher("index.jsp").forward(request, response);    
+            session.setAttribute("estado", "");
+            request.getRequestDispatcher("index.jsp").forward(request, response);   
             }
         }
     }

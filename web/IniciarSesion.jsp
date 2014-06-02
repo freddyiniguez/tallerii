@@ -5,9 +5,10 @@
 --%>
 <%    if ((session.getAttribute("user") != null)) {
         request.getRequestDispatcher("index.jsp").forward(request, response);
-    } else {
-
-    }
+    } 
+    if (session.getAttribute("estado")==null) {
+               session.setAttribute("estado", "");
+            }
 %>
 
 <%@include file="header.jsp" %>
@@ -29,11 +30,14 @@
         </tr>
         <tr>
             <td>contraseña</td>
-            <td><input name="password" type="text"></td>
+            <td><input name="password" type="password"></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td><input name="Submit1" type="submit" value="Iniciar sesión"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><center><%= session.getAttribute("estado")%></center></td>
         </tr>
     </table>
 </form>
@@ -54,7 +58,7 @@
             return false;
         } else
         if (pass == null || pass == "") {
-            alert("Debe escribir su contraseña");
+            alert("Debe escribir su contraseÃƒÂ±a");
             return false;
         }
     }
