@@ -1,3 +1,4 @@
+
 <%@include file="header.jsp" %>
 <h1>Registro de Carreras </h1>
         <form action="PreguntaController" method="POST">
@@ -104,4 +105,5 @@
 			</div>
         </form>
         
+>>>>>>> origin/master
 <%@include file="footer.jsp" %>

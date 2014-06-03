@@ -93,7 +93,20 @@ public abstract class AbstractDao {
         }
         return objects;
     }
-
+    protected List costumQuery(Class clazz,String q) {
+        List objects = null;
+        try {
+            startOperation();
+            Query query = session.createQuery("from "+clazz.getName()+" "+q);
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            session.close();
+        }
+        return objects;
+    }
     protected void handleException(HibernateException e) throws DataAccessLayerException  {
         tx.rollback();
         throw new DataAccessLayerException(e);

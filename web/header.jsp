@@ -84,6 +84,9 @@
                                     <a href="UsuariosController">Usuarios</a>
                                 </li>
                                 <li>
+                                    <a href="PreguntaController">Preguntas</a>
+                                </li>
+                                <li>
                                     <a href="ExamenesGeneradosController">Examenes</a>
                                 </li>
                                 <li class="nav-header">
@@ -99,5 +102,6 @@
                                 </li>
                             </ul>
                             <hr>
-                            </div>
-                            <div class="col-md-10 column">
+
+                </div>
+                <div class="col-md-10 column">
