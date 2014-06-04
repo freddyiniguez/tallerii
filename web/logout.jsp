@@ -5,6 +5,6 @@
 --%>
 cerrar sesion
 <% session.invalidate();
-        request.getRequestDispatcher("IniciarSesion.jsp").forward(request, response);
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
             
 %>

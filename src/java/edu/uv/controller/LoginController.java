@@ -1,11 +1,14 @@
 package edu.uv.controller;
 
+import edu.uv.model.dao.AcademiaDAO;
 import edu.uv.model.dao.PersonalDAO;
 import edu.uv.model.dao.UsuariosDAO;
+import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.Personal;
 import edu.uv.model.pojos.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +25,9 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PersonalDAO personal=new PersonalDAO();
+        HttpSession session = request.getSession(true);
+        //session.invalidate();
+        //session = request.getSession(true);
         if (request.getParameter("usuario")!=null) {
             
         
@@ -31,23 +37,63 @@ public class LoginController extends HttpServlet {
         
         if (res!=null) {
             Personal per=res.getPersonal();
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user", per.getNombreProfesor());
+            session.setAttribute("idusuario", res.getIdUsuario());
+            
+            if (res.getEstadoUsuario().equals("inactivo")) {
+                session.setAttribute("estado", "Su cuenta esta desactivada, consulte al administrador");
+                request.getRequestDispatcher("login_.jsp").forward(request, response);
+            }else{
+                if (res.getRol().equals("Administrador")) {
+                    session.setAttribute("rol", "Administrador");
+                    
+                }else{/////////////////////////////////////////////////////////////////////////////////////////////////
+                    int academia= buscarRol(per.getIdPersonal());
+                    if (academia!=-5) {
+                        session.setAttribute("rol", "Coordinador");
+                        session.setAttribute("academia", academia);
+                    }else{
+                        session.setAttribute("rol", "Profesor");
+                    }
+                }
+                
+            session.setAttribute("user", res.getLoginUsuario());
+            session.setAttribute("estado", "");
             request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+           
         }else{
+            session.setAttribute("estado", "su cuenta no existe");
             request.getRequestDispatcher("login_.jsp").forward(request, response);
-        
+            
         }
         }else
         {
-            HttpSession session = request.getSession(true);
+            session = request.getSession(true);
             String ses=(String)session.getAttribute("user");
             if (ses==null) {
+            session.setAttribute("estado", "");
             request.getRequestDispatcher("login_.jsp").forward(request, response);    
             }else{
-            request.getRequestDispatcher("index.jsp").forward(request, response);    
+            session.setAttribute("estado", "");
+            request.getRequestDispatcher("index.jsp").forward(request, response);   
             }
         }
+    }
+    
+    protected int buscarRol(int idPersonal){
+        AcademiaDAO ac=new AcademiaDAO();
+        List<Academia>acs=ac.findAll();
+        int idAcademia= -5;
+        //ArrayList<Academia>AcademiasR=new ArrayList();
+        
+        for(Academia a : acs){
+            if (a.getPersonal().getIdPersonal().equals(idPersonal)) {
+                idAcademia=a.getIdAcademia();
+            }
+        }
+        
+        return idAcademia;
+        
     }
 
     protected Usuarios validar(String usuario, String password) {

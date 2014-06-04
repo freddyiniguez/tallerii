@@ -7,4 +7,11 @@
 
 <%@include file="header.jsp" %>
 Bienvenido al sistema!
+<br>
+<%="id de usuario= "+session.getAttribute("idusuario")%>
+<br>
+<%="rol= "+session.getAttribute("rol")%>
+<br>
+<%="id de academia= "+session.getAttribute("academia")%>
+<br>
 <%@include file="footer.jsp" %>

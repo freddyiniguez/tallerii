@@ -17,6 +17,17 @@
     </head>
     <!-- HTML code from Bootply.com editor -->
     
+    <%    if ((session.getAttribute("user") != null)) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+    } 
+    if (session.getAttribute("estado")==null) {
+               session.setAttribute("estado", "");
+            }
+    
+    
+    
+%>
+    
     <body  >
         
         <!--login modal-->
@@ -34,13 +45,15 @@
       <div class="modal-body">
           <form class="form col-md-12 center-block">
             <div class="form-group">
-              <input type="text" class="form-control input-lg" placeholder="Usuario">
+              <input name="usuario" type="text" class="form-control input-lg" placeholder="Usuario">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control input-lg" placeholder="Contraseña">
+              <input name="password" type="password" class="form-control input-lg" placeholder="Contraseña">
             </div>
             <div class="form-group">
-              <a href="./AcademiaController" class="btn btn-primary btn-lg btn-block">Entrar</a>
+                <input type="submit" value="Enviar" class="btn btn-primary">
+                <br>
+                <%= session.getAttribute("estado")%>
             </div>
           </form>
       </div>

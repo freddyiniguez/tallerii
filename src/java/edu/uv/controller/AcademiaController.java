@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -36,6 +37,16 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             AcademiaDAO Academia_DAO = new AcademiaDAO();
             PersonalDAO Personal_DAO = new PersonalDAO();
             
+            HttpSession session = request.getSession(true);
+            
+            if ((session.getAttribute("user") == null)) {
+            request.getRequestDispatcher("login_.jsp").forward(request, response);
+            return;
+            } else {
+                
+            }
+            
+          
             //crear el factory para iniciar la validacion
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
