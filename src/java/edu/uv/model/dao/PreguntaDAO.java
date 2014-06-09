@@ -23,4 +23,7 @@ public class PreguntaDAO extends AbstractDao {
     public void delete(int id) throws DataAccessLayerException {
         super.delete(Pregunta.class,id);
     }
+    public List costumQuery(String q) throws DataAccessLayerException {
+        return super.costumQuery(Pregunta.class,q);
+    }
  }

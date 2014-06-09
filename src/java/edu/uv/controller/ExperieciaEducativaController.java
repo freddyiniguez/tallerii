@@ -5,11 +5,16 @@ import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.ExperieciaEducativa;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "ExperieciaEducativaController", urlPatterns = {"/ExperieciaEducativaController"})
 public class ExperieciaEducativaController extends HttpServlet {
@@ -30,6 +35,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             response.setContentType("text/html;charset=UTF-8");
             ExperieciaEducativaDAO ExperieciaEducativa_DAO = new ExperieciaEducativaDAO();
             AcademiaDAO Academia_DAO = new AcademiaDAO();
+            //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            
         if (accion == null) {
             request.setAttribute("list",ExperieciaEducativa_DAO.findAll());
             request.getRequestDispatcher("ExperieciaEducativa_list.jsp").forward(request, response); 
@@ -40,8 +49,18 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setAcademia(A);
                 c.setNombreEe(request.getParameter("nombreEE"));
                 request.setAttribute("url","ExperieciaEducativaController");
+                
+                Set<ConstraintViolation<ExperieciaEducativa>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 ExperieciaEducativa_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
+                
                 break;
             case DELETE:
                 id= request.getParameter("id");
@@ -55,9 +74,19 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setAcademia(A);
                 c.setNombreEe(request.getParameter("nombreEE"));
                 c.setIdExperieciaEducativa(Integer.parseInt(request.getParameter("idExperieciaEducativa")));
+                
+                Set<ConstraintViolation<ExperieciaEducativa>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 ExperieciaEducativa_DAO.update(c);
                 request.setAttribute("url","ExperieciaEducativaController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
+                
                 break;
             case FIND:
                 id= request.getParameter("id");
