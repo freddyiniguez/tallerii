@@ -35,7 +35,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="#"><%= session.getAttribute("name")%></a>
+                                <a href="#"><%= session.getAttribute("name")+" ("+session.getAttribute("rol")+")"%></a>
                             </li>
                             <li>
                                 <a href="logout.jsp">Cerrar sesión</a>
