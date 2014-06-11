@@ -70,6 +70,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Usuarios",c);
                 request.setAttribute("Personal",Personal_DAO.findAll());
                 request.getRequestDispatcher("Usuarios_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 request.setAttribute("Personal",Personal_DAO.findAll());
                 request.getRequestDispatcher("Usuarios_add.jsp").forward(request, response);

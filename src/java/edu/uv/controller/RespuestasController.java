@@ -65,6 +65,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Respuestas",c);
                 request.setAttribute("Pregunta",Pregunta_DAO.findAll());
                 request.getRequestDispatcher("Respuestas_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 request.setAttribute("Pregunta",Pregunta_DAO.findAll());
                 request.getRequestDispatcher("Respuestas_add.jsp").forward(request, response);

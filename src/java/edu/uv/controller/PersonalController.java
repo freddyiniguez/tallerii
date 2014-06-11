@@ -61,6 +61,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Personal",c);
                 
                 request.getRequestDispatcher("Personal_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 
                 request.getRequestDispatcher("Personal_add.jsp").forward(request, response);

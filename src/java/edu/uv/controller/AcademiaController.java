@@ -102,6 +102,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Academia",c);
                 request.setAttribute("Personal",Personal_DAO.findAll());
                 request.getRequestDispatcher("Academia_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 request.setAttribute("Personal",Personal_DAO.findAll());
                 request.getRequestDispatcher("Academia_add.jsp").forward(request, response);

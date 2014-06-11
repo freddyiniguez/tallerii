@@ -75,6 +75,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Temas_list",Temas_DAO.findAll());
                 request.setAttribute("Unidades",Unidades_DAO.findAll());
                 request.getRequestDispatcher("Temas_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 request.setAttribute("Temas",Temas_DAO.findAll());
                 request.setAttribute("Unidades",Unidades_DAO.findAll());

@@ -56,6 +56,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c = Carrera_DAO.find(Integer.parseInt(id));                
                 request.setAttribute("Carrera",c);
                 request.getRequestDispatcher("Carrera_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 //request.setAttribute("Academias",AcademiaDAO.findAll());
                 request.getRequestDispatcher("Carrera_add.jsp").forward(request, response);

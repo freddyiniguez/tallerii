@@ -70,6 +70,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Carrera",Carrera_DAO.findAll());
                 request.setAttribute("Academia",Academia_DAO.findAll());
                 request.getRequestDispatcher("CarreraAcademia_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 request.setAttribute("Carrera",Carrera_DAO.findAll());
                 request.setAttribute("Academia",Academia_DAO.findAll());

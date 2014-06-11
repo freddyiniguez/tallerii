@@ -94,6 +94,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("ExperieciaEducativa",c);
                 request.setAttribute("Academia",Academia_DAO.findAll());
                 request.getRequestDispatcher("ExperieciaEducativa_edit.jsp").forward(request, response);
+               break;
             case ADD:
                 request.setAttribute("Academia",Academia_DAO.findAll());
                 request.getRequestDispatcher("ExperieciaEducativa_add.jsp").forward(request, response);

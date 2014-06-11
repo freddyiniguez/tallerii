@@ -63,6 +63,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Unidades",c);
                 request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
                 request.getRequestDispatcher("Unidades_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
                 request.getRequestDispatcher("Unidades_add.jsp").forward(request, response);

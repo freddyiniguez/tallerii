@@ -68,6 +68,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
                 request.setAttribute("Personal",Personal_DAO.findAll());
                 request.getRequestDispatcher("Imparte_edit.jsp").forward(request, response);
+                break;
             case ADD:
                 request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
                 request.setAttribute("Personal",Personal_DAO.findAll());
