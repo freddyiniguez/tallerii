@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "PersonalController", urlPatterns = {"/PersonalController"})
 public class PersonalController extends HttpServlet {
@@ -21,6 +22,13 @@ public class PersonalController extends HttpServlet {
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            //validar que el usuario tenga la sesion iniciada
+            HttpSession session = request.getSession(true);
+            
+            if ((session.getAttribute("user") == null)) {
+            request.getRequestDispatcher("login_.jsp").forward(request, response);
+            return;
+            } 
             String accion = request.getParameter("accion");
             String id ="";
             Personal c = null;

@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "CarreraAcademiaController", urlPatterns = {"/CarreraAcademiaController"})
 public class CarreraAcademiaController extends HttpServlet {
@@ -26,6 +27,13 @@ public class CarreraAcademiaController extends HttpServlet {
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            //validar que el usuario tenga la sesion iniciada
+            HttpSession session = request.getSession(true);
+            
+            if ((session.getAttribute("user") == null)) {
+            request.getRequestDispatcher("login_.jsp").forward(request, response);
+            return;
+            } 
             String accion = request.getParameter("accion");
             String id ="";
             CarreraAcademia c = null;
@@ -35,6 +43,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             CarreraAcademiaDAO CarreraAcademia_DAO = new CarreraAcademiaDAO();
             CarreraDAO Carrera_DAO = new CarreraDAO();
             AcademiaDAO Academia_DAO = new AcademiaDAO();
+            
         if (accion == null) {
             request.setAttribute("list",CarreraAcademia_DAO.findAll());
             request.getRequestDispatcher("CarreraAcademia_list.jsp").forward(request, response); 

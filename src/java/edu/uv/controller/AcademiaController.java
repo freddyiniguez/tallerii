@@ -29,6 +29,14 @@ public class AcademiaController extends HttpServlet {
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            //validar que el usuario tenga la sesion iniciada
+            HttpSession session = request.getSession(true);
+            
+            if ((session.getAttribute("user") == null)) {
+            request.getRequestDispatcher("login_.jsp").forward(request, response);
+            return;
+            } 
+            
             String accion = request.getParameter("accion");
             String id ="";
             Academia c = null;
@@ -37,14 +45,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             AcademiaDAO Academia_DAO = new AcademiaDAO();
             PersonalDAO Personal_DAO = new PersonalDAO();
             
-            HttpSession session = request.getSession(true);
             
-            if ((session.getAttribute("user") == null)) {
-            request.getRequestDispatcher("login_.jsp").forward(request, response);
-            return;
-            } else {
-                
-            }
             
           
             //crear el factory para iniciar la validacion
