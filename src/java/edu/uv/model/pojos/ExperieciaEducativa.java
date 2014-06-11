@@ -16,7 +16,7 @@ public class ExperieciaEducativa  implements java.io.Serializable {
      private Integer idExperieciaEducativa;
      private Academia academia;
      @NotBlank(message="Este campo no puede contener solo espacios en blanco")
-     @Length(min=5, max=20, message="La longitud de campo no es valida, use de 5 a 20 caracteres")
+     @Length(min=5, max=60, message="La longitud de campo no es valida, use de 5 a 60 caracteres")
      private String nombreEe;
      private Set unidadeses = new HashSet(0);
      private Set impartes = new HashSet(0);
