@@ -84,7 +84,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c = Temas_DAO.find(Integer.parseInt(id));           
                 request.setAttribute("Temas",c);
                 request.setAttribute("Temas_list",Temas_DAO.findAll());
-                request.setAttribute("Unidades",Unidades_DAO.findAll());
+                //personalizar lista de unidades segun la EE
+                String uni=request.getParameter("uni");
+                request.setAttribute("Unidades",Unidades_DAO.findAllby("ExperieciaEducativa_idExperieciaEducativa",uni));
+                //request.setAttribute("Unidades",Unidades_DAO.findAll());
                 request.getRequestDispatcher("Temas_edit.jsp").forward(request, response);
                 break;
             case ADD:
