@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "TemasController", urlPatterns = {"/TemasController"})
 public class TemasController extends HttpServlet {
@@ -41,6 +44,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             TemasDAO Temas_DAO = new TemasDAO();
             ExperieciaEducativaDAO EEDAO =new ExperieciaEducativaDAO();
             UnidadesDAO Unidades_DAO = new UnidadesDAO();
+            
+            //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
         if (accion == null) {
             request.setAttribute("listaEE", EEDAO.findAll());
             request.setAttribute("list",Temas_DAO.findAll());
@@ -81,13 +88,15 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case FIND:
                 id= request.getParameter("id");
-                c = Temas_DAO.find(Integer.parseInt(id));           
+                c = Temas_DAO.find(Integer.parseInt(id)); 
+                String uni=request.getParameter("uni");
                 request.setAttribute("Temas",c);
                 request.setAttribute("Temas_list",Temas_DAO.findAll());
+                //request.setAttribute("Temas_list",Temas_DAO.findAllby("Unidades_idUnidad",uni));
                 //personalizar lista de unidades segun la EE
-                String uni=request.getParameter("uni");
-                request.setAttribute("Unidades",Unidades_DAO.findAllby("ExperieciaEducativa_idExperieciaEducativa",uni));
-                //request.setAttribute("Unidades",Unidades_DAO.findAll());
+                
+                //request.setAttribute("Unidades",Unidades_DAO.findAllby("Unidades",uni));
+                request.setAttribute("Unidades",Unidades_DAO.findAll());
                 request.getRequestDispatcher("Temas_edit.jsp").forward(request, response);
                 break;
             case ADD:
