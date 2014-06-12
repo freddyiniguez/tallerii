@@ -1,4 +1,5 @@
 package edu.uv.controller;
+import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.dao.TemasDAO;
 import edu.uv.model.dao.UnidadesDAO;
 import edu.uv.model.pojos.Temas;
@@ -38,8 +39,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             Unidades U = new Unidades();
             response.setContentType("text/html;charset=UTF-8");
             TemasDAO Temas_DAO = new TemasDAO();
+            ExperieciaEducativaDAO EEDAO =new ExperieciaEducativaDAO();
             UnidadesDAO Unidades_DAO = new UnidadesDAO();
         if (accion == null) {
+            request.setAttribute("listaEE", EEDAO.findAll());
             request.setAttribute("list",Temas_DAO.findAll());
             request.getRequestDispatcher("Temas_list.jsp").forward(request, response); 
         } else switch(accion){
@@ -86,7 +89,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case ADD:
                 request.setAttribute("Temas",Temas_DAO.findAll());
-                request.setAttribute("Unidades",Unidades_DAO.findAll());
+                String exp =request.getParameter("idEE");
+                request.setAttribute("Unidades",Unidades_DAO.findAllby("ExperieciaEducativa_idExperieciaEducativa",exp));
+                request.setAttribute("EE", request.getParameter("idEE"));
                 request.getRequestDispatcher("Temas_add.jsp").forward(request, response);
                 break;
             default:
