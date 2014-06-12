@@ -1,10 +1,7 @@
 package edu.uv.model.dao;
 import edu.uv.model.pojos.Temas;
 import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+
 
 
 public class TemasDAO extends AbstractDao {
@@ -17,10 +14,14 @@ public class TemasDAO extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(Temas.class);
     }
+    public List findAllby(String cc,String ee) throws DataAccessLayerException {
+        return super.findAllby(Temas.class, cc,ee);
+    }
     public Temas find(int id) throws DataAccessLayerException {
         return (Temas) super.find(Temas.class, id);
     }
     public void delete(int id) throws DataAccessLayerException {
         super.delete(Temas.class,id);
     }
+    
  }

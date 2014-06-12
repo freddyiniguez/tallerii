@@ -17,6 +17,9 @@ public class UnidadesDAO extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(Unidades.class);
     }
+    public List findAllby(String cc, String ee) throws DataAccessLayerException {
+        return super.findAllby(Unidades.class, cc,ee);
+    }
     public Unidades find(int id) throws DataAccessLayerException {
         return (Unidades) super.find(Unidades.class, id);
     }
