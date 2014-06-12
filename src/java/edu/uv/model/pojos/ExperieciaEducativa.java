@@ -4,6 +4,7 @@ package edu.uv.model.pojos;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.validation.Valid;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -80,9 +81,6 @@ public class ExperieciaEducativa  implements java.io.Serializable {
     public void setExamenesGeneradoses(Set examenesGeneradoses) {
         this.examenesGeneradoses = examenesGeneradoses;
     }
-
-
-
 
 }
 

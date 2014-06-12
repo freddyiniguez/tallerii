@@ -1,9 +1,9 @@
 package edu.uv.model.pojos;
 // Generated 25/05/2014 11:11:21 AM by Hibernate Tools 3.6.0
 
-
 import java.util.HashSet;
 import java.util.Set;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -16,7 +16,6 @@ public class Academia  implements java.io.Serializable {
 
      private Integer idAcademia;
      private Personal personal;
-     @NotNull(message="Este campo no puede estar vacío")
      @NotBlank(message="Este campo no puede contener solo espacios en blanco")
      @Length(min=5, max=60, message="La longitud de campo no es valida, use de 5 a 60 caracteres")
      private String nombreAcademia;

@@ -1,5 +1,8 @@
 package edu.uv.model.pojos;
 // Generated 25/05/2014 11:11:21 AM by Hibernate Tools 3.6.0
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 
 
 
@@ -12,6 +15,8 @@ public class ExamenPregunta  implements java.io.Serializable {
      private Integer idExamenPregunta;
      private ExamenesGenerados examenesGenerados;
      private Pregunta pregunta;
+     @Min(1)
+     @Max(100)
      private Integer puntaje;
 
     public ExamenPregunta() {
