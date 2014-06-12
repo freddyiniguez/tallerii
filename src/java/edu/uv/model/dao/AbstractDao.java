@@ -1,5 +1,6 @@
 package edu.uv.model.dao;
 
+import edu.uv.model.pojos.Temas;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -84,6 +85,20 @@ public abstract class AbstractDao {
         try {
             startOperation();
             Query query = session.createQuery("from " + clazz.getName());
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            session.close();
+        }
+        return objects;
+    }
+    protected List findAllby(Class clazz,String CC,String EE) {
+        List objects = null;
+        try {
+            startOperation();
+            Query query = session.createQuery("from " + clazz.getName()+" where "+ CC +" = "+ EE);
             objects = query.list();
             tx.commit();
         } catch (HibernateException e) {
