@@ -8,7 +8,7 @@
       <td><c:out value="${item.temas.nombreTema}"/></td>
       <td><c:out value="${item.unidades.nombreUnidad}"/></td>
       <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="TemasController?accion=borrar&id=${item.idTema}" href="#">Borrar</a></td>
-      <td><a class="btn btn-warning" href="TemasController?accion=buscar&id=${item.idTema}">Editar</a></td>
+      <td><a class="btn btn-warning" href="TemasController?accion=buscar&id=${item.idTema}&uni=${item.temas.Unidades_idUnidad}">Editar</a></td>
     </tr>
   </c:forEach>
 </table>
