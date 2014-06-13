@@ -1,9 +1,21 @@
 <%@include file="header.jsp" %>
 <a href="ExamenesGeneradosController?accion=agregar" class="btn btn-primary">Agregar a ExamenesGenerados</a>
 <table class="table table-striped">
-  <c:forEach items="${list}" var="item">
+  
+    <td>Periodo</td>
+    <td>Tipo de exámen</td>
+    <td>Fecha de creación</td>
+    <td>Descripción</td>
+    <td>% Teoría</td>
+    <td>% Práctica</td>
+    <td>Estado</td>
+    <td>Profesor</td>
+    <td>Experiencia educativa</td>
+    <td>Borrar</td>
+    <td>Editar</td>
+    
+    <c:forEach items="${list}" var="item">
     <tr>
-      <td><c:out value="${item.idexamenesGenerados}"/></td>
       <td><c:out value="${item.periodo}"/></td>
       <td><c:out value="${item.tipoExamen}"/></td>
       <td><c:out value="${item.fechaCreacion}"/></td>
