@@ -112,9 +112,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setComentRetroalimentacion(request.getParameter("ComentRetroalimentacion"));
                 c.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
                 c.setEstado("NoAprobado");
+                Set<ConstraintViolation<Pregunta>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 Pregunta_DAO.update(c);
                 request.setAttribute("url","PreguntaController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case FIND:
                 id= request.getParameter("id");
