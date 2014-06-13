@@ -1,9 +1,14 @@
 <%@include file="header.jsp" %>
 <a href="AcademiaController?accion=agregar" class="btn btn-primary">Agregar a Academia</a>
 <table class="table table-striped">
-  <c:forEach items="${list}" var="item">
+  
+    <td>Academia</td>
+    <td>Profesor</td>
+    <td>Borrar</td>
+    <td>Editar</td>
+    
+    <c:forEach items="${list}" var="item">
     <tr>
-      <td><c:out value="${item.idAcademia}"/></td>
       <td><c:out value="${item.nombreAcademia}"/></td>
       <!--Esta linea también se agregó-->
       <td><c:out value="${item.personal.nombreProfesor}"/></td>
