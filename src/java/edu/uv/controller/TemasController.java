@@ -2,16 +2,19 @@ package edu.uv.controller;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.dao.TemasDAO;
 import edu.uv.model.dao.UnidadesDAO;
+import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.Temas;
 import edu.uv.model.pojos.Unidades;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -63,8 +66,16 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 c.setUnidades(Unidades_DAO.find(Integer.parseInt(request.getParameter("unidad"))));
                 request.setAttribute("url","TemasController");
+                Set<ConstraintViolation<Temas>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 Temas_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case DELETE:
                 id= request.getParameter("id");
@@ -82,9 +93,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 c.setUnidades(Unidades_DAO.find(Integer.parseInt(request.getParameter("unidad"))));
                 c.setIdTema(Integer.parseInt(request.getParameter("idTema")));
+                Set<ConstraintViolation<Temas>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 Temas_DAO.update(c);
                 request.setAttribute("url","TemasController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case FIND:
                 id= request.getParameter("id");
