@@ -1,13 +1,13 @@
 <%@include file="header.jsp" %>
-<h1>Registro de Carreras </h1>
+<h1><B><center>Edición de unidades </center></b></h1>
         <form action="UnidadesController" method="POST">
         	<input type="hidden" name="idUnidad" value="${Unidades.idUnidad}" />
             
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="ExperieciaEducativa_idExperieciaEducativa">Experiencia educativa<span class="required">*</span></label>
+                                    <label class="col-sm-3 control-label" for="ExperieciaEducativa_idExperieciaEducativa">Experiencia educativa:<span class="required">*</span></label>
                                     
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                       <div class="input-group">
                                       <select class="form-control" name="Ee">
                                         <c:forEach items="${ExperieciaEducativa}" var="item">
@@ -26,12 +26,12 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="nombreUnidad">Nombre de la unidad<span class="required">*</span></label>
-                                    <div class="col-sm-10">  
+                                    <label class="col-sm-3 control-label" for="nombreUnidad">Nombre de la unidad:<span class="required">*</span></label>
+                                    <div class="col-sm-12">  
                                     <input required class ="form-control" id="nombreUnidad" type="text" name="nombreUnidad" value="${Unidades.nombreUnidad}"  />
                                     </div>
                                     </div>
-                                    
+                                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para la edición.  </font>  </p> </h5>
             
             <div class="col-md-12 ">
 				<div class="pull-right">

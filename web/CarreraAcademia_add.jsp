@@ -1,4 +1,5 @@
 <%@include file="header.jsp" %>
+<h1><B><center>Registro de una carrera en academia </center></b></h1>
         <form action="CarreraAcademiaController" method="POST">
         
                                     <div class="clearfix"></div>
@@ -37,7 +38,7 @@
                                        </span>
                                        </div>
                                     </div>
-
+                                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro  </font>  </p> </h5>
                                     </div>
                                     
         <div class="col-md-12 ">

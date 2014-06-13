@@ -1,4 +1,5 @@
 <%@include file="header.jsp" %>
+<h1><B><center>Registro de carrera </center></b></h1>
         <form action="CarreraController" method="POST">
         
                                     <div class="clearfix"></div>
@@ -8,7 +9,7 @@
                                     <input required class ="form-control" id="nombreCarrera" type="text" name="nombreCarrera" value=""  />
                                     </div>
                                     </div>
-                                    
+                                    <h5><p align="right"><font color="red">El campo que está marcado con * es obligatorio para el registro  </font>  </p> </h5>
         <div class="col-md-12 ">
 			<div class="pull-right">
 				<input type="submit" class="btn btn-primary" name ="accion" value="insertar">

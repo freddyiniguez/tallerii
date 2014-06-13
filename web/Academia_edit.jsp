@@ -1,5 +1,5 @@
 <%@include file="header.jsp" %>
-<h1>Registro de Carreras </h1>
+ <h1><B><center>Edición de academias </center></b></h1>
         <form action="AcademiaController" method="POST">
         	<input type="hidden" name="idAcademia" value="${Academia.idAcademia}" />
             
@@ -28,7 +28,7 @@
                                        </span>
                                        </div>
                                     </div>
-                                    
+                                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para la edición  </font>  </p> </h5>
                                     </div>
 
                                     

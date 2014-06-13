@@ -1,12 +1,12 @@
 <%@include file="header.jsp" %>
-<h1>Registro de Carreras </h1>
+<h1><B><center>Edición de pregunta</center></b></h1>
         <form action="RespuestasController" method="POST">
         	<input type="hidden" name="idRespuesta" value="${Respuestas.idRespuesta}" />
             
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="descripcionRespuesta">Respuesta<span class="required">*</span></label>
-                                    <div class="col-sm-10">                                
+                                    <label class="col-sm-3 control-label" for="descripcionRespuesta">Respuesta:<span class="required">*</span></label>
+                                    <div class="col-sm-12">                                
                                     <textarea required class="form-control" id="descripcionRespuesta" name="descripcionRespuesta">${Respuestas.descripcionRespuesta}</textarea>
                                     </div>
                                     </div>
@@ -14,8 +14,8 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="tipoResp">Tipo<span class="required">*</span></label>
-                                    <div class="col-sm-10">                                
+                                    <label class="col-sm-3 control-label" for="tipoResp">Tipo:<span class="required">*</span></label>
+                                    <div class="col-sm-12">                                
                                     <select class="form-control" name="tipoResp" id="tipoResp">
                                         <option value=""></option>
                                     <option value="Correcta">Correcta</option>
@@ -27,9 +27,9 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="Pregunta_idPregunta">Pregunta<span class="required">*</span></label>
+                                    <label class="col-sm-3 control-label" for="Pregunta_idPregunta">Pregunta:<span class="required">*</span></label>
                                     
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                       <div class="input-group">
                                       <select class="form-control" name="pregunta">
                                         <c:forEach items="${Pregunta}" var="item">
@@ -43,7 +43,7 @@
                                     </div>
                                     
                                     </div>
-
+                                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para la edición.  </font>  </p> </h5>
                                     
             
             <div class="col-md-12 ">

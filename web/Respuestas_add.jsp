@@ -1,10 +1,11 @@
 <%@include file="header.jsp" %>
+<h1><B><center>Registro de respuesta </center></b></h1>
         <form action="RespuestasController" method="POST">
         
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="descripcionRespuesta">Respuesta<span class="required">*</span></label>
-                                    <div class="col-sm-10">                                
+                                    <label class="col-sm-3 control-label" for="descripcionRespuesta">Respuesta:<span class="required">*</span></label>
+                                    <div class="col-sm-12">                                
                                     <textarea required class="form-control" id="descripcionRespuesta" name="descripcionRespuesta"></textarea>
                                     </div>
                                     </div>
@@ -12,8 +13,8 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="tipoResp">Tipo<span class="required">*</span></label>
-                                    <div class="col-sm-10">                                
+                                    <label class="col-sm-3 control-label" for="tipoResp">Tipo:<span class="required">*</span></label>
+                                    <div class="col-sm-12">                                
                                     <select class="form-control" name="tipoResp" id="tipoResp">
                                     <option value=""></option>
                                     <option value="Correcta">Correcta</option>
@@ -25,9 +26,9 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="Pregunta_idPregunta">Pregunta<span class="required">*</span></label>
+                                    <label class="col-sm-3 control-label" for="Pregunta_idPregunta">Pregunta:<span class="required">*</span></label>
                                     
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                       <div class="input-group">
                                       <select class="form-control" name="pregunta">
                                         <c:forEach items="${Pregunta}" var="item">
@@ -41,6 +42,7 @@
                                     </div>
 
                                     </div>
+                                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>
                                     
         <div class="col-md-12 ">
 			<div class="pull-right">

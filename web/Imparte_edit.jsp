@@ -1,13 +1,13 @@
 <%@include file="header.jsp" %>
-<h1>Registro de Carreras </h1>
+<h2><B><center>Edición de la asignación experiencia educativa a personal</center></b></h2>
         <form action="ImparteController" method="POST">
         	<input type="hidden" name="idImparte" value="${Imparte.idImparte}" />
             
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="ExperieciaEducativa_idExperieciaEducativa">Experiencia Educativa<span class="required">*</span></label>
+                                    <label class="col-sm-3 control-label" for="ExperieciaEducativa_idExperieciaEducativa">Experiencia Educativa:<span class="required">*</span></label>
                                     
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                       <div class="input-group">
                                       <select class="form-control" name="Ee">
                                         <c:forEach items="${ExperieciaEducativa}" var="item">
@@ -23,9 +23,9 @@
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="Personal_idPersonal">Personal<span class="required">*</span></label>
+                                    <label class="col-sm-3 control-label" for="Personal_idPersonal">Personal:<span class="required">*</span></label>
                                     
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                       <div class="input-group">
                                       <select class="form-control" name="personal">
                                         <c:forEach items="${Personal}" var="item">
@@ -42,7 +42,7 @@
 
                                     
             
-            <div class="col-md-12 ">
+            <div class="col-md-12">
 				<div class="pull-right">
 					<input type="submit" class="btn btn-primary" name="accion" value="actualizar" />
 				</div>

@@ -14,7 +14,7 @@
 
 <table style="width: 100%">
     <tr>
-        <td><center><h1>Iniciar sesion</h1></center></td>
+        <td><center><h1>Iniciar sesión</h1></center></td>
 </tr>
 </table>
 

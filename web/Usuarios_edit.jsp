@@ -1,12 +1,12 @@
 <%@include file="header.jsp" %>
-<h1>Registro de Carreras </h1>
+<h1><B><center>Edición de usuario  </center></b></h1>
         <form action="UsuariosController" method="POST">
         	<input type="hidden" name="idUsuario" value="${Usuarios.idUsuario}" />
             
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="loginUsuario">Usuario<span class="required">*</span></label>
-                                    <div class="col-sm-10">  
+                                    <label class="col-sm-3 control-label" for="loginUsuario">Nombre de usuario:<span class="required">*</span></label>
+                                    <div class="col-sm-12">  
                                     <input required class ="form-control" id="loginUsuario" type="text" name="loginUsuario" value="${Usuarios.loginUsuario}"  />
                                     </div>
                                     </div>
@@ -14,15 +14,15 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="passwordUsuario">Contraseña<span class="required">*</span></label>
-                                    <div class="col-sm-10">  
+                                    <label class="col-sm-3 control-label" for="passwordUsuario">Contraseña:<span class="required">*</span></label>
+                                    <div class="col-sm-12">  
                                     <input required class ="form-control" id="passwordUsuario" type="password" name="passwordUsuario" value="${Usuarios.passwordUsuario}"  />
                                     </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="estadoUsuario">Rol<span class="required">*</span></label>
-                                    <div class="col-sm-10">                                
+                                    <label class="col-sm-3 control-label" for="estadoUsuario">Rol:<span class="required">*</span></label>
+                                    <div class="col-sm-12">                                
                                     <select class="form-control" name="rol" id="estadoUsuario">
                                     <option value="Administrador">Administrador</option>
                                     <option value="Usuario">Usuario</option>
@@ -33,11 +33,11 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="estadoUsuario">Estado<span class="required">*</span></label>
-                                    <div class="col-sm-10">                                
+                                    <label class="col-sm-3 control-label" for="estadoUsuario">Estado:<span class="required">*</span></label>
+                                    <div class="col-sm-12">                                
                                     <select class="form-control" name="estadoUsuario" id="estadoUsuario">
-                                    <option value="activo">activo</option>
-                                    <option value="inactivo">inactivo</option>
+                                    <option value="activo">Activo</option>
+                                    <option value="inactivo">Inactivo</option>
                                     </select>
                                     </div>
                                     </div>
@@ -45,9 +45,9 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="Personal_idPersonal">Personal<span class="required">*</span></label>
+                                    <label class="col-sm-3 control-label" for="Personal_idPersonal">Personal:<span class="required">*</span></label>
                                     
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                       <div class="input-group">
                                       <select class="form-control" name="personal">
                                         <c:forEach items="${Personal}" var="item">
@@ -62,7 +62,7 @@
                                     
                                     </div>
 
-                                    
+                                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para la edición.  </font>  </p> </h5>
             
             <div class="col-md-12 ">
 				<div class="pull-right">
