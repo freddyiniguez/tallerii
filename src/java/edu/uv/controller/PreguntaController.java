@@ -3,17 +3,23 @@ package edu.uv.controller;
 import edu.uv.model.dao.PreguntaDAO;
 import edu.uv.model.dao.RespuestasDAO;
 import edu.uv.model.dao.TemasDAO;
+import edu.uv.model.pojos.Personal;
 import edu.uv.model.pojos.Pregunta;
 import edu.uv.model.pojos.Respuestas;
 import edu.uv.model.pojos.Temas;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "PreguntaController", urlPatterns = {"/PreguntaController"})
 public class PreguntaController extends HttpServlet {
@@ -44,6 +50,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             PreguntaDAO Pregunta_DAO = new PreguntaDAO();
             TemasDAO Temas_DAO = new TemasDAO();
             RespuestasDAO Respuestas_DAO = new RespuestasDAO();
+            //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
         if (accion == null) {
             request.setAttribute("list",Pregunta_DAO.findAll());
             request.getRequestDispatcher("Pregunta_list.jsp").forward(request, response); 
@@ -58,6 +67,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setPuntuacionPregunta(Integer.parseInt(request.getParameter("puntuacionPregunta")));
                 c.setComentRetroalimentacion(request.getParameter("ComentRetroalimentacion"));
                 c.setEstado("NoAprobado");
+                Set<ConstraintViolation<Pregunta>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 Pregunta_DAO.create(c);
                 // se agregan las respuestas
                 String[] descripciones = request.getParameterValues("descripcionRespuesta");
@@ -77,6 +93,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("url","PreguntaController");
                 
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case DELETE:
                 id= request.getParameter("id");

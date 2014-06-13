@@ -2,15 +2,21 @@ package edu.uv.controller;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.dao.UnidadesDAO;
 import edu.uv.model.pojos.ExperieciaEducativa;
+import edu.uv.model.pojos.Temas;
 import edu.uv.model.pojos.Unidades;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "UnidadesController", urlPatterns = {"/UnidadesController"})
 public class UnidadesController extends HttpServlet {
@@ -38,6 +44,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             response.setContentType("text/html;charset=UTF-8");
             UnidadesDAO Unidades_DAO = new UnidadesDAO();
             ExperieciaEducativaDAO ExperieciaEducativa_DAO = new ExperieciaEducativaDAO();
+            //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
         if (accion == null) {
             request.setAttribute("list",Unidades_DAO.findAll());
             request.getRequestDispatcher("Unidades_list.jsp").forward(request, response); 
@@ -46,9 +55,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c = new Unidades();
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
                 c.setNombreUnidad(request.getParameter("nombreUnidad"));
+                Set<ConstraintViolation<Unidades>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 request.setAttribute("url","UnidadesController");
                 Unidades_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case DELETE:
                 id= request.getParameter("id");
@@ -61,9 +78,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
                 c.setNombreUnidad(request.getParameter("nombreUnidad"));
                 c.setIdUnidad(Integer.parseInt(request.getParameter("idUnidad")));
+                 Set<ConstraintViolation<Unidades>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 Unidades_DAO.update(c);
                 request.setAttribute("url","UnidadesController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case FIND:
                 id= request.getParameter("id");

@@ -44,10 +44,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             response.setContentType("text/html;charset=UTF-8");
             AcademiaDAO Academia_DAO = new AcademiaDAO();
             PersonalDAO Personal_DAO = new PersonalDAO();
-            
-            
-            
-          
             //crear el factory para iniciar la validacion
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();

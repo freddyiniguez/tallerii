@@ -2,17 +2,23 @@ package edu.uv.controller;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.dao.ImparteDAO;
 import edu.uv.model.dao.PersonalDAO;
+import edu.uv.model.pojos.ExamenesGenerados;
 import edu.uv.model.pojos.ExperieciaEducativa;
 import edu.uv.model.pojos.Imparte;
 import edu.uv.model.pojos.Personal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "ImparteController", urlPatterns = {"/ImparteController"})
 public class ImparteController extends HttpServlet {
@@ -42,6 +48,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ImparteDAO Imparte_DAO = new ImparteDAO();
             ExperieciaEducativaDAO ExperieciaEducativa_DAO = new ExperieciaEducativaDAO();
             PersonalDAO Personal_DAO = new PersonalDAO();
+            //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
         if (accion == null) {
             request.setAttribute("list",Imparte_DAO.findAll());
             request.getRequestDispatcher("Imparte_list.jsp").forward(request, response); 
@@ -50,9 +59,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c = new Imparte();
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
+                Set<ConstraintViolation<Imparte>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 request.setAttribute("url","ImparteController");
                 Imparte_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case DELETE:
                 id= request.getParameter("id");
@@ -65,9 +82,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 c.setIdImparte(Integer.parseInt(request.getParameter("idImparte")));
+                Set<ConstraintViolation<Imparte>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 Imparte_DAO.update(c);
                 request.setAttribute("url","ImparteController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case FIND:
                 id= request.getParameter("id");

@@ -46,7 +46,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             //crear el factory para iniciar la validacion
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
-            
         if (accion == null) {
             request.setAttribute("list",ExperieciaEducativa_DAO.findAll());
             request.getRequestDispatcher("ExperieciaEducativa_list.jsp").forward(request, response); 
@@ -57,7 +56,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setAcademia(A);
                 c.setNombreEe(request.getParameter("nombreEE"));
                 request.setAttribute("url","ExperieciaEducativaController");
-                
                 Set<ConstraintViolation<ExperieciaEducativa>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){

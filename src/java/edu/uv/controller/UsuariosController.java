@@ -5,12 +5,17 @@ import edu.uv.model.pojos.Personal;
 import edu.uv.model.pojos.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "UsuariosController", urlPatterns = {"/UsuariosController"})
 public class UsuariosController extends HttpServlet {
@@ -38,6 +43,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             response.setContentType("text/html;charset=UTF-8");
             UsuariosDAO Usuarios_DAO = new UsuariosDAO();
             PersonalDAO Personal_DAO = new PersonalDAO();
+            //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
         if (accion == null) {
             request.setAttribute("list",Usuarios_DAO.findAll());
             request.getRequestDispatcher("Usuarios_list.jsp").forward(request, response); 
@@ -49,9 +57,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setEstadoUsuario(request.getParameter("estadoUsuario"));
                 c.setRol(request.getParameter("rol"));
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
+                Set<ConstraintViolation<Usuarios>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 request.setAttribute("url","UsuariosController");
                 Usuarios_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case DELETE:
                 id= request.getParameter("id");
@@ -68,9 +84,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 int ass = Integer.parseInt(request.getParameter("personal"));
                 c.setPersonal(Personal_DAO.find(ass));
                 c.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));
+                Set<ConstraintViolation<Usuarios>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 Usuarios_DAO.update(c);
                 request.setAttribute("url","UsuariosController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case FIND:
                 id= request.getParameter("id");

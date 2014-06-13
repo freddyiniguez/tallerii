@@ -9,12 +9,17 @@ import edu.uv.model.pojos.Personal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "ExamenesGeneradosController", urlPatterns = {"/ExamenesGeneradosController"})
 public class ExamenesGeneradosController extends HttpServlet {
@@ -44,6 +49,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ExamenesGeneradosDAO ExamenesGenerados_DAO = new ExamenesGeneradosDAO();
             PersonalDAO Personal_DAO = new PersonalDAO();
             ExperieciaEducativaDAO ExperieciaEducativa_DAO = new ExperieciaEducativaDAO();
+             //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
         if (accion == null) {
             request.setAttribute("list",ExamenesGenerados_DAO.findAll());
             request.getRequestDispatcher("ExamenesGenerados_list.jsp").forward(request, response); 
@@ -60,9 +68,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setFechaCreacion(date);
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("ee"))));
+                Set<ConstraintViolation<ExamenesGenerados>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 request.setAttribute("url","ExamenesGeneradosController");
                 ExamenesGenerados_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case DELETE:
                 id= request.getParameter("id");
@@ -83,9 +99,18 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setIdexamenesGenerados(Integer.parseInt(request.getParameter("idexamenesGenerados")));
                 date = new Date();
                 c.setFechaCreacion(date);
+                request.setAttribute("url","ExamenesGeneradosController");
+                Set<ConstraintViolation<ExamenesGenerados>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 ExamenesGenerados_DAO.update(c);
                 request.setAttribute("url","ExamenesGeneradosController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case FIND:
                 id= request.getParameter("id");

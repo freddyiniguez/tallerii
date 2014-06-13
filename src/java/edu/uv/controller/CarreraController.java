@@ -1,14 +1,20 @@
 package edu.uv.controller;
 import edu.uv.model.dao.CarreraDAO;
 import edu.uv.model.pojos.Carrera;
+import edu.uv.model.pojos.CarreraAcademia;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "CarreraController", urlPatterns = {"/CarreraController"})
 public class CarreraController extends HttpServlet {
@@ -34,16 +40,28 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             Carrera c = null;
             response.setContentType("text/html;charset=UTF-8");
             CarreraDAO Carrera_DAO = new CarreraDAO();
+             //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            
         if (accion == null) {
             request.setAttribute("list",Carrera_DAO.findAll());
             request.getRequestDispatcher("Carrera_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERT:
                 c = new Carrera();
-                c.setNombreCarrera(request.getParameter("nombreCarrera"));
+                c.setNombreCarrera(request.getParameter("nombreCarrera"));                
+                Set<ConstraintViolation<Carrera>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 request.setAttribute("url","CarreraController");
                 Carrera_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case DELETE:
                 id= request.getParameter("id");
@@ -55,9 +73,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c = new Carrera();
                 c.setNombreCarrera(request.getParameter("nombreCarrera"));
                 c.setIdCarrera(Integer.parseInt(request.getParameter("idCarrera")));
+                Set<ConstraintViolation<Carrera>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 Carrera_DAO.update(c);
                 request.setAttribute("url","CarreraController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case FIND:
                 id= request.getParameter("id");

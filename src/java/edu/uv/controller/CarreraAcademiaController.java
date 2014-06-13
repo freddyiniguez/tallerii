@@ -8,12 +8,17 @@ import edu.uv.model.pojos.Carrera;
 import edu.uv.model.pojos.CarreraAcademia;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "CarreraAcademiaController", urlPatterns = {"/CarreraAcademiaController"})
 public class CarreraAcademiaController extends HttpServlet {
@@ -43,6 +48,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             CarreraAcademiaDAO CarreraAcademia_DAO = new CarreraAcademiaDAO();
             CarreraDAO Carrera_DAO = new CarreraDAO();
             AcademiaDAO Academia_DAO = new AcademiaDAO();
+             //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
             
         if (accion == null) {
             request.setAttribute("list",CarreraAcademia_DAO.findAll());
@@ -53,8 +61,16 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c.setCarrera(Carrera_DAO.find(Integer.parseInt(request.getParameter("carrera"))));
                 c.setAcademia(Academia_DAO.find(Integer.parseInt(request.getParameter("academia"))));
                 request.setAttribute("url","CarreraAcademiaController");
+                 Set<ConstraintViolation<CarreraAcademia>> violations = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations.size()>0){
+                request.setAttribute("mensajes", violations);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 CarreraAcademia_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case DELETE:
                 id= request.getParameter("id");
@@ -64,13 +80,20 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new CarreraAcademia();
-                c = new CarreraAcademia();
                 c.setCarrera(Carrera_DAO.find(Integer.parseInt(request.getParameter("carrera"))));
                 c.setAcademia(Academia_DAO.find(Integer.parseInt(request.getParameter("academia"))));
                 c.setIdCarreraAcademia(Integer.parseInt(request.getParameter("idCarreraAcademia")));
+                Set<ConstraintViolation<CarreraAcademia>> violations2 = validator.validate(c);
+                // enviar mensajes a jsp
+                if (violations2.size()>0){
+                request.setAttribute("mensajes", violations2);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                else{
                 CarreraAcademia_DAO.update(c);
                 request.setAttribute("url","CarreraAcademiaController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 break;
             case FIND:
                 id= request.getParameter("id");
