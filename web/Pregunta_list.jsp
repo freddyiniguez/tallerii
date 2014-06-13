@@ -1,7 +1,8 @@
 <%@include file="header.jsp" %>
-<a href="PreguntaController?accion=agregar" class="btn btn-primary">Agregar a Pregunta</a>
+<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar a Pregunta</a>
 <div class="row">
 <c:forEach items="${list}" var="item">
+    
     <div class="row clearfix">
 		<div class="col-md-12 column">
 			<div class="row clearfix">
@@ -43,5 +44,36 @@
 	</div>
         <hr>
   </c:forEach>
+</div>
+<!-- Modal elegir pregunta -->
+<div class="modal fade" id="modalExp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Seleccione Experiencia Educativa</h4>
+      </div>
+        <h5> Selecciona una Experiencia Educativa<span class="label label-default">;)</span></h5>
+      <div class="modal-body">
+        
+        <div class="list-group">
+          <c:forEach items="${listaEE}" var="itemE">
+              <a href="PreguntaController?accion=agregar&idEE=${itemE.idExperieciaEducativa}" id="" class="list-group-item" >
+                <c:out value="${itemE.nombreEe}"/>
+              </a>
+                  
+        
+            </c:forEach>
+
+        </div>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        
+      </div>
+    </div>
+  </div>
 </div>
 <%@include file="footer.jsp" %>
