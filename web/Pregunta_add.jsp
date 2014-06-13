@@ -1,7 +1,28 @@
 <%@include file="header.jsp" %>
 <h1><B><center>Registro de pregunta </center></b></h1>
         <form action="PreguntaController" method="POST">
-        
+                                            <div class="clearfix"></div>
+                                    <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Unidades_idUnidad">De la unidad<span class="required">*</span></label>
+                                    
+                                    <div class="col-sm-10">
+                                      <div class="input-group">
+                                      <select class="form-control" name="unidad">
+                                        <c:forEach items="${Unidades}" var="item">
+                                            <% 
+                                            
+                                            
+                                            %>
+                                                <option value="${item.idUnidad}">${item.nombreUnidad}</option>
+                                        </c:forEach>
+                                       </select>
+                                       <span class="input-group-btn">
+                                        <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-plus"></span></a>
+                                       </span>
+                                       </div>
+                                    </div>
+
+                                    </div>
                                     <div class="clearfix"></div>
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="temas_idtemas">Tema:<span class="required">*</span></label>
