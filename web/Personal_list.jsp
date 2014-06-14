@@ -3,7 +3,7 @@
 <table class="table table-striped">
   
     <td>Número de personal</td>
-    <td>Profesor</td>
+    <td>Nombre del profesor</td>
     <td>Borrar</td>
     <td>Editar</td>
     
