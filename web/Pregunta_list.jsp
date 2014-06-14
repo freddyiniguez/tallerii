@@ -9,8 +9,8 @@
     <td>Modalidad pregunta</td>
     <td>Complejidad de la pregunta</td>
     <td>Puntuación</td>
-    <td>Borrar</td>
-    <td>Editar</td>
+    <td class="unsortable">Borrar</td>
+    <td class="unsortable">Editar</td>
     
 <c:forEach items="${list}" var="item">
     

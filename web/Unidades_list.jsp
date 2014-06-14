@@ -1,12 +1,12 @@
 <%@include file="header.jsp" %>
 <a href="UnidadesController?accion=agregar" class="btn btn-primary">Agregar a Unidades</a>
-<table class="table table-striped">
+<table id="tabla" class="table table-striped sortable">
   
     
     <td>Nombre de la unidad</td>
     <td>Experiencia educativa</td>
-    <td>Borrar</td>
-    <td>Editar</td>
+    <td class="unsortable">Borrar</td>
+    <td class="unsortable">Editar</td>
     
     <c:forEach items="${list}" var="item">
     <tr>

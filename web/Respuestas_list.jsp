@@ -1,12 +1,12 @@
 <%@include file="header.jsp" %>
 <a href="RespuestasController?accion=agregar" class="btn btn-primary">Agregar a Respuestas</a>
-<table class="table table-striped">
+<table id="tabla" class="table table-striped sortable">
   
     <td>Respuesta</td>
     <td>Tipo de respuesta</td>
     <td>Pregunta</td>
-    <td>Borrar</td>
-    <td>Editar</td>
+    <td class="unsortable">Borrar</td>
+    <td class="unsortable">Editar</td>
     
     <c:forEach items="${list}" var="item">
     <tr>

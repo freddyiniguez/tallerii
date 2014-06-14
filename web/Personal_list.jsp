@@ -1,11 +1,11 @@
 <%@include file="header.jsp" %>
 <a href="PersonalController?accion=agregar" class="btn btn-primary">Agregar a Personal</a>
-<table class="table table-striped">
+<table id="tabla" class="table table-striped sortable">
   
     <td>Número de personal</td>
     <td>Nombre del profesor</td>
-    <td>Borrar</td>
-    <td>Editar</td>
+    <td class="unsortable">Borrar</td>
+    <td class="unsortable">Editar</td>
     
     <c:forEach items="${list}" var="item">
     <tr>

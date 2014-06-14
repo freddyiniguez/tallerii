@@ -1,19 +1,19 @@
 <%@include file="header.jsp" %>
 <h2>Lista de temas</h2>
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp" >Agregar a Temas</a>
-<table class="table table-striped">
+<table id="tabla" class="table table-striped sortable">
     <tr>
         <td>Nombre tema</td>
         <td>Nombre subtema</td>
         <td>Nombre unidad</td>
-        <td>Borrar</td>
-        <td>Editar</td>
+        <td class="unsortable">Borrar</td>
+        <td class="unsortable">Editar</td>
     </tr>
   <c:forEach items="${list}" var="item">
     <tr>
-      
+       <td><c:out value="${item.temas.nombreTema}"/></td>
       <td><c:out value="${item.nombreTema}"/></td>
-      <td><c:out value="${item.temas.nombreTema}"/></td>
+     
       <td><c:out value="${item.unidades.nombreUnidad}"/></td>
       
       <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="TemasController?accion=borrar&id=${item.idTema}" href="#">Borrar</a></td>

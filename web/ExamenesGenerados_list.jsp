@@ -1,6 +1,6 @@
 <%@include file="header.jsp" %>
 <a href="ExamenesGeneradosController?accion=agregar" class="btn btn-primary">Agregar a ExamenesGenerados</a>
-<table class="table table-striped">
+<table id="tabla" class="table table-striped sortable">
   
     
     <td>Tipo de exámen</td>
@@ -13,8 +13,8 @@
     <td>% Práctica</td>
     <td>Estado</td>
     
-    <td>Borrar</td>
-    <td>Editar</td>
+    <td class="unsortable">Borrar</td>
+    <td class="unsortable">Editar</td>
     
     <c:forEach items="${list}" var="item">
     <tr>
