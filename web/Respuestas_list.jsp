@@ -1,9 +1,15 @@
 <%@include file="header.jsp" %>
 <a href="RespuestasController?accion=agregar" class="btn btn-primary">Agregar a Respuestas</a>
 <table class="table table-striped">
-  <c:forEach items="${list}" var="item">
+  
+    <td>Respuesta</td>
+    <td>Tipo de respuesta</td>
+    <td>Pregunta</td>
+    <td>Borrar</td>
+    <td>Editar</td>
+    
+    <c:forEach items="${list}" var="item">
     <tr>
-      <td><c:out value="${item.idRespuesta}"/></td>
       <td><c:out value="${item.descripcionRespuesta}"/></td>
       <td><c:out value="${item.tipoResp}"/></td>
       <td><c:out value="${item.pregunta.descripcionPregunta}"/></td>
