@@ -2,7 +2,7 @@
 <a href="CarreraController?accion=agregar" class="btn btn-primary">Agregar carrera</a>
 <table class="table table-striped">
   
-    <td>Carrera</td>
+    <td>Carreras</td>
     <td>Borrar</td>
     <td>Editar</td>
     
