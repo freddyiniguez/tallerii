@@ -36,7 +36,7 @@
   <div class="modal-dialog">
   <div class="modal-content">
       <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>--%>
           <h1 class="text-center">Login</h1>
           <h3 class="text-center">GEDUV</h3>
           <h1 class="text-center"><img src="./assets/images/uv_logo.png" alt=""></h1>

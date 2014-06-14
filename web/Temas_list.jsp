@@ -1,4 +1,15 @@
-<%@include file="header.jsp" %>
+<%@include file="header_COORD.jsp" %>
+
+<%    if ((session.getAttribute("user") == null)) {
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
+    } else {
+
+    }
+    if (!session.getAttribute("rol").equals("Coordinador")) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+%>
+
 <h2>Lista de temas</h2>
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp" >Agregar a Temas</a>
 <table id="tabla" class="table table-striped sortable">

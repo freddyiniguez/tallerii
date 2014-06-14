@@ -3,9 +3,24 @@
     Created on : 28/05/2014, 10:57:45 AM
     Author     : kiike
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="header.jsp" %>
+
+<% if(session.getAttribute("rol")=="Administrador"){  
+%>  
+<jsp:include page="header_ADM.jsp" flush="true" /> 
+<%}%>  
+
+<% if(session.getAttribute("rol")=="Coordinador"){  
+%>  
+<jsp:include page="header_COORD.jsp" flush="true" /> 
+<%}%> 
+
+<% if(session.getAttribute("rol")=="Profesor"){  
+%>  
+<jsp:include page="header_PROF.jsp" flush="true" /> 
+<%}%>
+
+<%--<%@include file="header.jsp" %>--%>
 
         <div class="jumbotron " > 
         <form name="forma1" action="AcademiaController" method="POST">

@@ -1,4 +1,16 @@
-<%@include file="header.jsp" %>
+<%@include file="header_COORD.jsp" %>
+
+<%    if ((session.getAttribute("user") == null)) {
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
+    } else {
+
+    }
+    if (!session.getAttribute("rol").equals("Coordinador")) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+%>
+
+
 <a href="PreguntaController?accion=aprobar" class="btn btn-primary">Aprobar Preguntas</a>
 <table class="table table-striped">
   <c:forEach items="${list}" var="item">

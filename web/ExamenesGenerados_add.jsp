@@ -1,4 +1,24 @@
-<%@include file="header.jsp" %>
+<% if(session.getAttribute("rol")=="Coordinador"){  
+%>  
+<jsp:include page="header_COORD.jsp" flush="true" /> 
+<%}%> 
+
+<% if(session.getAttribute("rol")=="Profesor"){  
+%>  
+<jsp:include page="header_PROF.jsp" flush="true" /> 
+<%}%>
+
+<%    if ((session.getAttribute("user") == null)) {
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
+    } else {
+
+    }
+    if (session.getAttribute("rol").equals("Administrador")) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+%>
+
+
 <h1><B><center>Registro de los exámenes generados </center></b></h1>
         <form action="ExamenesGeneradosController" method="POST">
         

@@ -1,4 +1,23 @@
-<%@include file="header.jsp" %>
+<% if(session.getAttribute("rol")=="Coordinador"){  
+%>  
+<jsp:include page="header_COORD.jsp" flush="true" /> 
+<%}%> 
+
+<% if(session.getAttribute("rol")=="Profesor"){  
+%>  
+<jsp:include page="header_PROF.jsp" flush="true" /> 
+<%}%>
+
+<%    if ((session.getAttribute("user") == null)) {
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
+    } else {
+
+    }
+    if (session.getAttribute("rol").equals("Administrador")) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+%>
+
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar a Pregunta</a>
 <div class="row">
     

@@ -1,4 +1,14 @@
-<%@include file="header.jsp" %>
+<%@include file="header_ADM.jsp" %>
+
+<%    if ((session.getAttribute("user") == null)) {
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
+    } else {
+
+    }
+    if (!session.getAttribute("rol").equals("Administrador")) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+%>
 <h1><B><center>Registro de academias </center></b></h1>
         <form action="AcademiaController" method="POST">
                                       

@@ -1,4 +1,15 @@
-<%@include file="header.jsp" %>
+<%@include file="header_ADM.jsp" %>
+
+<%    if ((session.getAttribute("user") == null)) {
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
+    } else {
+
+    }
+    if (!session.getAttribute("rol").equals("Administrador")) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+%>
+
 <a href="UsuariosController?accion=agregar" class="btn btn-primary">Agregar a Usuarios</a>
 <table id="tabla" class="table table-striped sortable">
   
