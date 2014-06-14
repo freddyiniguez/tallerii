@@ -3,7 +3,7 @@
 <table class="table table-striped">
   
     <td>Carrera</td>
-    <td>Academia</td>
+    <td>Academias que la conforman</td>
     <td>Borrar</td>
     <td>Editar</td>
     
