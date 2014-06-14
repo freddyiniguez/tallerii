@@ -1,6 +1,17 @@
 <%@include file="header.jsp" %>
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar a Pregunta</a>
 <div class="row">
+    
+    <td>Id pregunta</td>
+    <td>Estado de la pregunta</td>
+    <td>Tema al que pertenece</td>
+    <td>Tipo de pregunta</td>
+    <td>Modalidad pregunta</td>
+    <td>Complejidad de la pregunta</td>
+    <td>Puntuación</td>
+    <td>Borrar</td>
+    <td>Editar</td>
+    
 <c:forEach items="${list}" var="item">
     
     <div class="row clearfix">
