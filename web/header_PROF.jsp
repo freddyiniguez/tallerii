@@ -69,8 +69,6 @@
                                         <h5>Examenes<i class="glyphicon glyphicon-chevron-right"></i></h5>
                                     </a>
                                     <ul class="list-unstyled collapse in" id="examenes">
-                                        <li><a href="http://sus.bittsys.com//Statico/CapturarPregunta">Capturar preguntas</a>
-                                        </li>
                                         <li><a href="http://sus.bittsys.com//Statico/GenerarExamen">Generar examen</a>
                                         </li>
                                     </ul>
