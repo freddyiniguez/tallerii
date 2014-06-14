@@ -12,6 +12,8 @@
 
 <h1><B><center>Registro de unidades </center></b></h1>
         <form action="UnidadesController" method="POST">
+            <div id="unidades">
+                <div id="uni">
         
                                     <div class="clearfix"></div>
                                     <div class="form-group">
@@ -41,6 +43,11 @@
                                     </div>
                                     </div>
                                     <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>
+                </div>
+            </div>
+            <br>
+
+            <a href="#" id="agregarU" class="btn btn-success" name="accion1"> Agregar Unidad</a>
                                     
         <div class="col-md-12 ">
 			<div class="pull-right">
@@ -48,4 +55,16 @@
 			</div>
 		</div>
         </form>
+<script>
+    
+        $(document).ready(function(){
+         $("#agregarU").click(function(){
+           var unidad = $("#uni").clone();
+           
+           $(unidad).appendTo("#unidades");
+           console.log("ok");
+           
+         });
+        });
+</script>
 <%@include file="footer.jsp" %>
