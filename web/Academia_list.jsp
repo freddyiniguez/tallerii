@@ -2,8 +2,8 @@
 <a href="AcademiaController?accion=agregar" class="btn btn-primary">Agregar a Academia</a>
 <table class="table table-striped">
   
-    <td>Academia</td>
-    <td>Profesor</td>
+    <td>Academias</td>
+    <td>Profesores que la conforman</td>
     <td>Borrar</td>
     <td>Editar</td>
     
