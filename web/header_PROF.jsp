@@ -9,6 +9,7 @@
         <link href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
         <script src="${pageContext.request.contextPath}/assets/js/jquery.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/sortable.js"></script>
         <style>
             body {
                 padding-top: 70px;
