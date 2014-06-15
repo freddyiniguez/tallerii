@@ -17,6 +17,9 @@ public class AcademiaDAO extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(Academia.class);
     }
+    public List findAllby(String cc,String ee) throws DataAccessLayerException {
+        return super.findAllby(Academia.class, cc,ee);
+    }
     public Academia find(int id) throws DataAccessLayerException {
         return (Academia) super.find(Academia.class, id);
     }

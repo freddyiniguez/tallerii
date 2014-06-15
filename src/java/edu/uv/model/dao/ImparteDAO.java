@@ -17,6 +17,9 @@ public class ImparteDAO extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(Imparte.class);
     }
+    public List findAllby(String cc,String ee) throws DataAccessLayerException {
+        return super.findAllby(Imparte.class, cc,ee);
+    }
     public Imparte find(int id) throws DataAccessLayerException {
         return (Imparte) super.find(Imparte.class, id);
     }

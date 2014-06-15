@@ -17,6 +17,9 @@ public class UsuariosDAO extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(Usuarios.class);
     }
+    public List findAllby(String cc,String ee) throws DataAccessLayerException {
+        return super.findAllby(Usuarios.class, cc,ee);
+    }
     public Usuarios find(int id) throws DataAccessLayerException {
         return (Usuarios) super.find(Usuarios.class, id);
     }

@@ -17,6 +17,9 @@ public class ExamenesGeneradosDAO extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(ExamenesGenerados.class);
     }
+    public List findAllby(String cc,String ee) throws DataAccessLayerException {
+        return super.findAllby(ExamenesGenerados.class, cc,ee);
+    }
     public ExamenesGenerados find(int id) throws DataAccessLayerException {
         return (ExamenesGenerados) super.find(ExamenesGenerados.class, id);
     }

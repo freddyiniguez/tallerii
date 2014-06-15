@@ -17,6 +17,9 @@ public class CarreraAcademiaDAO extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(CarreraAcademia.class);
     }
+    public List findAllby(String cc,String ee) throws DataAccessLayerException {
+        return super.findAllby(CarreraAcademia.class, cc,ee);
+    }
     public CarreraAcademia find(int id) throws DataAccessLayerException {
         return (CarreraAcademia) super.find(CarreraAcademia.class, id);
     }

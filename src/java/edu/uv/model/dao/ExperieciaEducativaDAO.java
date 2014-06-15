@@ -17,6 +17,9 @@ public class ExperieciaEducativaDAO extends AbstractDao {
     public List findAll() throws DataAccessLayerException {
         return super.findAll(ExperieciaEducativa.class);
     }
+    public List findAllby(String cc,String ee) throws DataAccessLayerException {
+        return super.findAllby(ExperieciaEducativa.class, cc,ee);
+    }
     public ExperieciaEducativa find(int id) throws DataAccessLayerException {
         return (ExperieciaEducativa) super.find(ExperieciaEducativa.class, id);
     }
