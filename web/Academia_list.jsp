@@ -29,7 +29,7 @@
       <td><c:out value="${item.personal.nombreProfesor}"/></td>
       
       <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="AcademiaController?accion=borrar&id=${item.idAcademia}" href="#">Borrar</a></td>
-      <td><a class="btn btn-warning" href="AcademiaController?accion=buscar&id=${item.idAcademia}">Editar</a></td>
+       <td><a class="btn btn-warning" href="AcademiaController?accion=buscar&id=${item.idAcademia}&id2=${item.personal.idPersonal}">Editar</a></td>
     </tr>
   </c:forEach>
 </table>

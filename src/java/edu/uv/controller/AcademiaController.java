@@ -39,7 +39,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             
             String accion = request.getParameter("accion");
             String id ="";
+            String id2="";
             Academia c = null;
+            Personal x = null;
             Personal P = new Personal();
             response.setContentType("text/html;charset=UTF-8");
             AcademiaDAO Academia_DAO = new AcademiaDAO();
@@ -95,9 +97,15 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case FIND:
                 id= request.getParameter("id");
-                c = Academia_DAO.find(Integer.parseInt(id));           
+                id2= request.getParameter("id2");
+                System.out.println(" "+id2);
+                System.out.println(" "+id);
+                c = Academia_DAO.find(Integer.parseInt(id));
+                x = Personal_DAO.find(Integer.parseInt(id2));
+                System.out.println(" "+x);
                 request.setAttribute("Academia",c);
-                request.setAttribute("Personal",Personal_DAO.findAll());
+                request.setAttribute("Personal",x);
+                request.setAttribute("Maestros",Personal_DAO.findAll());
                 request.getRequestDispatcher("Academia_edit.jsp").forward(request, response);
                 break;
             case ADD:
