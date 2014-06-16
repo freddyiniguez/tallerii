@@ -39,7 +39,10 @@
           <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>--%>
           <h1 class="text-center">Login</h1>
           <h3 class="text-center">GEDUV</h3>
-          <h1 class="text-center"><img src="./assets/images/uv_logo.png" alt=""></h1>
+          <div align="center"> 
+            <img class="img-rounded img-responsive" src="./assets/images/uv_logo.png" alt="logotipo Uv flor de liz" align="center" height="180" width="160">
+          </div>
+          <h1 class="text-center"></h1>
           <h3 class="text-center">Generador de examenes departamentales</h3>
       </div>
       <div class="modal-body">
