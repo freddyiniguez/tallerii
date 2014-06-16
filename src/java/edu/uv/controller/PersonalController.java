@@ -15,6 +15,11 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+/**
+ * Clase PersonalController
+ * @see HttpServlet
+ * @author Freddy
+ */
 @WebServlet(name = "PersonalController", urlPatterns = {"/PersonalController"})
 public class PersonalController extends HttpServlet {
     static final String LIST = "";
@@ -23,10 +28,23 @@ public class PersonalController extends HttpServlet {
     static final String ADD = "agregar";
     static final String UPDATE = "actualizar";
     static final String INSERT = "insertar";
+    String id = "";
+    Personal c = null;
 
+    /**
+     * Método encargado de manejar los eventos para actualizar el catálogo personal
+     * @see ServletException
+     * @see IOException
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //validar que el usuario tenga la sesion iniciada
+        
+        // Verifica que el usuario haya iniciado sesión.
+        // En caso de que no lo haya hecho, lo manda a la página de login.
         HttpSession session = request.getSession(true);
 
         if ((session.getAttribute("user") == null)) {
@@ -34,12 +52,10 @@ public class PersonalController extends HttpServlet {
             return;
         }
         String accion = request.getParameter("accion");
-        String id = "";
-        Personal c = null;
 
         response.setContentType("text/html;charset=UTF-8");
         PersonalDAO Personal_DAO = new PersonalDAO();
-        //crear el factory para iniciar la validacion
+        // Crea el factory para iniciar la validación.
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         if (accion == null) {
@@ -48,8 +64,7 @@ public class PersonalController extends HttpServlet {
         } else {
             switch (accion) {
                 case INSERT:
-                    c = new Personal();
-                    c.setNumeroPersonal(Integer.parseInt(request.getParameter("numeroPersonal")));
+                    c = new Personal();                   
                     c.setNombreProfesor(request.getParameter("nombreProfesor"));
                     Set<ConstraintViolation<Personal>> violations = validator.validate(c);
                     // enviar mensajes a jsp
@@ -70,7 +85,6 @@ public class PersonalController extends HttpServlet {
                     break;
                 case UPDATE:
                     c = new Personal();
-                    c.setNumeroPersonal(Integer.parseInt(request.getParameter("numeroPersonal")));
                     c.setNombreProfesor(request.getParameter("nombreProfesor"));
                     c.setIdPersonal(Integer.parseInt(request.getParameter("idPersonal")));
                     Set<ConstraintViolation<Personal>> violations2 = validator.validate(c);

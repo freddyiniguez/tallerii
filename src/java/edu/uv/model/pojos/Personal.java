@@ -1,7 +1,6 @@
 package edu.uv.model.pojos;
 // Generated 25/05/2014 11:11:21 AM by Hibernate Tools 3.6.0
 
-
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.constraints.Min;
@@ -47,13 +46,6 @@ public class Personal  implements java.io.Serializable {
     
     public void setIdPersonal(Integer idPersonal) {
         this.idPersonal = idPersonal;
-    }
-    public Integer getNumeroPersonal() {
-        return this.numeroPersonal;
-    }
-    
-    public void setNumeroPersonal(Integer numeroPersonal) {
-        this.numeroPersonal = numeroPersonal;
     }
     public String getNombreProfesor() {
         return this.nombreProfesor;
