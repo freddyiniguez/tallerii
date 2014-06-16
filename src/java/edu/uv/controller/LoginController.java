@@ -3,9 +3,11 @@ package edu.uv.controller;
 import edu.uv.model.dao.AcademiaDAO;
 import edu.uv.model.dao.PersonalDAO;
 import edu.uv.model.dao.UsuariosDAO;
+import edu.uv.model.dao.ImparteDAO;
 import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.Personal;
 import edu.uv.model.pojos.Usuarios;
+import edu.uv.model.pojos.Imparte;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -50,6 +52,10 @@ public class LoginController extends HttpServlet {
                     
                 }else{/////////////////////////////////////////////////////////////////////////////////////////////////
                     int academia= buscarRol(per.getIdPersonal());
+                    List<Imparte> mats =buscarMaterias(per.getIdPersonal());
+                    if (mats.size()>0) {
+                        session.setAttribute("matslist", mats);
+                    }
                     if (academia!=-5) {
                         session.setAttribute("rol", "Coordinador");
                         session.setAttribute("academia", academia);
@@ -97,6 +103,24 @@ public class LoginController extends HttpServlet {
         return idAcademia;
         
     }
+    
+    protected List buscarMaterias(int idPersonal){
+        ImparteDAO im=new ImparteDAO();
+        List<Imparte>matsAll=im.findAll();
+        List<Imparte> mats=new ArrayList();
+        
+        for (Imparte imp:matsAll) {
+            if (imp.getPersonal().getIdPersonal().equals(idPersonal)) {
+                mats.add(imp);
+            }
+        }
+        
+        return mats;
+    }
+    
+    /*protected List buscarMaterias(int id personal){
+        return null;
+    }*/
 
     protected Usuarios validar(String usuario, String password) {
         UsuariosDAO Usuarios_DAO = new UsuariosDAO();
