@@ -3,7 +3,7 @@
         if (session.getAttribute("user") == null) {
             session.setAttribute("name", "No ha iniciado sesión");
         } else {
-            session.setAttribute("name", session.getAttribute("user") +" ("+session.getAttribute("rol")+")");
+            session.setAttribute("name", session.getAttribute("user") + " (" + session.getAttribute("rol") + ")");
         }
     %>
     <body>
@@ -52,18 +52,17 @@
                                 <li>
                                     <a href="ExperieciaEducativaController">ExperienciaEducativa</a>
                                 </li>
-                             
+
                                 <li>
                                     <a href="PersonalController">Personal</a>
                                 </li>
                                 <li>
                                     <a href="UsuariosController">Usuarios</a>
                                 </li>
-                                
-                             
+
+
                             </ul>
                             <hr>
 
-                </div>
-                <div class="col-md-10 column">
-
+                            </div>
+                            <div class="col-md-10 column">
