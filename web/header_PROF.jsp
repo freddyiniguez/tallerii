@@ -11,6 +11,8 @@
         <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/sortable.js"></script>
         <style>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/paging.js"></script>
+        <style>
             body {
                 padding-top: 70px;
             }
