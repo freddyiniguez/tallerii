@@ -4,10 +4,12 @@ import edu.uv.model.dao.AcademiaDAO;
 import edu.uv.model.dao.PersonalDAO;
 import edu.uv.model.dao.UsuariosDAO;
 import edu.uv.model.dao.ImparteDAO;
+import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.Personal;
 import edu.uv.model.pojos.Usuarios;
 import edu.uv.model.pojos.Imparte;
+import edu.uv.model.pojos.ExperieciaEducativa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -50,14 +52,14 @@ public class LoginController extends HttpServlet {
                     //session.setAttribute("academia", null);
                     session.removeAttribute("academia");
                     
-                    List<Imparte> mats =buscarMaterias(-50,0);
+                    List<ExperieciaEducativa> mats =buscarMaterias(-50,0);
                     if (mats.size()>0) {
                         session.setAttribute("matslist", mats);
                     }
                     
                 }else{/////////////////////////////////////////////////////////////////////////////////////////////////
                     int academia= buscarRol(per.getIdPersonal());
-                    List<Imparte> mats =buscarMaterias(per.getIdPersonal(),1);
+                    List<ExperieciaEducativa> mats =buscarMaterias(per.getIdPersonal(),1);
                     if (mats.size()>0) {
                         session.setAttribute("matslist", mats);
                     }
@@ -111,14 +113,23 @@ public class LoginController extends HttpServlet {
     
     protected List buscarMaterias(int idPersonal, int modo){
         ImparteDAO im=new ImparteDAO();
-        List<Imparte>matsAll=im.findAll();
-        List<Imparte> mats=new ArrayList();
+        ExperieciaEducativaDAO expDAO=new ExperieciaEducativaDAO();
+        List<ExperieciaEducativa> ExpsAll=expDAO.findAll();
+        List<Imparte>imparteAll=im.findAll();
+        List<ExperieciaEducativa> mats=new ArrayList();
         if (modo==0) {
-            mats=matsAll;
+            //mats=matsAll;
+            mats=expDAO.findAll();
         }else{
-        for (Imparte imp:matsAll) {
+        for (Imparte imp:imparteAll) {
             if (imp.getPersonal().getIdPersonal().equals(idPersonal)) {
-                mats.add(imp);
+                
+                for (ExperieciaEducativa e1:ExpsAll) {
+                    if (e1.getIdExperieciaEducativa().equals(imp.getExperieciaEducativa().getIdExperieciaEducativa())) {
+                        mats.add(e1);
+                    }
+                }
+//mats.add(imp);
             }
         }
         }

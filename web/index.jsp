@@ -28,4 +28,22 @@ Bienvenido al sistema!
 <br>
 <%="id de academia= "+session.getAttribute("academia")%>
 <br>
+
+<table id="tabla" class="table table-striped sortable">
+ 
+    <td>Profesor</td>
+    <td>Experiencia educativa que imparte</td>
+    <td class="unsortable">Borrar</td>
+    <td class="unsortable">Editar</td>
+    
+    <c:forEach items="${session.getAttribute("matslist")}" var="item">
+    <tr>
+      <td><c:out value="${item.idExperieciaEducativa}"/></td>
+      <td><c:out value="${item.nombreEe}"/>  </td>
+      <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="ImparteController?accion=borrar&id=${item.idImparte}" href="#">Borrar</a></td>
+      <td><a class="btn btn-warning" href="ImparteController?accion=buscar&id=${item.idImparte}">Editar</a></td>
+    </tr>
+  </c:forEach>
+</table>
+
 <%@include file="footer.jsp" %>
