@@ -12,6 +12,7 @@
 
 <h2>Lista de temas</h2>
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp" >Agregar a Temas</a>
+<div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
     <tr>
         <td>Nombre tema</td>
@@ -63,4 +64,5 @@
     </div>
   </div>
 </div>
+<div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
 <%@include file="footer.jsp" %>

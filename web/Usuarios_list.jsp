@@ -11,6 +11,7 @@
 %>
 
 <a href="UsuariosController?accion=agregar" class="btn btn-primary">Agregar a Usuarios</a>
+<div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
   
     <td>Id usuario</td>
@@ -32,4 +33,5 @@
     </tr>
   </c:forEach>
 </table>
+<div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
 <%@include file="footer.jsp" %>

@@ -11,6 +11,7 @@
 %>
 
 <a href="ExperieciaEducativaController?accion=agregar" class="btn btn-primary">Agregar a ExperieciaEducativa</a>
+<div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla"  class="table table-striped sortable">
   
     <td>Experiencia educativa</td>
@@ -27,4 +28,5 @@
     </tr>
   </c:forEach>
 </table>
+<div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
 <%@include file="footer.jsp" %>
