@@ -14,6 +14,13 @@ $(document).ready(function(){
     });
 });
 </script>
+<script type="text/javascript">
+  var pager = new Pager('tabla',2);
+  pager.init();
+  pager.showPageNav('pager','NavTabla');
+  pager.showPageNav('pager','NavTabla2');
+  pager.showPage(1);
+</script>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
