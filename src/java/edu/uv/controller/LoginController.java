@@ -50,9 +50,14 @@ public class LoginController extends HttpServlet {
                     //session.setAttribute("academia", null);
                     session.removeAttribute("academia");
                     
+                    List<Imparte> mats =buscarMaterias(-50,0);
+                    if (mats.size()>0) {
+                        session.setAttribute("matslist", mats);
+                    }
+                    
                 }else{/////////////////////////////////////////////////////////////////////////////////////////////////
                     int academia= buscarRol(per.getIdPersonal());
-                    List<Imparte> mats =buscarMaterias(per.getIdPersonal());
+                    List<Imparte> mats =buscarMaterias(per.getIdPersonal(),1);
                     if (mats.size()>0) {
                         session.setAttribute("matslist", mats);
                     }
@@ -104,15 +109,18 @@ public class LoginController extends HttpServlet {
         
     }
     
-    protected List buscarMaterias(int idPersonal){
+    protected List buscarMaterias(int idPersonal, int modo){
         ImparteDAO im=new ImparteDAO();
         List<Imparte>matsAll=im.findAll();
         List<Imparte> mats=new ArrayList();
-        
+        if (modo==0) {
+            mats=matsAll;
+        }else{
         for (Imparte imp:matsAll) {
             if (imp.getPersonal().getIdPersonal().equals(idPersonal)) {
                 mats.add(imp);
             }
+        }
         }
         
         return mats;
