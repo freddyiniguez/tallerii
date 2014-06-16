@@ -64,10 +64,10 @@ public class PersonalController extends HttpServlet {
         } else {
             switch (accion) {
                 case INSERT:
-                    c = new Personal();                   
+                    c = new Personal();   
                     c.setNombreProfesor(request.getParameter("nombreProfesor"));
                     Set<ConstraintViolation<Personal>> violations = validator.validate(c);
-                    // enviar mensajes a jsp
+                    // Enviar mensajes a jsp
                     if (violations.size() > 0) {
                         request.setAttribute("mensajes", violations);
                         request.getRequestDispatcher("error.jsp").forward(request, response);
