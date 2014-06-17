@@ -19,6 +19,9 @@ $(document).ready(function(){
   pager.init();
   pager.showPageNav('pager','NavTabla');
   pager.showPageNav('pager','NavTabla2');
+  pager.showPageNav('pager','NavTabla3');
+  pager.showPageNav('pager','NavTabla4');
+  pager.showPageNav('pager','NavTabla5');
   pager.showPage(1);
 </script>
 <!-- Modal -->
