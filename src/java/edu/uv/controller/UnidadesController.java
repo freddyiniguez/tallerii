@@ -40,6 +40,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             String accion = request.getParameter("accion");
             String id ="";
             Unidades c = null;
+            Unidades x = null;
             ExperieciaEducativa E = new ExperieciaEducativa();
             response.setContentType("text/html;charset=UTF-8");
             UnidadesDAO Unidades_DAO = new UnidadesDAO();
@@ -52,21 +53,30 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.getRequestDispatcher("Unidades_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERT:
-                c = new Unidades();
-              
-                c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
-                c.setNombreUnidad(new String(request.getParameter("nombreUnidad").getBytes("ISO-8859-1"),"UTF-8"));
-                Set<ConstraintViolation<Unidades>> violations = validator.validate(c);
-                // enviar mensajes a jsp
-                if (violations.size()>0){
-                request.setAttribute("mensajes", violations);
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                
+                String[] eeList= request.getParameterValues("Ee");
+                String[] unidadesList=request.getParameterValues("nombreUnidad");
+                int aux1=unidadesList.length;
+                int i=0;
+                while(i<aux1){
+                    x=null;
+                    x = new Unidades();
+                    ExperieciaEducativa_DAO = new ExperieciaEducativaDAO();
+                    x.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(eeList[i])));
+                    x.setNombreUnidad(unidadesList[i]);
+                    
+                    Set<ConstraintViolation<Unidades>> violations = validator.validate(x);
+                    // enviar mensajes a jsp
+                    if (violations.size()>0){
+                        request.setAttribute("mensajes", violations);
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
+                    else{
+                        Unidades_DAO.create(x);
+                        i++;
+                    }
                 }
-                else{
-                request.setAttribute("url","UnidadesController");
-                Unidades_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
-                }
                 break;
             case DELETE:
                 id= request.getParameter("id");
