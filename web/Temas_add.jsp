@@ -21,10 +21,11 @@
   <div class="tab-pane active" id="tema">
   <form action="TemasController" method="POST">
             
-                                    <div id="unidades">
-  <div id="uni">
-            <br> <br>
-    <div class="clearfix"></div>
+    <div id="unidades">
+        <div id="uniP1">
+                <br> <br>
+                <div id="uni1">
+                <div class="clearfix"></div>
                                  <div class="clearfix"></div>
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="Unidades_idUnidad">Seleccione de la unidad:<span class="required">*</span></label>
@@ -60,14 +61,18 @@
                                  <br>
                                   <div  aria-hidden="true">
   <input  type="hidden" id="Temas_idTema" type="text" name="Tema" value=""/>
-                                 </div>
-  
-</div>             
+                                 
+                </div>
+             
             <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>
-        <div class="col-md-12 ">
+        </div>
+    </div>
+            <div class="col-md-12 ">
+      <a href="#" id="agregarT" class="btn btn-success" > Agregar Tema</a>
       <div class="pull-right">
-        <input type="submit" class="btn btn-primary" name ="accion" value="insertart">
+        <input type="submit" class="btn btn-primary" name ="accion" value="Insertar tema">
       </div>
+      
     </div>
         </form>
   </div>
@@ -79,9 +84,10 @@
 
     <form action="TemasController" method="POST">
             
-                                    <div id="unidades">
-  <div id="uni">
+    <div id="unidades">
+    <div id="uniP2">
             <br> <br>
+            <div id="uni2">
     <div class="clearfix"></div>
                                  <div class="clearfix"></div>
                                     <div class="form-group">
@@ -134,14 +140,20 @@
                                     <input required class ="form-control" id="nombreTema" type="text" name="nombreTema" value=""  />
                                     </div>
                                     </div>
-  </div>
   
-</div>                         
+            <br><br>
+  
+                 
+        
                     <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>
-        <div class="col-md-12 ">
-      <div class="pull-right">
-        <input type="submit" class="btn btn-primary" name ="accion" value="insertarst">
-      </div>
+        </div>
+    </div>
+</div>
+            <div class="col-md-12 ">
+            <a href="#" id="agregarSt" class="btn btn-success" > Agregar Subtema</a>
+            <div class="pull-right">
+            <input type="submit" class="btn btn-primary" name ="accion" value="Insertar subtema">
+        </div>
     </div>
         </form>
   </div>
@@ -151,10 +163,20 @@
 <script>
     
         $(document).ready(function(){
-         $("#agregarU").click(function(){
-           var unidad = $("#uni").clone();
+         $("#agregarT").click(function(){
+           var unidad = $("#uni1").clone();
            
-           $(unidad).appendTo("#unidades");
+           $(unidad).appendTo("#uniP1");
+           console.log("ok");
+           
+         });
+        });
+        
+        $(document).ready(function(){
+         $("#agregarSt").click(function(){
+           var unidad = $("#uni2").clone();
+           
+           $(unidad).appendTo("#uniP2");
            console.log("ok");
            
          });
