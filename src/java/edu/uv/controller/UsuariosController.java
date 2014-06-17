@@ -101,10 +101,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case FIND:
               id= request.getParameter("id");
                 id2= request.getParameter("id2");
-                c = Usuarios_DAO.find(Integer.parseInt(id));       
-                x = Personal_DAO.find(Integer.parseInt(id2)); 
+                c = Usuarios_DAO.find(Integer.parseInt(id));
                 request.setAttribute("Usuarios",c);
-                request.setAttribute("persona",x);
                 request.setAttribute("Personal",Personal_DAO.findAll());
                 request.getRequestDispatcher("Usuarios_edit.jsp").forward(request, response);
                 break;
