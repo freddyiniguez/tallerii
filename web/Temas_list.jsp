@@ -23,9 +23,9 @@
     </tr>
   <c:forEach items="${list}" var="item">
     <tr>
-       
+     <td><c:out value="${item.temas.nombreTema}"/></td>   
       <td><c:out value="${item.nombreTema}"/></td>
-     <td><c:out value="${item.temas.nombreTema}"/></td>
+    
       <td><c:out value="${item.unidades.nombreUnidad}"/></td>
       
       <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="TemasController?accion=borrar&id=${item.idTema}" href="#">Borrar</a></td>
