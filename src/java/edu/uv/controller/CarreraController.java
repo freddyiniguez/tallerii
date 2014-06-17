@@ -50,7 +50,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Carrera();
-                c.setNombreCarrera(request.getParameter("nombreCarrera"));                
+                c.setNombreCarrera(new String(request.getParameter("nombreCarrera").getBytes("ISO-8859-1"),"UTF-8"));
+                //c.setNombreCarrera(request.getParameter("nombreCarrera"));                
                 Set<ConstraintViolation<Carrera>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){

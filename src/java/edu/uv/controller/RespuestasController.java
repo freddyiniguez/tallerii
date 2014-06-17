@@ -52,7 +52,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Respuestas();
-                c.setDescripcionRespuesta(request.getParameter("descripcionRespuesta"));
+                c.setDescripcionRespuesta(new String(request.getParameter("descricionRespuesta").getBytes("ISO-8859-1"),"UTF-8"));
+                //c.setDescripcionRespuesta(request.getParameter("descripcionRespuesta"));
                 c.setTipoResp(request.getParameter("tipoResp"));
                 c.setPregunta(Pregunta_DAO.find(Integer.parseInt(request.getParameter("pregunta"))));
                 Set<ConstraintViolation<Respuestas>> violations = validator.validate(c);

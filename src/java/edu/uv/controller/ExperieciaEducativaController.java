@@ -52,9 +52,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new ExperieciaEducativa();
+                c.setNombreEe(new String(request.getParameter("nombreEE").getBytes("ISO-8859-1"),"UTF-8"));
                 A = Academia_DAO.find(Integer.parseInt(request.getParameter("academia")));
                 c.setAcademia(A);
-                c.setNombreEe(request.getParameter("nombreEE"));
+                //c.setNombreEe(request.getParameter("nombreEE"));
                 request.setAttribute("url","ExperieciaEducativaController");
                 Set<ConstraintViolation<ExperieciaEducativa>> violations = validator.validate(c);
                 // enviar mensajes a jsp

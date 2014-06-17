@@ -53,6 +53,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Unidades();
+                //c.setExperieciaEducativa(new String(request.getParameter("Ee").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
                 c.setNombreUnidad(request.getParameter("nombreUnidad"));
                 Set<ConstraintViolation<Unidades>> violations = validator.validate(c);

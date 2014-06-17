@@ -15,7 +15,7 @@ $(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
-  var pager = new Pager('tabla',2);
+  var pager = new Pager('tabla',5);
   pager.init();
   pager.showPageNav('pager','NavTabla');
   pager.showPageNav('pager','NavTabla2');

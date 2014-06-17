@@ -52,7 +52,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Usuarios();
-                c.setLoginUsuario(request.getParameter("loginUsuario"));
+                c.setLoginUsuario(new String(request.getParameter("loginUsuario").getBytes("ISO-8859-1"),"UTF-8"));
+                //c.setLoginUsuario(request.getParameter("loginUsuario"));
                 c.setPasswordUsuario(request.getParameter("passwordUsuario"));
                 c.setEstadoUsuario(request.getParameter("estadoUsuario"));
                 c.setRol(request.getParameter("rol"));

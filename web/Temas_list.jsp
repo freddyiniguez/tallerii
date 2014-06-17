@@ -33,6 +33,7 @@
     </tr>
   </c:forEach>
 </table>
+<div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
 <!-- Modal elegir experiencia -->
 <div class="modal fade" id="modalExp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -64,5 +65,5 @@
     </div>
   </div>
 </div>
-<div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
+
 <%@include file="footer.jsp" %>

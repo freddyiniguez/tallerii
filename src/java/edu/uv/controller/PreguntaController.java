@@ -54,6 +54,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Pregunta();
+                //c.setTemas(new String(request.getParameter("tema").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
                 c.setTipoPregunta(request.getParameter("tipoPregunta"));
                 c.setDescripcionPregunta(request.getParameter("descripcionPregunta"));

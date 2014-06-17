@@ -56,7 +56,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case INSERT:
                 c = new Academia();
                 c.setNombreAcademia(new String(request.getParameter("nombreAcademia").getBytes("ISO-8859-1"),"UTF-8"));
-                c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
+               // c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 request.setAttribute("url","AcademiaController");
                 Set<ConstraintViolation<Academia>> violations = validator.validate(c);
                 // enviar mensajes a jsp
