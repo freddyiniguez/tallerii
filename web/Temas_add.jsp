@@ -14,11 +14,11 @@
 <h1><B><center>Registro de temas </center></b></h1>
 
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#tema" data-toggle="tab">Registrar Temas</a></li>
-  <li><a href="#subtema" data-toggle="tab">Registrar Subtemas</a></li>
+        <li><a href="#tema" data-toggle="tab">Registrar Temas</a></li>
+        <li><a href="#subtema" data-toggle="tab">Registrar Subtemas</a></li>
 </ul>
 <div class="tab-content">
-  <div class="tab-pane" id="tema">
+  <div class="tab-pane active" id="tema">
   <form action="TemasController" method="POST">
             
                                     <div id="unidades">
