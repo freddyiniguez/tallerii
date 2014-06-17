@@ -79,7 +79,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c = new ExperieciaEducativa();
                 A = Academia_DAO.find(Integer.parseInt(request.getParameter("academia")));
                 c.setAcademia(A);
-                c.setNombreEe(request.getParameter("nombreEE"));
+                c.setNombreEe(new String(request.getParameter("nombreEE").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setIdExperieciaEducativa(Integer.parseInt(request.getParameter("idExperieciaEducativa")));
                 
                 Set<ConstraintViolation<ExperieciaEducativa>> violations2 = validator.validate(c);

@@ -58,12 +58,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new ExamenesGenerados();
-                c.setPeriodo(request.getParameter("periodo"));
-                c.setTipoExamen(request.getParameter("tipoExamen"));
-                c.setDescripcionExamen(request.getParameter("descripcionExamen"));
+                c.setPeriodo(new String(request.getParameter("periodo").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setTipoExamen(new String(request.getParameter("tipoExamen").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setDescripcionExamen(new String(request.getParameter("descripcionExamen").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setPorcTeoria(Integer.parseInt(request.getParameter("porcTeoria")));
                 c.setPorcPractica(Integer.parseInt(request.getParameter("porcPractica")));
-                c.setEstadoExamen(request.getParameter("estadoExamen"));
+                c.setEstadoExamen(new String(request.getParameter("estadoExamen").getBytes("ISO-8859-1"),"UTF-8"));
                 date = new Date();
                 c.setFechaCreacion(date);
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
@@ -88,12 +88,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new ExamenesGenerados();
-                c.setPeriodo(request.getParameter("periodo"));
-                c.setTipoExamen(request.getParameter("tipoExamen"));
-                c.setDescripcionExamen(request.getParameter("descripcionExamen"));
+                c.setPeriodo(new String(request.getParameter("periodo").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setTipoExamen(new String(request.getParameter("tipoExamen").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setDescripcionExamen(new String(request.getParameter("descripcionExamen").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setPorcTeoria(Integer.parseInt(request.getParameter("porcTeoria")));
                 c.setPorcPractica(Integer.parseInt(request.getParameter("porcPractica")));
-                c.setEstadoExamen(request.getParameter("estadoExamen"));
+                c.setEstadoExamen(new String(request.getParameter("estadoExamen").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("ee"))));
                 c.setIdexamenesGenerados(Integer.parseInt(request.getParameter("idexamenesGenerados")));

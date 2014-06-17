@@ -51,7 +51,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case INSERT:
                 c = new Carrera();
                 c.setNombreCarrera(new String(request.getParameter("nombreCarrera").getBytes("ISO-8859-1"),"UTF-8"));
-                //c.setNombreCarrera(request.getParameter("nombreCarrera"));                
+                         
                 Set<ConstraintViolation<Carrera>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){
@@ -72,7 +72,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new Carrera();
-                c.setNombreCarrera(request.getParameter("nombreCarrera"));
+                c.setNombreCarrera(new String(request.getParameter("nombreCarrera").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setIdCarrera(Integer.parseInt(request.getParameter("idCarrera")));
                 Set<ConstraintViolation<Carrera>> violations2 = validator.validate(c);
                 // enviar mensajes a jsp

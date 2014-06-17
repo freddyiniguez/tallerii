@@ -53,9 +53,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Unidades();
-                //c.setExperieciaEducativa(new String(request.getParameter("Ee").getBytes("ISO-8859-1"),"UTF-8"));
+              
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
-                c.setNombreUnidad(request.getParameter("nombreUnidad"));
+                c.setNombreUnidad(new String(request.getParameter("nombreUnidad").getBytes("ISO-8859-1"),"UTF-8"));
                 Set<ConstraintViolation<Unidades>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){
@@ -77,7 +77,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case UPDATE:
                 c = new Unidades();
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
-                c.setNombreUnidad(request.getParameter("nombreUnidad"));
+                c.setNombreUnidad(new String(request.getParameter("nombreUnidad").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setIdUnidad(Integer.parseInt(request.getParameter("idUnidad")));
                  Set<ConstraintViolation<Unidades>> violations2 = validator.validate(c);
                 // enviar mensajes a jsp

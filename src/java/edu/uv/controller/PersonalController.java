@@ -66,7 +66,7 @@ public class PersonalController extends HttpServlet {
                 case INSERT:
                     c = new Personal(); 
                     c.setNombreProfesor(new String(request.getParameter("nombreProfesor").getBytes("ISO-8859-1"),"UTF-8"));
-                    //c.setNombreProfesor(request.getParameter("nombreProfesor"));
+                    c.setIdPersonal(Integer.parseInt(request.getParameter("idPersonal")));
                     Set<ConstraintViolation<Personal>> violations = validator.validate(c);
                     // Enviar mensajes a jsp
                     if (violations.size() > 0) {
@@ -86,7 +86,7 @@ public class PersonalController extends HttpServlet {
                     break;
                 case UPDATE:
                     c = new Personal();
-                    c.setNombreProfesor(request.getParameter("nombreProfesor"));
+                    c.setNombreProfesor(new String(request.getParameter("nombreProfesor").getBytes("ISO-8859-1"),"UTF-8"));
                     c.setIdPersonal(Integer.parseInt(request.getParameter("idPersonal")));
                     Set<ConstraintViolation<Personal>> violations2 = validator.validate(c);
                     // enviar mensajes a jsp

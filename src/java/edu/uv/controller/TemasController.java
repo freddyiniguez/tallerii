@@ -59,7 +59,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case INSERT:
                 c = new Temas();
                 c.setNombreTema(new String(request.getParameter("nombreTema").getBytes("ISO-8859-1"),"UTF-8"));
-                //c.setNombreTema(request.getParameter("nombreTema"));
+                
                 if(!request.getParameter("tema").equals("")){
                 c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
                 }else{
@@ -86,7 +86,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new Temas();
-                c.setNombreTema(request.getParameter("nombreTema"));
+                c.setNombreTema(new String(request.getParameter("nombreTema").getBytes("ISO-8859-1"),"UTF-8"));
                 if(!request.getParameter("tema").equals("")){
                 c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
                 }else{

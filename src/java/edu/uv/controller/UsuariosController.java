@@ -53,9 +53,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case INSERT:
                 c = new Usuarios();
                 c.setLoginUsuario(new String(request.getParameter("loginUsuario").getBytes("ISO-8859-1"),"UTF-8"));
-                //c.setLoginUsuario(request.getParameter("loginUsuario"));
-                c.setPasswordUsuario(request.getParameter("passwordUsuario"));
-                c.setEstadoUsuario(request.getParameter("estadoUsuario"));
+                c.setPasswordUsuario(new String(request.getParameter("paswordUsuario").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setEstadoUsuario(new String(request.getParameter("estadoUsuario").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setRol(request.getParameter("rol"));
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 Set<ConstraintViolation<Usuarios>> violations = validator.validate(c);
@@ -78,9 +77,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new Usuarios();
-                c.setLoginUsuario(request.getParameter("loginUsuario"));
-                c.setPasswordUsuario(request.getParameter("passwordUsuario"));
-                c.setEstadoUsuario(request.getParameter("estadoUsuario"));
+                c.setLoginUsuario(new String(request.getParameter("loginUsuario").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setPasswordUsuario(new String(request.getParameter("paswordUsuario").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setEstadoUsuario(new String(request.getParameter("estadoUsuario").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setRol(request.getParameter("rol"));
                 int ass = Integer.parseInt(request.getParameter("personal"));
                 c.setPersonal(Personal_DAO.find(ass));
