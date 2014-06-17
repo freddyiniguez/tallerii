@@ -93,7 +93,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 break;
             case FIND:
-                id= request.getParameter("id");
+                 id= request.getParameter("id");
                 c = Respuestas_DAO.find(Integer.parseInt(id));           
                 request.setAttribute("Respuestas",c);
                 request.setAttribute("Pregunta",Pregunta_DAO.findAll());

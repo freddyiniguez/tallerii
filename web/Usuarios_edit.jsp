@@ -11,8 +11,9 @@
 %>
 
 <h1><B><center>Edición de usuario  </center></b></h1>
-        <form action="UsuariosController" method="POST">
+        <form action="UsuariosController" method="POST" name="usuarios">
         	<input type="hidden" name="idUsuario" value="${Usuarios.idUsuario}" />
+                <input type="hidden" name="idUPersonal" value="${persona.idPersonal}" />
             
                                     <div class="clearfix"></div>
                                     <div class="form-group">
@@ -38,6 +39,8 @@
                                     <option value="Administrador">Administrador</option>
                                     <option value="Usuario">Usuario</option>
                                     </select>
+                                        
+                                        
                                     </div>
                                     </div>
                                     
@@ -70,6 +73,33 @@
                                        </span>
                                        </div>
                                     </div>
+                                    
+                                     <script>
+                                                        var i=0;
+                                                        var nombre="";
+                                           for(i=0;i<=document.usuarios.personal.options.length;i++){
+                                               nombre=usuarios.personal.options[i].value;
+                                               var n=${persona.idPersonal};
+                                               var s= n.toString();
+                                             if(nombre === s){
+                                                 usuarios.personal.options[i].selected = true;
+                                               return false;
+                                            }
+                                            }
+                                                     </script>
+                                                     
+                                                      <script>
+                                                        var j=0;
+                                                        var nombre2="";
+                                           for(j=0;j<=document.usuarios.estadoUsuario.options.length;j++){
+                                               nombre2=usuarios.estadoUsuario.options[j].value;
+                                               var n2=${Usuarios.estadoUsuario};
+                                             if(nombre === n2){
+                                                 usuarios.estadoUsuario.options[j].selected = true;
+                                               return false;
+                                            }
+                                            }
+                                                     </script>
                                     
                                     </div>
 

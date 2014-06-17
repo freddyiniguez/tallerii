@@ -11,8 +11,9 @@
 %>
 
 <h1><B><center>Edición de experiencia educativa </center></b></h1>
-        <form action="ExperieciaEducativaController" method="POST">
+        <form action="ExperieciaEducativaController" method="POST" name="ExperienciaE">
         	<input type="hidden" name="idExperieciaEducativa" value="${ExperieciaEducativa.idExperieciaEducativa}" />
+                <input type="hidden" name="idExperieciaEducativa" value="${academia.idAcademia}" />
             
                                     <div class="clearfix"></div>
                                     <div class="form-group">
@@ -42,6 +43,20 @@
                                     <input required class ="form-control" id="nombreEE" type="text" name="nombreEE" value="${ExperieciaEducativa.nombreEe}"  />
                                     </div>
                                     </div>
+                                    
+                                         <script>
+                                                        var i=0;
+                                                        var nombre="";
+                                           for(i=0;i<=document.ExperienciaE.academia.options.length;i++){
+                                               nombre=ExperienciaE.academia.options[i].value;
+                                               var n=${academia.idAcademia};
+                                               var s= n.toString();
+                                             if(nombre === s){
+                                                 ExperienciaE.academia.options[i].selected = true;
+                                               return false;
+                                            }
+                                            }
+                                                     </script>
                                     
             
             <div class="col-md-12 ">

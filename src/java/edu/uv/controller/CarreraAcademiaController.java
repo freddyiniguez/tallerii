@@ -39,9 +39,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.getRequestDispatcher("login_.jsp").forward(request, response);
             return;
             } 
-            String accion = request.getParameter("accion");
+              String accion = request.getParameter("accion");
             String id ="";
+            String id2="";
+            String id3="";
             CarreraAcademia c = null;
+            Academia s = null;
+            Carrera x= null;
             Carrera C = new Carrera();
             Academia A = new Academia();
             response.setContentType("text/html;charset=UTF-8");
@@ -96,9 +100,15 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 break;
             case FIND:
-                id= request.getParameter("id");
-                c = CarreraAcademia_DAO.find(Integer.parseInt(id));           
+               id= request.getParameter("id");
+                id2= request.getParameter("id2");
+                id3= request.getParameter("id3");
+                c = CarreraAcademia_DAO.find(Integer.parseInt(id)); 
+                s = Academia_DAO.find(Integer.parseInt(id2)); 
+                x = Carrera_DAO.find(Integer.parseInt(id3)); 
                 request.setAttribute("CarreraAcademia",c);
+                request.setAttribute("academia",s);
+                request.setAttribute("carrera",x);
                 request.setAttribute("Carrera",Carrera_DAO.findAll());
                 request.setAttribute("Academia",Academia_DAO.findAll());
                 request.getRequestDispatcher("CarreraAcademia_edit.jsp").forward(request, response);

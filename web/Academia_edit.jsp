@@ -34,9 +34,20 @@
                                         <c:forEach items="${Maestros}" var="item" >
                                                 <option value="${item.idPersonal}">${item.nombreProfesor}</option>
                                         </c:forEach>
-                                                <script>
-                                                    academia.personal.options[${Personal.idPersonal}-1].selected = true;
-                                                </script>
+                                                                                               
+                                                   <script>
+                                                        var i=0;
+                                                        var nombre="";
+                                           for(i=0;i<=document.academia.personal.options.length;i++){
+                                               nombre=academia.personal.options[i].value;
+                                               var n=${Personal.idPersonal};
+                                               var s= n.toString();
+                                             if(nombre === s){
+                                                 academia.personal.options[i].selected = true;
+                                               return false;
+                                            }
+                                            }
+                                                     </script>
                                                 
                                        </select>
                                        <span class="input-group-btn">

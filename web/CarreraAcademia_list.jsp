@@ -24,7 +24,7 @@
       <td><c:out value="${item.carrera.nombreCarrera}"/></td>
       <td><c:out value="${item.academia.nombreAcademia}"/></td>
       <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="CarreraAcademiaController?accion=borrar&id=${item.idCarreraAcademia}" href="#">Borrar</a></td>
-      <td><a class="btn btn-warning" href="CarreraAcademiaController?accion=buscar&id=${item.idCarreraAcademia}">Editar</a></td>
+      <td><a class="btn btn-warning" href="CarreraAcademiaController?accion=buscar&id=${item.idCarreraAcademia}&id2=${item.academia.idAcademia}&id3=${item.carrera.idCarrera}">Editar</a></td>
     </tr>
   </c:forEach>
 </table>

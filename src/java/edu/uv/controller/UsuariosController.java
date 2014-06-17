@@ -36,8 +36,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.getRequestDispatcher("login_.jsp").forward(request, response);
             return;
             } 
-            String accion = request.getParameter("accion");
+           String accion = request.getParameter("accion");
             String id ="";
+            String id2="";
+            Personal x = null;
             Usuarios c = null;
             Personal P = new Personal();
             response.setContentType("text/html;charset=UTF-8");
@@ -97,9 +99,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 break;
             case FIND:
-                id= request.getParameter("id");
-                c = Usuarios_DAO.find(Integer.parseInt(id));           
+              id= request.getParameter("id");
+                id2= request.getParameter("id2");
+                c = Usuarios_DAO.find(Integer.parseInt(id));       
+                x = Personal_DAO.find(Integer.parseInt(id2)); 
                 request.setAttribute("Usuarios",c);
+                request.setAttribute("persona",x);
                 request.setAttribute("Personal",Personal_DAO.findAll());
                 request.getRequestDispatcher("Usuarios_edit.jsp").forward(request, response);
                 break;

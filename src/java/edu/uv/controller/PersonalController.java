@@ -89,7 +89,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 id= request.getParameter("id");
                 c = Personal_DAO.find(Integer.parseInt(id));           
                 request.setAttribute("Personal",c);
-                
                 request.getRequestDispatcher("Personal_edit.jsp").forward(request, response);
                 break;
             case ADD:
