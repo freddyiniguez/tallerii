@@ -59,7 +59,7 @@ public class LoginController extends HttpServlet {
                     
                 }else{/////////////////////////////////////////////////////////////////////////////////////////////////
                     int academia= buscarRol(per.getIdPersonal());
-                    List<ExperieciaEducativa> mats =buscarMaterias(per.getIdPersonal(),1);
+                    List<ExperieciaEducativa> mats =buscarMateriasAcademia(per.getIdPersonal());
                    /* if (mats.size()>0) {
                         session.setAttribute("matslist", mats);
                     }
