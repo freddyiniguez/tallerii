@@ -27,7 +27,7 @@
                                       if(list!=null)
                                       for(edu.uv.model.pojos.ExperieciaEducativa en:list){
                                       %>
-
+ 
                                       <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
 
                                       <%};%>

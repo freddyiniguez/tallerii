@@ -136,6 +136,7 @@ public class LoginController extends HttpServlet {
         }
         return resultado;
     }
+     
     
     
     protected List buscarMaterias(int idPersonal, int modo){

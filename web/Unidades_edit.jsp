@@ -10,6 +10,7 @@
         }
 %>
 
+
 <h1><B><center>Edición de unidades </center></b></h1>
         <form action="UnidadesController" method="POST">
         	<input type="hidden" name="idUnidad" value="${Unidades.idUnidad}" />
