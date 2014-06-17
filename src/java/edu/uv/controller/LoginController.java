@@ -60,12 +60,15 @@ public class LoginController extends HttpServlet {
                 }else{/////////////////////////////////////////////////////////////////////////////////////////////////
                     int academia= buscarRol(per.getIdPersonal());
                     List<ExperieciaEducativa> mats =buscarMaterias(per.getIdPersonal(),1);
-                    if (mats.size()>0) {
+                   /* if (mats.size()>0) {
                         session.setAttribute("matslist", mats);
                     }
+                    */
                     if (academia!=-5) {
+                        mats = buscarMateriasAcademia(per.getIdPersonal());
                         session.setAttribute("rol", "Coordinador");
                         session.setAttribute("academia", academia);
+                        session.setAttribute("matslist", mats);
                     }else{
                         session.setAttribute("rol", "Profesor");
                     }
@@ -110,6 +113,30 @@ public class LoginController extends HttpServlet {
         return idAcademia;
         
     }
+    
+     protected List buscarMateriasAcademia(int idPersonal){
+        AcademiaDAO acaDao = new AcademiaDAO(); 
+        List<Academia> academias = acaDao.findAll();
+        List <Academia> pertenece = new ArrayList();
+        ExperieciaEducativaDAO expe = new ExperieciaEducativaDAO();
+        List <ExperieciaEducativa> experiencias = expe.findAll();
+        List <ExperieciaEducativa> resultado = new ArrayList();
+        
+        for(Academia aux:academias){
+            if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
+                pertenece.add(aux);
+            }
+        }
+        for(ExperieciaEducativa aux:experiencias){
+            for(Academia auy:pertenece){
+                if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
+                    resultado.add(aux);
+                }
+            }
+        }
+        return resultado;
+    }
+    
     
     protected List buscarMaterias(int idPersonal, int modo){
         ImparteDAO im=new ImparteDAO();

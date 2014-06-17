@@ -22,9 +22,15 @@
                                     <div class="col-sm-12">
                                       <div class="input-group">
                                       <select class="form-control" name="Ee">
-                                        <c:forEach items="${ExperieciaEducativa}" var="item">
-                                                <option value="${item.idExperieciaEducativa}">${item.nombreEe}</option>
-                                        </c:forEach>
+                                        <% 
+                                      java.util.ArrayList<edu.uv.model.pojos.ExperieciaEducativa> list = (java.util.ArrayList)session.getAttribute("matslist");
+                                      if(list!=null)
+                                      for(edu.uv.model.pojos.ExperieciaEducativa en:list){
+                                      %>
+
+                                      <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
+
+                                      <%};%>
                                        </select>
                                        <span class="input-group-btn">
                                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
