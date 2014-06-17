@@ -1,4 +1,14 @@
-<%@include file="header.jsp" %>
+<%@include file="header_ADM.jsp" %>
+
+<%    if ((session.getAttribute("user") == null)) {
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
+    } else {
+
+    }
+    if (!session.getAttribute("rol").equals("Administrador")) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+%>
 <a href="ImparteController?accion=agregar" class="btn btn-primary">Agregar a Imparte</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
