@@ -52,14 +52,16 @@
                                 <li>
                                     <a href="ExperieciaEducativaController">ExperienciaEducativa</a>
                                 </li>
-
+                                <li>
+                                    <a href="ImparteController">Imparte</a>
+                                </li>
                                 <li>
                                     <a href="PersonalController">Personal</a>
                                 </li>
                                 <li>
                                     <a href="UsuariosController">Usuarios</a>
                                 </li>
-
+                                
 
                             </ul>
                             <hr>

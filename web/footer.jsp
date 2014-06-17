@@ -15,10 +15,13 @@ $(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
-  var pager = new Pager('tabla',2);
+  var pager = new Pager('tabla',5);
   pager.init();
   pager.showPageNav('pager','NavTabla');
   pager.showPageNav('pager','NavTabla2');
+  pager.showPageNav('pager','NavTabla3');
+  pager.showPageNav('pager','NavTabla4');
+  pager.showPageNav('pager','NavTabla5');
   pager.showPage(1);
 </script>
 <!-- Modal -->
