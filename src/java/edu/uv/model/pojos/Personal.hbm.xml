@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 23/05/2014 05:30:57 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="edu.uv.model.pojos.Personal" table="Personal" catalog="dbged">
@@ -8,6 +8,9 @@
             <column name="idPersonal" />
             <generator class="identity" />
         </id>
+        <property name="numeroPersonal" type="java.lang.Integer">
+            <column name="numeroPersonal" />
+        </property>
         <property name="nombreProfesor" type="string">
             <column name="nombreProfesor" length="60" not-null="true" />
         </property>

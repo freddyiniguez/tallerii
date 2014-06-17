@@ -13,6 +13,8 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Personal implements java.io.Serializable {
 
     private Integer idPersonal;
+    @Min(1)
+    private Integer numeroPersonal;
     @NotBlank(message = "Este campo no puede contener solo espacios en blanco")
     @Length(min = 5, max = 60, message = "La longitud de campo no es valida, use de 5 a 60 caracteres")
     private String nombreProfesor;
@@ -24,6 +26,14 @@ public class Personal implements java.io.Serializable {
     public Personal(){
         
     }
+    
+     public Integer getNumeroPersonal() {
+         return this.numeroPersonal;
+     }
+     
+     public void setNumeroPersonal(Integer numeroPersonal) {
+         this.numeroPersonal = numeroPersonal;
+     }
     
     public Personal(String nombreProfesor) {
         this.nombreProfesor = nombreProfesor;
