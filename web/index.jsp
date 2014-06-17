@@ -55,6 +55,7 @@ Bienvenido al sistema!
       <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
     
       <%};%>
+      
     </select>
       
   
