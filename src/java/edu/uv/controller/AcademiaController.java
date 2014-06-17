@@ -55,7 +55,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Academia();
-                c.setNombreAcademia(request.getParameter("nombreAcademia"));
+                c.setNombreAcademia(new String(request.getParameter("nombreAcademia").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
                 request.setAttribute("url","AcademiaController");
                 Set<ConstraintViolation<Academia>> violations = validator.validate(c);
