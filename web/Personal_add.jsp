@@ -10,19 +10,8 @@
         }
 %>
 
-
 <h1><B><center>Registro de personal </center></b></h1>
         <form action="PersonalController" method="POST">
-        
-                                    <div class="clearfix"></div>
-                                    <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="numeroPersonal">Número de personal:<span class="required">*</span></label>
-                                    <div class="col-sm-12">  
-                                    <input required class ="form-control" id="numeroPersonal" type="number" name="numeroPersonal" value=""  />
-                                    </div>
-                                    </div>
-                                    
-
                                     <div class="clearfix"></div>
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="nombreProfesor">Nombre del profesor:<span class="required">*</span></label>

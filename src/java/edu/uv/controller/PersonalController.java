@@ -1,9 +1,8 @@
 package edu.uv.controller;
+
 import edu.uv.model.dao.PersonalDAO;
-import edu.uv.model.pojos.ExperieciaEducativa;
 import edu.uv.model.pojos.Personal;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,8 +50,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Personal();
-                c.setNumeroPersonal(Integer.parseInt(request.getParameter("numeroPersonal")));
-                c.setNombreProfesor(request.getParameter("nombreProfesor"));
+                c.setNombreProfesor(new String(request.getParameter("nombreProfesor").getBytes("ISO-8859-1"),"UTF-8"));
                  Set<ConstraintViolation<Personal>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){
@@ -73,8 +71,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new Personal();
-                c.setNumeroPersonal(Integer.parseInt(request.getParameter("numeroPersonal")));
-                c.setNombreProfesor(request.getParameter("nombreProfesor"));
+                c.setNombreProfesor(new String(request.getParameter("nombreProfesor").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setIdPersonal(Integer.parseInt(request.getParameter("idPersonal")));
                  Set<ConstraintViolation<Personal>> violations2 = validator.validate(c);
                 // enviar mensajes a jsp
@@ -96,13 +93,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("Personal_edit.jsp").forward(request, response);
                 break;
             case ADD:
-                
                 request.getRequestDispatcher("Personal_add.jsp").forward(request, response);
                 break;
             default:
-                
-        }
-        
+                ;
+        }  
  }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -143,5 +138,4 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
