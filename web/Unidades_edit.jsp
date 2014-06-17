@@ -55,6 +55,5 @@
 					<input type="submit" class="btn btn-primary" name="accion" value="actualizar" />
 				</div>
 			</div>
-        </form>
-        
+        </form>        
 <%@include file="footer.jsp" %>
