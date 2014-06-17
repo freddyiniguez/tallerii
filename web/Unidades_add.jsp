@@ -47,7 +47,7 @@
             </div>
             <br>
 
-            <a href="#" id="agregarU" class="btn btn-success" name="accion1"> Agregar Unidad</a>
+            <a href="#" id="agregarU" class="btn btn-success" > Agregar Unidad</a>
                                     
         <div class="col-md-12 ">
 			<div class="pull-right">
