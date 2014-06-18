@@ -18,7 +18,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="nombreProfesor">Nombre del profesor:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="nombreProfesor" type="text" name="nombreProfesor" value="${Personal.nombreProfesor}"  />
+                                    <input required class ="form-control" id="nombreProfesor" type="text" name="nombreProfesor" value="${Personal.nombreProfesor}" maxlength="60" />
                                     </div>
                                     </div>
                                     

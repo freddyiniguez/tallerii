@@ -40,7 +40,13 @@
                                 <h5>Gestionar<i class="glyphicon glyphicon-chevron-right"></i></h5>
                             </a>
                             <ul class="list-unstyled collapse in" id="administrar">
+                                <li>
+                                    <a href="TemasController">Temas</a>
+                                </li>
                                 
+                                <li>
+                                    <a href="UnidadesController">Unidades</a>
+                                </li>
                                 
                                 <li>
                                     <a href="PreguntaController">Preguntas</a>

@@ -16,7 +16,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="nombreProfesor">Nombre del profesor:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="nombreProfesor" type="text" name="nombreProfesor" value=""  />
+                                    <input required class ="form-control" id="nombreProfesor" type="text" name="nombreProfesor" value="" maxlength="60" />
                                     </div>
                                     </div>
                                     <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro  </font>  </p> </h5>

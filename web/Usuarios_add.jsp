@@ -17,7 +17,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="loginUsuario">Nombre de usuario:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="loginUsuario" type="text" name="loginUsuario" value=""  />
+                                    <input required class ="form-control" id="loginUsuario" type="text" name="loginUsuario" value="" maxlength="10" />
                                     </div>
                                     </div>
                                     
@@ -26,7 +26,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="passwordUsuario">Contraseña:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="passwordUsuario" type="password" name="passwordUsuario" value=""  />
+                                    <input required class ="form-control" id="passwordUsuario" type="password" name="passwordUsuario" value="" maxlength="10" />
                                     </div>
                                     </div>
                                     <div class="clearfix"></div>

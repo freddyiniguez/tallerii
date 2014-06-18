@@ -16,7 +16,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="nombreAcademia">Nombre de la academia<span class="required">*</span></label>
                                     <div class="col-sm-10">                       
-                                    <input required class ="form-control" id="nombreAcademia" type="text" name="nombreAcademia" value=""  />
+                                    <input required class ="form-control" id="nombreAcademia" type="text" name="nombreAcademia" value="" maxlength="60" />
                                     </div>
                                     </div>
                                     
