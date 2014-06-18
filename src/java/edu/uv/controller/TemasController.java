@@ -26,8 +26,8 @@ public class TemasController extends HttpServlet {
     static final String FIND ="buscar";
     static final String ADD = "agregar";
     static final String UPDATE = "actualizar";
-    static final String INSERT = "insertar";
-
+    static final String INSERTA = "Insertar tema";
+    static final String INSERTB = "Insertar subtema";
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -56,27 +56,60 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.setAttribute("list",Temas_DAO.findAll());
             request.getRequestDispatcher("Temas_list.jsp").forward(request, response); 
         } else switch(accion){
-            case INSERT:
-                c = new Temas();
-                c.setNombreTema(new String(request.getParameter("nombreTema").getBytes("ISO-8859-1"),"UTF-8"));
-                
-                if(!request.getParameter("tema").equals("")){
-                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
-                }else{
-                c.setTemas(null);
-                }
-                c.setUnidades(Unidades_DAO.find(Integer.parseInt(request.getParameter("unidad"))));
-                request.setAttribute("url","TemasController");
-                Set<ConstraintViolation<Temas>> violations = validator.validate(c);
+            case INSERTA:
+                String[] nombreTemasList= request.getParameterValues("nombreTema");
+                String[] unidadesList=request.getParameterValues("unidad");
+                    
+                int aux1=unidadesList.length;
+                for(int i=0;i<aux1;i++){
+                    c=null;
+                    c = new Temas();
+                    Unidades_DAO = new UnidadesDAO();
+                    c.setNombreTema(nombreTemasList[i]);
+                    c.setTemas(null);
+                    c.setUnidades(Unidades_DAO.find(Integer.parseInt(unidadesList[i])));
+                    request.setAttribute("url","TemasController");
+                    Set<ConstraintViolation<Temas>> violations = validator.validate(c);
                 // enviar mensajes a jsp
-                if (violations.size()>0){
-                request.setAttribute("mensajes", violations);
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                    if (violations.size()>0){
+                        request.setAttribute("mensajes", violations);
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
+                    else{
+                        Temas_DAO.create(c);
+                        
+                    }
                 }
-                else{
-                Temas_DAO.create(c);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
+                break;
+            case INSERTB:
+                String[] nombreTemasList2= request.getParameterValues("nombreTema");
+                String[] temas2List=request.getParameterValues("tema");
+                String[] unidadesList2=request.getParameterValues("unidad");
+                    
+                int aux2=unidadesList2.length;
+                
+                for(int i=0;i<aux2;i++){
+                    c=null;
+                    c = new Temas();
+                    Unidades_DAO = new UnidadesDAO();
+                    Temas_DAO = new TemasDAO();
+                
+                    c.setNombreTema(nombreTemasList2[i]);
+                    c.setTemas(Temas_DAO.find(Integer.parseInt(temas2List[i])));
+                    c.setUnidades(Unidades_DAO.find(Integer.parseInt(unidadesList2[i])));
+                    request.setAttribute("url","TemasController");
+                    Set<ConstraintViolation<Temas>> violations3 = validator.validate(c);
+                // enviar mensajes a jsp
+                    if (violations3.size()>0){
+                        request.setAttribute("mensajes", violations3);
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
+                    else{
+                        Temas_DAO.create(c);
+                    }
                 }
+                request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case DELETE:
                 id= request.getParameter("id");
