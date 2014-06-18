@@ -37,7 +37,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-4 control-label" for="nombreEE">Nombre de la experiencia educativa:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="nombreEE" type="text" name="nombreEE" value=""  />
+                                    <input required class ="form-control" id="nombreEE" type="text" name="nombreEE" value="" maxlength="60" />
                                     </div>
                                     </div>
                                    

@@ -18,7 +18,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="nombreCarrera">Nombre de la carrera<span class="required">*</span></label>
                                     <div class="col-sm-10">  
-                                    <input required class ="form-control" id="nombreCarrera" type="text" name="nombreCarrera" value="${Carrera.nombreCarrera}"  />
+                                    <input required class ="form-control" id="nombreCarrera" type="text" name="nombreCarrera" value="${Carrera.nombreCarrera}" maxlength="60" />
                                     </div>
                                     </div>
                                     <h5><p align="right"><font color="red">El campo que está marcado con * es obligatorio para la edición  </font>  </p> </h5>
