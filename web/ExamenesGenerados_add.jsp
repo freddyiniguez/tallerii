@@ -8,7 +8,7 @@
 <jsp:include page="header_PROF.jsp" flush="true" /> 
 <%}%>
 
-<%    if ((session.getAttribute("user") == null)) {
+<%--<%    if ((session.getAttribute("user") == null)) {
         request.getRequestDispatcher("login_.jsp").forward(request, response);
     } else {
 
@@ -16,7 +16,7 @@
     if (session.getAttribute("rol").equals("Administrador")) {
         request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-%>
+%>--%>
 
 
 <h1><B><center>Registro de los exámenes generados </center></b></h1>

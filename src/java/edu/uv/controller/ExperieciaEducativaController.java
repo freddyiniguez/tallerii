@@ -36,6 +36,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.getRequestDispatcher("login_.jsp").forward(request, response);
             return;
             } 
+            
+            if (!session.getAttribute("rol").equals("Administrador")) {
+             request.getRequestDispatcher("index.jsp").forward(request, response);
+            return;
+            }
+            
             String accion = request.getParameter("accion");
             String id ="";
             ExperieciaEducativa c = null;

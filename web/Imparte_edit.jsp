@@ -1,6 +1,6 @@
 <%@include file="header_ADM.jsp" %>
 
-<%    if ((session.getAttribute("user") == null)) {
+<%--<%    if ((session.getAttribute("user") == null)) {
         request.getRequestDispatcher("login_.jsp").forward(request, response);
     } else {
 
@@ -8,7 +8,7 @@
     if (!session.getAttribute("rol").equals("Administrador")) {
         request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-%>
+%>--%>
 <h2><B><center>Edición de la asignación experiencia educativa a personal</center></b></h2>
         <form action="ImparteController" method="POST">
         	<input type="hidden" name="idImparte" value="${Imparte.idImparte}" />
