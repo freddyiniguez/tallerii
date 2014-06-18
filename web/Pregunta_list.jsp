@@ -115,7 +115,7 @@
             <td>mmmkkjdpdjo</td>
             <td><button type="button" class="btn btn-danger">Borrar</button></td>
             <td><button type="button" class="btn btn-info">Ver</button></td>
-            <td><button type="button" class="btn btn-succes">Aprobar</button></td>
+            <td><button type="button" class="btn btn-success">Aprobar</button></td>
 
           </tr>
         </tbody>
