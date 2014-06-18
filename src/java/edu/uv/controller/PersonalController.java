@@ -1,8 +1,11 @@
 package edu.uv.controller;
 
+import edu.uv.model.dao.AcademiaDAO;
 import edu.uv.model.dao.PersonalDAO;
+import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.Personal;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,9 +58,14 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 // enviar mensajes a jsp
                 if (violations.size()>0){
                 request.setAttribute("mensajes", violations);
-                 if(request.getParameter("nombreProfesor").equals("")){
-                    request.setAttribute("campos", "NOMBRE PROFESOR");    
+                 if(request.getParameter("nombreProfesor").equals("") ){
+                    request.setAttribute("campos", "NOMBRE"); 
                     request.setAttribute("tipo", "INCOMPLETO");
+                }else{
+                     if(request.getParameter("nombreProfesor").length()<=4 && request.getParameter("nombreAcademia").length()!=0){
+                        request.setAttribute("tipo", "TAMAÑO MINIMO");
+                        request.setAttribute("campos", "NOMBRE");
+                    }
                 }
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
@@ -69,9 +77,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case DELETE:
                 id= request.getParameter("id");
-                Personal_DAO.delete(Integer.parseInt(id));
-                request.setAttribute("url","PersonalController");
-                request.getRequestDispatcher("success.jsp").forward(request, response);
+                
+                if(!encontrado(id)){
+                      request.setAttribute("tipo", "EDITA PRIMERO AL COORDINADOR");
+                      request.setAttribute("campos", "COORDINADOR");
+                      request.setAttribute("url","PersonalController");
+                      request.getRequestDispatcher("error.jsp").forward(request, response);
+                }else{
+                    Personal_DAO.delete(Integer.parseInt(id));
+                    request.setAttribute("url","PersonalController");
+                    request.getRequestDispatcher("success.jsp").forward(request, response);   
+                }
                 break;
             case UPDATE:
                 c = new Personal();
@@ -102,6 +118,20 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 ;
         }  
  }
+
+   public boolean encontrado(String id){
+        boolean res=true;
+        AcademiaDAO Academia_DAO = new AcademiaDAO();
+        List <Academia> academias = Academia_DAO.findAll();
+        for(Academia aux:academias){
+            if(aux.getPersonal()!=null){
+                if(aux.getPersonal().getIdPersonal().equals(Integer.parseInt(id))){
+                    res= false;
+                }
+            }
+        }
+        return res;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
