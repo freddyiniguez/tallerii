@@ -56,6 +56,7 @@
                                     <label class="col-sm-3 control-label" for="nombreTema">Ingrese el nombre del tema:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
                                     <input required class ="form-control" id="nombreTema" type="text" name="nombreTema" value=""  />
+                                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>
                                     </div>
                                     </div>
                                  <br>
@@ -64,7 +65,7 @@
                                  
                 </div>
              
-            <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>
+            
         </div>
     </div>
             <div class="col-md-12 ">
@@ -138,14 +139,16 @@
                                     <label class="col-sm-3 control-label" for="nombreTema">Ingrese el  nombre del subtema:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
                                     <input required class ="form-control" id="nombreTema" type="text" name="nombreTema" value=""  />
+                                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>
                                     </div>
+                                    
                                     </div>
   
             <br><br>
   
                  
         
-                    <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>
+                    
         </div>
     </div>
 </div>
