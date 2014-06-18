@@ -15,6 +15,7 @@
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
     <tr>
+        
         <td>Nombre tema</td>
         <td>Nombre subtema</td>
         <td>Nombre unidad</td>
@@ -23,13 +24,24 @@
     </tr>
   <c:forEach items="${list}" var="item">
     <tr>
-     <td><c:out value="${item.temas.nombreTema}"/></td>   
-      <td><c:out value="${item.nombreTema}"/></td>
-    
-      <td><c:out value="${item.unidades.nombreUnidad}"/></td>
-      
-      <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="TemasController?accion=borrar&id=${item.idTema}" href="#">Borrar</a></td>
-      <td><a class="btn btn-warning" href="TemasController?accion=buscar&id=${item.idTema}&uni=${item.unidades.idUnidad}">Editar</a></td>
+        <c:if test="${item.temas.nombreTema!=null}">
+            <td><c:out value="${item.temas.nombreTema}"/></td>   
+            <td><c:out value="${item.nombreTema}"/></td>
+            <td><c:out value="${item.unidades.nombreUnidad}"/></td>
+        
+            <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="TemasController?accion=borrar&id=${item.idTema}" href="#">Borrar</a></td>
+            <td><a class="btn btn-warning" href="TemasController?accion=buscar&id=${item.idTema}&uni=${item.unidades.idUnidad}">Editar</a></td>
+            
+        </c:if>
+        <c:if test="${item.temas.nombreTema==null}">
+            <td><c:out value="${item.nombreTema}"/></td>
+            <td><c:out value="${item.temas.nombreTema}"/></td>   
+            <td><c:out value="${item.unidades.nombreUnidad}"/></td>
+        
+            <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="TemasController?accion=borrar&id=${item.idTema}" href="#">Borrar</a></td>
+            <td><a class="btn btn-warning" href="TemasController?accion=buscar&id=${item.idTema}&uni=${item.unidades.idUnidad}">Editar</a></td>
+        
+        </c:if>
     </tr>
   </c:forEach>
 </table>
