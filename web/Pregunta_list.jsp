@@ -7,7 +7,7 @@
 %>  
 <jsp:include page="header_PROF.jsp" flush="true" /> 
 <%}%>
-
+ 
 <%    if ((session.getAttribute("user") == null)) {
         request.getRequestDispatcher("login_.jsp").forward(request, response);
     } else {
@@ -130,5 +130,6 @@
 
         }
       </script>
+      
       
 <%@include file="footer.jsp" %>
