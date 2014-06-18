@@ -53,7 +53,6 @@ for(edu.uv.model.pojos.Unidades en:list2){
 </select>
 
 
- 
 
 
 <%@include file="footer.jsp" %>

@@ -34,8 +34,7 @@ public class LoginController extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.invalidate();
         session = request.getSession(true);
-        if (request.getParameter("usuario")!=null) {
-            
+        if (request.getParameter("usuario")!=null) {       
         
         String usuario = request.getParameter("usuario");
         String pass = request.getParameter("password");

@@ -31,7 +31,6 @@ public class UnidadesController extends HttpServlet {
     static final String UPDATE = "actualizar";
     static final String INSERT = "insertar";
 
-
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             //validar que el usuario tenga la sesion iniciada

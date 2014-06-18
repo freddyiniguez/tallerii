@@ -204,16 +204,11 @@
          
           }
           
-                function Eliminar(){
-       var lista=document.getElementById("listbox");
-       lista.options[lista.selectedIndex]=null;
+       function Eliminar(){
+            var lista=document.getElementById("listbox");
+            lista.options[lista.selectedIndex]=null;
         }
-
- 
-        
-        
-        
-        
+         
         
         
       </script>
