@@ -63,6 +63,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.getRequestDispatcher("Unidades_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERT:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("list",Unidades_DAO.findAll());            
+                    request.getRequestDispatcher("Unidades_list.jsp").forward(request, response);
+                    return;
+                }
+
+
                 
                 String[] eeList= request.getParameterValues("Ee");
                 String[] unidadesList=request.getParameterValues("nombreUnidad");
@@ -89,12 +96,24 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case DELETE:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("list",Unidades_DAO.findAll());            
+                    request.getRequestDispatcher("Unidades_list.jsp").forward(request, response);
+                    return;
+                }
+                
                 id= request.getParameter("id");
                 Unidades_DAO.delete(Integer.parseInt(id));
                 request.setAttribute("url","UnidadesController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case UPDATE:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("list",Unidades_DAO.findAll());            
+                    request.getRequestDispatcher("Unidades_list.jsp").forward(request, response);
+                    return;
+                }
+                
                 c = new Unidades();
                 c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("Ee"))));
                 c.setNombreUnidad(new String(request.getParameter("nombreUnidad").getBytes("ISO-8859-1"),"UTF-8"));
@@ -112,6 +131,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 break;
             case FIND:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("list",Unidades_DAO.findAll());            
+                    request.getRequestDispatcher("Unidades_list.jsp").forward(request, response);
+                    return;
+                }
+                
                 id= request.getParameter("id");
                 c = Unidades_DAO.find(Integer.parseInt(id));           
                 request.setAttribute("Unidades",c);
@@ -119,6 +144,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("Unidades_edit.jsp").forward(request, response);
                 break;
             case ADD:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("list",Unidades_DAO.findAll());            
+                    request.getRequestDispatcher("Unidades_list.jsp").forward(request, response);
+                    return;
+                }
+                
                 request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
                 request.getRequestDispatcher("Unidades_add.jsp").forward(request, response);
                 break;
