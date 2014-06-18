@@ -28,6 +28,18 @@ Bienvenido al sistema!
 <br>
 <%="id de academia= "+session.getAttribute("academia")%>
 <br>
-   
+<h3>DEBUG de Materias</h3>
+<select name="tabla1" id="tabla1">
+ 
+<% 
+java.util.ArrayList<edu.uv.model.pojos.ExperieciaEducativa> list = (java.util.ArrayList)session.getAttribute("matslist");
+if(list!=null)
+for(edu.uv.model.pojos.ExperieciaEducativa en:list){
+%>
+<option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
+<%};%>
+</select>
+ 
+
 
 <%@include file="footer.jsp" %>

@@ -38,6 +38,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.getRequestDispatcher("login_.jsp").forward(request, response);
             return;
             } 
+            
+            if (session.getAttribute("rol").equals("Administrador")) {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            return;
+            }
+            
             String accion = request.getParameter("accion");
             String id ="";
             Temas c = null;
@@ -57,6 +63,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.getRequestDispatcher("Temas_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERTA:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("listaEE", EEDAO.findAll());
+                    request.setAttribute("list",Temas_DAO.findAll());
+                    request.getRequestDispatcher("Temas_list.jsp").forward(request, response); 
+                return;
+                }
                 String[] nombreTemasList= request.getParameterValues("nombreTema");
                 String[] unidadesList=request.getParameterValues("unidad");
                     
@@ -83,6 +95,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case INSERTB:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("listaEE", EEDAO.findAll());
+                    request.setAttribute("list",Temas_DAO.findAll());
+                    request.getRequestDispatcher("Temas_list.jsp").forward(request, response); 
+                return;
+                }
+                
                 String[] nombreTemasList2= request.getParameterValues("nombreTema");
                 String[] temas2List=request.getParameterValues("tema");
                 String[] unidadesList2=request.getParameterValues("unidad");
@@ -112,12 +131,26 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case DELETE:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("listaEE", EEDAO.findAll());
+                    request.setAttribute("list",Temas_DAO.findAll());
+                    request.getRequestDispatcher("Temas_list.jsp").forward(request, response);
+                return;
+                }
+                
                 id= request.getParameter("id");
                 Temas_DAO.delete(Integer.parseInt(id));
                 request.setAttribute("url","TemasController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case UPDATE:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("listaEE", EEDAO.findAll());
+                    request.setAttribute("list",Temas_DAO.findAll());
+                    request.getRequestDispatcher("Temas_list.jsp").forward(request, response);
+                return;
+                }
+                
                 c = new Temas();
                 c.setNombreTema(new String(request.getParameter("nombreTema").getBytes("ISO-8859-1"),"UTF-8"));
                 if(!request.getParameter("tema").equals("")){
@@ -140,6 +173,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 break;
             case FIND:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("listaEE", EEDAO.findAll());
+                    request.setAttribute("list",Temas_DAO.findAll());
+                    request.getRequestDispatcher("Temas_list.jsp").forward(request, response);
+                return;
+                }
+                
                 id= request.getParameter("id");
                 c = Temas_DAO.find(Integer.parseInt(id)); 
                 String uni=request.getParameter("uni");
@@ -153,6 +193,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("Temas_edit.jsp").forward(request, response);
                 break;
             case ADD:
+                if (session.getAttribute("rol").equals("Profesor")) {
+                    request.setAttribute("listaEE", EEDAO.findAll());
+                    request.setAttribute("list",Temas_DAO.findAll());
+                    request.getRequestDispatcher("Temas_list.jsp").forward(request, response);
+                return;
+                }
+                
                 request.setAttribute("Temas",Temas_DAO.findAll());
                 String exp =request.getParameter("idEE");
                 request.setAttribute("Unidades",Unidades_DAO.findAllby("ExperieciaEducativa_idExperieciaEducativa",exp));

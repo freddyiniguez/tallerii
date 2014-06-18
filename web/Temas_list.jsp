@@ -1,17 +1,17 @@
+<% if(session.getAttribute("rol")=="Coordinador"){  
+%>  
 <%@include file="header_COORD.jsp" %>
+<%}%> 
 
-<%    if ((session.getAttribute("user") == null)) {
-        request.getRequestDispatcher("login_.jsp").forward(request, response);
-    } else {
-
-    }
-    if (!session.getAttribute("rol").equals("Coordinador")) {
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
-%>
+<% if(session.getAttribute("rol")=="Profesor"){  
+%>  
+<%@include file="header_PROF.jsp" %> 
+<%}%>
 
 <h2>Lista de Temas</h2>
-<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp" >Agregar Temas</a>
+<% if(session.getAttribute("rol")!="Profesor"){%> 
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp" >Agregar Temas</a>
+<%}%> 
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
     <tr>
@@ -19,8 +19,10 @@
         <td>Nombre tema</td>
         <td>Nombre subtema</td>
         <td>Nombre unidad</td>
+        <% if(session.getAttribute("rol")!="Profesor"){%>  
         <td class="unsortable">Borrar</td>
         <td class="unsortable">Editar</td>
+        <%}%> 
     </tr>
   <c:forEach items="${list}" var="item">
     <tr>
@@ -28,19 +30,22 @@
             <td><c:out value="${item.temas.nombreTema}"/></td>   
             <td><c:out value="${item.nombreTema}"/></td>
             <td><c:out value="${item.unidades.nombreUnidad}"/></td>
-        
+            
+            <% if(session.getAttribute("rol")!="Profesor"){%>
             <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="TemasController?accion=borrar&id=${item.idTema}" href="#">Borrar</a></td>
             <td><a class="btn btn-warning" href="TemasController?accion=buscar&id=${item.idTema}&uni=${item.unidades.idUnidad}">Editar</a></td>
-            
+            <%}%> 
         </c:if>
         <c:if test="${item.temas.nombreTema==null}">
             <td><c:out value="${item.nombreTema}"/></td>
             <td><c:out value="${item.temas.nombreTema}"/></td>   
             <td><c:out value="${item.unidades.nombreUnidad}"/></td>
-        
+            
+            <% if(session.getAttribute("rol")!="Profesor"){%>
             <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="TemasController?accion=borrar&id=${item.idTema}" href="#">Borrar</a></td>
             <td><a class="btn btn-warning" href="TemasController?accion=buscar&id=${item.idTema}&uni=${item.unidades.idUnidad}">Editar</a></td>
-        
+            <%}%> 
+            
         </c:if>
     </tr>
   </c:forEach>
