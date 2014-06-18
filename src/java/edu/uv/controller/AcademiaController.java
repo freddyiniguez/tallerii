@@ -85,6 +85,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                         Academia_DAO.create(c);
                         request.getRequestDispatcher("success.jsp").forward(request, response);
                     }
+                    
                 }
                 
                 break;
