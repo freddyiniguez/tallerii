@@ -32,8 +32,8 @@
                 <table class="table">
                     
                     <tr>
-                        <td> <span class="label label-primary">Campo</span></td>
-                        <td> <span class="label label-primary">Error</span></td>
+                        <td> <span class="label label-primary">Campo  ${campos}</span></td>
+                        <td> <span class="label label-primary">Error ${tipo} </span></td>
                     </tr>
                     <c:forEach items="${mensajes}" var="error">
 

@@ -55,6 +55,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 // enviar mensajes a jsp
                 if (violations.size()>0){
                 request.setAttribute("mensajes", violations);
+                 if(request.getParameter("nombreProfesor").equals("")){
+                    request.setAttribute("campos", "NOMBRE PROFESOR");    
+                    request.setAttribute("tipo", "INCOMPLETO");
+                }
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
                 else{
