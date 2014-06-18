@@ -49,6 +49,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             
             String accion = request.getParameter("accion");
             String id ="";
+            String id2="";
+            ExperieciaEducativa y=null;
             Unidades c = null;
             Unidades x = null;
             ExperieciaEducativa E = new ExperieciaEducativa();
@@ -138,8 +140,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 
                 id= request.getParameter("id");
-                c = Unidades_DAO.find(Integer.parseInt(id));           
+                id2= request.getParameter("id2");
+                c = Unidades_DAO.find(Integer.parseInt(id));
+                y = ExperieciaEducativa_DAO.find(Integer.parseInt(id2));
                 request.setAttribute("Unidades",c);
+                request.setAttribute("Experiencia",y);
                 request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
                 request.getRequestDispatcher("Unidades_edit.jsp").forward(request, response);
                 break;

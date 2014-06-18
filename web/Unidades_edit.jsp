@@ -20,7 +20,7 @@
 <%}%>
 
 <h1><B><center>Edición de unidades </center></b></h1>
-        <form action="UnidadesController" method="POST">
+        <form action="UnidadesController" method="POST" name="unidad">
         	<input type="hidden" name="idUnidad" value="${Unidades.idUnidad}" />
             
                                     <div class="clearfix"></div>
@@ -40,6 +40,19 @@
 
                                       <%};%>
                                        </select>
+                                       <script>
+                                                        var i=0;
+                                                        var nombre="";
+                                           for(i=0;i<=document.unidad.Ee.options.length;i++){
+                                               nombre=unidad.Ee.options[i].value;
+                                               var n=${Experiencia.idExperieciaEducativa};
+                                               var s= n.toString();
+                                             if(nombre === s){
+                                                 unidad.Ee.options[i].selected = true;
+                                               return false;
+                                            }
+                                            }
+                                                     </script>
                                        <span class="input-group-btn">
                                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
                                        </span>
@@ -53,7 +66,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="nombreUnidad">Nombre de la unidad:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="nombreUnidad" type="text" name="nombreUnidad" value="${Unidades.nombreUnidad}"  />
+                                    <input required class ="form-control" id="nombreUnidad" type="text" name="nombreUnidad" value="${Unidades.nombreUnidad}" maxlength="60" />
                                     </div>
                                     </div>
                                     <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para la edición.  </font>  </p> </h5>

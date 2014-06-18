@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="nombreUnidad">Nombre de la unidad:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="nombreUnidad" type="text" name="nombreUnidad" value=""  />
+                                    <input required class ="form-control" id="nombreUnidad" type="text" name="nombreUnidad" value="" maxlength="60" />
                                     </div>
                                     </div>
                                     <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro.  </font>  </p> </h5>

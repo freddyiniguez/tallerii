@@ -45,7 +45,7 @@
       <% if(session.getAttribute("rol")!="Profesor"){  
        %>  
         <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="UnidadesController?accion=borrar&id=${item.idUnidad}" href="#">Borrar</a></td>
-      <td><a class="btn btn-warning" href="UnidadesController?accion=buscar&id=${item.idUnidad}">Editar</a></td>
+      <td><a class="btn btn-warning" href="UnidadesController?accion=buscar&id=${item.idUnidad}&id2=${item.experieciaEducativa.idExperieciaEducativa}">Editar</a></td>
     <%}%> 
       
     </tr>
