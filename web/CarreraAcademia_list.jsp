@@ -9,7 +9,7 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 %>
-
+<h2>Lista de Carrera-Academia</h2>
 <a href="CarreraAcademiaController?accion=agregar" class="btn btn-primary">Agregar a CarreraAcademia</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">

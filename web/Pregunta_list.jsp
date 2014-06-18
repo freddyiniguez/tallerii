@@ -17,7 +17,7 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 %>
-
+<h2>Lista de Preguntas</h2>
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar a Pregunta</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <div class="row">
