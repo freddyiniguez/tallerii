@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <% if(session.getAttribute("rol")=="Coordinador"){  
 %>  
 <jsp:include page="header_COORD.jsp" flush="true" /> 
@@ -26,45 +27,68 @@
       <div class="row clearfix">
         <div class="col-md-2 column">
           <h3>
-            Seleccione EE
+            Seleccione EE Y UNIDAD
           </h3>
-          <div class="btn-group">
-             <button class="btn btn-default">Action</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="#">EE</a>
-              </li>
-              <li class="disabled">
-                <a href="#">Another action</a>
-              </li>
-              <li class="divider">
-              </li>
-              <li>
-                <a href="#">Something else here</a>
-              </li>
-            </ul>
-          </div>
+                 <body onload="Cargar()">
+                  <div id="contenidos">
+                 <div id="lista">
+                     
+                      <select class="form-control"  id="mySelect"  onchange="Seleccionar()">
+                                        <% 
+                                      java.util.ArrayList<edu.uv.model.pojos.ExperieciaEducativa> list = (java.util.ArrayList)session.getAttribute("matslist");
+                                      if(list!=null)
+                                      for(edu.uv.model.pojos.ExperieciaEducativa en:list){
+                                      %>
+ 
+                                      <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
+
+                                      <%};%>
+             </select>   
+                     
+                <select class="form-control" id="listbox" >
+                    
+                </select>
+             
+             <select id="unidadesActuales" hidden="True">
+                                    <% 
+                java.util.ArrayList<edu.uv.model.pojos.Unidades> list2 = (java.util.ArrayList)session.getAttribute("unidadesList");
+                if(list2!=null)
+                for(edu.uv.model.pojos.Unidades en:list2){
+                %>
+                <option value=<%= en.getExperieciaEducativa().getIdExperieciaEducativa() %> > <%= en.getNombreUnidad()%> </option >
+                <%};%>
+                </select>
+                
+                 
+             <select id="valores" hidden="True">
+                                    <% 
+                java.util.ArrayList<edu.uv.model.pojos.Unidades> list3 = (java.util.ArrayList)session.getAttribute("unidadesList");
+                if(list3!=null)
+                for(edu.uv.model.pojos.Unidades en:list3){
+                %>
+                <option value=<%= en.getIdUnidad()%> > <%= en.getNombreUnidad()%> </option >
+                <%};%>
+                </select>
+             
+                 </div>
+              
+                  </div>
+                </body>
+
+            
+           
+             
+           
+             
         </div>
         <div class="col-md-3 column">
           <h3>
             Seleccione unidad
           </h3>
-          <div class="btn-group">
-             <button class="btn btn-default">Action</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="#">Action</a>
-              </li>
-              <li class="disabled">
-                <a href="#">Another action</a>
-              </li>
-              <li class="divider">
-              </li>
-              <li>
-                <a href="#">Something else here</a>
-              </li>
-            </ul>
-          </div>
+          
+           
+            
+            
         </div>
         <div class="col-md-2 column">
            <button type="button" class="btn btn-primary">Default</button>
@@ -141,6 +165,57 @@
 	location.replace("PreguntaController?accion=agregar&idEE="+y[x].value);
 
         }
+        
+        function Cargar(){
+               var lista=document.getElementById("listbox");
+               lista.options.add(new Option("Selecciona ER primero","0"));
+         }
+
+        function Seleccionar(){
+            Eliminar();
+            Agregar();
+          }
+
+        function Agregar(){
+            var lista=document.getElementById("listbox");
+            var valor = document.getElementById("valores").options;
+            
+            var x = document.getElementById("mySelect").selectedIndex;
+            var y = document.getElementById("mySelect").options;
+            
+            //alert("EXPERIENCIA SELECCIONADA"+y[x].value); //BIEN
+            
+            var unidadesTotales = document.getElementById("unidadesActuales").options;
+            var longitud = document.getElementById("unidadesActuales").options.length;
+            //alert(longitud);
+            var aux=0;
+            lista.options[lista.selectedIndex]=null;
+            while(aux<longitud){
+                //alert(unidadesTotales[aux].value+"valor"+y[x].value);
+                if(unidadesTotales[aux].value == y[x].value){
+                    //alert("igual" +unidadesTotales[aux].text+" "+valor[aux].value);
+                    lista.options.add(new Option(unidadesTotales[aux].text,valor[aux].value));
+                }
+                aux=aux+1;
+                
+            }
+         
+         
+         
+          }
+          
+                function Eliminar(){
+       var lista=document.getElementById("listbox");
+       lista.options[lista.selectedIndex]=null;
+        }
+
+ 
+        
+        
+        
+        
+        
+        
       </script>
       
       

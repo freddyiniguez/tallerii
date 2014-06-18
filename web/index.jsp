@@ -39,6 +39,20 @@ for(edu.uv.model.pojos.ExperieciaEducativa en:list){
 <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
 <%};%>
 </select>
+
+<h3>DEBUG de Unidades ${idpersonal}</h3>
+<select name="tabla1" id="tabla2">
+ 
+<% 
+java.util.ArrayList<edu.uv.model.pojos.Unidades> list2 = (java.util.ArrayList)session.getAttribute("unidadesList");
+if(list2!=null)
+for(edu.uv.model.pojos.Unidades en:list2){
+%>
+<option value=<%= en.getIdUnidad()%> > <%= en.getNombreUnidad()%> </option >
+<%};%>
+</select>
+
+
  
 
 

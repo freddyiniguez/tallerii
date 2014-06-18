@@ -5,11 +5,13 @@ import edu.uv.model.dao.PersonalDAO;
 import edu.uv.model.dao.UsuariosDAO;
 import edu.uv.model.dao.ImparteDAO;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
+import edu.uv.model.dao.UnidadesDAO;
 import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.Personal;
 import edu.uv.model.pojos.Usuarios;
 import edu.uv.model.pojos.Imparte;
 import edu.uv.model.pojos.ExperieciaEducativa;
+import edu.uv.model.pojos.Unidades;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class LoginController extends HttpServlet {
         if (res!=null) {
             Personal per=res.getPersonal();
             session.setAttribute("idusuario", res.getIdUsuario());
+            session.setAttribute("idpersonal", per.getIdPersonal());
             
             if (res.getEstadoUsuario().equals("inactivo")) {
                 session.setAttribute("estado", "Su cuenta esta desactivada, consulte al administrador");
@@ -60,12 +63,19 @@ public class LoginController extends HttpServlet {
                 }else{/////////////////////////////////////////////////////////////////////////////////////////////////
                     int academia= buscarRol(per.getIdPersonal());
                     List<ExperieciaEducativa> mats =buscarMateriasAcademia(per.getIdPersonal());
+                    List<Unidades> auxiliar3 ;
 
                     if (academia!=-5) {//es coordinador
                         mats = buscarMateriasAcademia(per.getIdPersonal());
                         session.setAttribute("rol", "Coordinador");
                         session.setAttribute("academia", academia);
                         session.setAttribute("matslist", mats);
+                        auxiliar3 = buscarUnidades((Integer)session.getAttribute("idpersonal"));
+                        if(auxiliar3.size()>0){
+                            session.setAttribute("unidadesList", auxiliar3);    
+                        }
+                        
+                        
                     }else{//es profesor
                          mats =buscarMaterias(per.getIdPersonal(),1);
                         session.setAttribute("rol", "Profesor");
@@ -113,7 +123,39 @@ public class LoginController extends HttpServlet {
         return idAcademia;
         
     }
-    
+    protected List buscarUnidades(int idPersonal){
+            AcademiaDAO acaDao = new AcademiaDAO(); 
+            List<Academia> academias = acaDao.findAll();
+            List <Academia> pertenece = new ArrayList();
+            ExperieciaEducativaDAO expe = new ExperieciaEducativaDAO();
+            List <ExperieciaEducativa> experiencias = expe.findAll();
+            
+
+            UnidadesDAO unidades = new UnidadesDAO();
+            List <Unidades> listaUnidades = unidades.findAll();
+            List <Unidades> resultadoUnidades = new ArrayList();
+
+
+            for(Academia aux:academias){
+                if(aux.getPersonal()!=null)
+                if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
+                    pertenece.add(aux);
+                }
+            }
+            for(ExperieciaEducativa aux:experiencias){
+                for(Academia auy:pertenece){
+                    if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
+                        for(Unidades ex:listaUnidades){
+                            if(ex.getExperieciaEducativa().getIdExperieciaEducativa().equals(aux.getIdExperieciaEducativa())){
+                                resultadoUnidades.add(ex);
+                            }
+                        }
+                    }
+                }
+            }
+            return resultadoUnidades;
+        }
+
      protected List buscarMateriasAcademia(int idPersonal){
         AcademiaDAO acaDao = new AcademiaDAO(); 
         List<Academia> academias = acaDao.findAll();

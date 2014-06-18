@@ -1,11 +1,15 @@
 package edu.uv.controller;
+import edu.uv.model.dao.AcademiaDAO;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.dao.UnidadesDAO;
+import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.ExperieciaEducativa;
 import edu.uv.model.pojos.Temas;
 import edu.uv.model.pojos.Unidades;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,9 +74,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     request.getRequestDispatcher("Unidades_list.jsp").forward(request, response);
                     return;
                 }
-
-
-                
                 String[] eeList= request.getParameterValues("Ee");
                 String[] unidadesList=request.getParameterValues("nombreUnidad");
                 int aux1=unidadesList.length;
@@ -95,6 +96,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                         i++;
                     }
                 }
+                List<Unidades> auxiliar = buscarUnidades((Integer)session.getAttribute("idpersonal"));
+                if(auxiliar.size()>0){
+                    session.setAttribute("unidadesList", auxiliar);    
+                }
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case DELETE:
@@ -103,9 +108,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     request.getRequestDispatcher("Unidades_list.jsp").forward(request, response);
                     return;
                 }
-                
                 id= request.getParameter("id");
                 Unidades_DAO.delete(Integer.parseInt(id));
+                List<Unidades> auxiliar2 = buscarUnidades((Integer)session.getAttribute("idpersonal"));
+                if(auxiliar2.size()>0){
+                    session.setAttribute("unidadesList", auxiliar2);    
+                }
                 request.setAttribute("url","UnidadesController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
@@ -127,9 +135,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
                 else{
-                Unidades_DAO.update(c);
-                request.setAttribute("url","UnidadesController");
-                request.getRequestDispatcher("success.jsp").forward(request, response);
+                    Unidades_DAO.update(c);
+                    List<Unidades> auxiliar3 = buscarUnidades((Integer)session.getAttribute("idpersonal"));
+                    if(auxiliar3.size()>0){
+                        session.setAttribute("unidadesList", auxiliar3);    
+                    }
+                    request.setAttribute("url","UnidadesController");
+                    request.getRequestDispatcher("success.jsp").forward(request, response);
                 }
                 break;
             case FIND:
@@ -163,6 +175,40 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }
         
  }
+    protected List buscarUnidades(int idPersonal){
+            AcademiaDAO acaDao = new AcademiaDAO(); 
+            List<Academia> academias = acaDao.findAll();
+            List <Academia> pertenece = new ArrayList();
+            ExperieciaEducativaDAO expe = new ExperieciaEducativaDAO();
+            List <ExperieciaEducativa> experiencias = expe.findAll();
+            List <ExperieciaEducativa> resultado = new ArrayList();
+
+            UnidadesDAO unidades = new UnidadesDAO();
+            List <Unidades> listaUnidades = unidades.findAll();
+            List <Unidades> resultadoUnidades = new ArrayList();
+
+
+            for(Academia aux:academias){
+                if(aux.getPersonal()!=null)
+                if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
+                    pertenece.add(aux);
+                }
+            }
+            for(ExperieciaEducativa aux:experiencias){
+                for(Academia auy:pertenece){
+                    if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
+                        for(Unidades ex:listaUnidades){
+                            if(ex.getExperieciaEducativa().getIdExperieciaEducativa().equals(aux.getIdExperieciaEducativa())){
+                                resultadoUnidades.add(ex);
+                            }
+                        }
+                    }
+                }
+            }
+            return resultadoUnidades;
+        }
+
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

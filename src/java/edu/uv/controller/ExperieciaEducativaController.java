@@ -1,10 +1,14 @@
 package edu.uv.controller;
 import edu.uv.model.dao.AcademiaDAO;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
+import edu.uv.model.dao.ImparteDAO;
 import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.ExperieciaEducativa;
+import edu.uv.model.pojos.Imparte;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,14 +74,32 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
                 else{
-                ExperieciaEducativa_DAO.create(c);
-                request.getRequestDispatcher("success.jsp").forward(request, response);
+                    ExperieciaEducativa_DAO.create(c);
+                    if(request.getParameter("rol").equals("Coordinador")){
+                        List<ExperieciaEducativa> mats =buscarMateriasAcademia((Integer)session.getAttribute("idpersonal"));
+                        request.setAttribute("matslist", mats);   
+                    }else{
+                        if (request.getParameter("rol").equals("Administrador")) {
+                             List<ExperieciaEducativa> mats =buscarMaterias(-50,0);
+                             request.setAttribute("matslist", mats);   
+                        }
+                    }
+                    request.getRequestDispatcher("success.jsp").forward(request, response);
                 }
                 
                 break;
             case DELETE:
                 id= request.getParameter("id");
                 ExperieciaEducativa_DAO.delete(Integer.parseInt(id));
+                if(session.getAttribute("rol").equals("Coordinador")){
+                    List<ExperieciaEducativa> mats =buscarMateriasAcademia((Integer)session.getAttribute("idpersonal"));
+                    request.setAttribute("matslist", mats);   
+                }else{
+                    if (session.getAttribute("rol").equals("Administrador")) {
+                         List<ExperieciaEducativa> mats =buscarMaterias(-50,0);
+                         request.setAttribute("matslist", mats);   
+                    }
+                }
                 request.setAttribute("url","ExperieciaEducativaController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
@@ -96,6 +118,15 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 else{
                 ExperieciaEducativa_DAO.update(c);
+                 if(session.getAttribute("rol").equals("Coordinador")){
+                        List<ExperieciaEducativa> mats =buscarMateriasAcademia((Integer)session.getAttribute("idpersonal"));
+                        request.setAttribute("matslist", mats);   
+                    }else{
+                        if (session.getAttribute("rol").equals("Administrador")) {
+                             List<ExperieciaEducativa> mats =buscarMaterias(-50,0);
+                             request.setAttribute("matslist", mats);   
+                        }
+                    }
                 request.setAttribute("url","ExperieciaEducativaController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 }
@@ -117,6 +148,57 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }
         
  }
+
+ protected List buscarMateriasAcademia(int idPersonal){
+        AcademiaDAO acaDao = new AcademiaDAO(); 
+        List<Academia> academias = acaDao.findAll();
+        List <Academia> pertenece = new ArrayList();
+        ExperieciaEducativaDAO expe = new ExperieciaEducativaDAO();
+        List <ExperieciaEducativa> experiencias = expe.findAll();
+        List <ExperieciaEducativa> resultado = new ArrayList();
+        
+        for(Academia aux:academias){
+            if(aux.getPersonal()!=null)
+            if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
+                pertenece.add(aux);
+            }
+        }
+        for(ExperieciaEducativa aux:experiencias){
+            for(Academia auy:pertenece){
+                if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
+                    resultado.add(aux);
+                }
+            }
+        }
+        return resultado;
+    }
+     
+ protected List buscarMaterias(int idPersonal, int modo){
+        ImparteDAO im=new ImparteDAO();
+        ExperieciaEducativaDAO expDAO=new ExperieciaEducativaDAO();
+        List<ExperieciaEducativa> ExpsAll=expDAO.findAll();
+        List<Imparte>imparteAll=im.findAll();
+        List<ExperieciaEducativa> mats=new ArrayList();
+        if (modo==0) {
+            //mats=matsAll;
+            mats=expDAO.findAll();
+        }else{
+        for (Imparte imp:imparteAll) {
+            if(imp.getPersonal()!=null)
+            if (imp.getPersonal().getIdPersonal().equals(idPersonal)) {
+                
+                for (ExperieciaEducativa e1:ExpsAll) {
+                    if (e1.getIdExperieciaEducativa().equals(imp.getExperieciaEducativa().getIdExperieciaEducativa())) {
+                        mats.add(e1);
+                    }
+                }
+//mats.add(imp);
+            }
+        }
+        }
+        
+        return mats;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
