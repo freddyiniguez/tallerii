@@ -1,6 +1,6 @@
-<%@include file="header_COORD.jsp" %>
+<%--<%@include file="header_COORD.jsp" %>--%>
 
-<%    if ((session.getAttribute("user") == null)) {
+<%--<%    if ((session.getAttribute("user") == null)) {
         request.getRequestDispatcher("login_.jsp").forward(request, response);
     } else {
 
@@ -8,7 +8,16 @@
     if (!session.getAttribute("rol").equals("Coordinador")) {
         request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-%>
+%>--%>
+<% if(session.getAttribute("rol")=="Coordinador"){  
+%>  
+<%@include file="header_COORD.jsp" %>
+<%}%> 
+
+<% if(session.getAttribute("rol")=="Profesor"){  
+%>  
+<%@include file="header_PROF.jsp" %> 
+<%}%>
 
 <h1><B><center>Registro de unidades </center></b></h1>
         <form action="UnidadesController" method="POST">

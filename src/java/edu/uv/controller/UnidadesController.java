@@ -33,10 +33,20 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             //validar que el usuario tenga la sesion iniciada
             HttpSession session = request.getSession(true);
             
+            
+            
             if ((session.getAttribute("user") == null)) {
             request.getRequestDispatcher("login_.jsp").forward(request, response);
             return;
             } 
+            
+           
+            if (session.getAttribute("rol").equals("Administrador")) {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            return;
+            }
+            
+            
             String accion = request.getParameter("accion");
             String id ="";
             Unidades c = null;
