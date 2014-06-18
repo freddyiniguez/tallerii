@@ -151,6 +151,7 @@ public class LoginController extends HttpServlet {
             mats=expDAO.findAll();
         }else{
         for (Imparte imp:imparteAll) {
+            if(imp.getPersonal()!=null)
             if (imp.getPersonal().getIdPersonal().equals(idPersonal)) {
                 
                 for (ExperieciaEducativa e1:ExpsAll) {
