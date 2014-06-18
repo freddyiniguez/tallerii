@@ -55,7 +55,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case INSERT:
                 c = new Usuarios();
                 c.setLoginUsuario(new String(request.getParameter("loginUsuario").getBytes("ISO-8859-1"),"UTF-8"));
-                c.setPasswordUsuario(new String(request.getParameter("paswordUsuario").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setPasswordUsuario(new String(request.getParameter("passwordUsuario").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setEstadoUsuario(new String(request.getParameter("estadoUsuario").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setRol(request.getParameter("rol"));
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
