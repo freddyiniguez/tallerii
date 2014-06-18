@@ -148,6 +148,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 CarreraAcademia_DAO.delete(aux.getIdCarreraAcademia());
             }
         }  
+        
     }
 
     public boolean encontrado(Academia c){
