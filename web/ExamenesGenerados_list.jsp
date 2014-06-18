@@ -18,7 +18,7 @@
         }
 %>
 
-
+<h2>Lista de Exámenes</h2>
 <a href="ExamenesGeneradosController?accion=agregar" class="btn btn-primary">Agregar a ExamenesGenerados</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">

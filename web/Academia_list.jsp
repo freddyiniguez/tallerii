@@ -10,7 +10,7 @@
         }
 %>
 
-<h2>Lista de academias</h2>
+<h2>Lista de Academias</h2>
 <a href="AcademiaController?accion=agregar" class="btn btn-primary">Agregar a Academia</a>
 
 
