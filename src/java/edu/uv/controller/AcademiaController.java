@@ -1,7 +1,9 @@
 package edu.uv.controller;
 import edu.uv.model.dao.AcademiaDAO;
+import edu.uv.model.dao.CarreraAcademiaDAO;
 import edu.uv.model.dao.PersonalDAO;
 import edu.uv.model.pojos.Academia;
+import edu.uv.model.pojos.CarreraAcademia;
 import edu.uv.model.pojos.Personal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -91,6 +93,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case DELETE:
                 id= request.getParameter("id");
+                borrarRelacion(id);
                 Academia_DAO.delete(Integer.parseInt(id));
                 request.setAttribute("url","AcademiaController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
@@ -136,6 +139,18 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }
         
  }
+    public void borrarRelacion(String id){
+        CarreraAcademiaDAO CarreraAcademia_DAO= new CarreraAcademiaDAO();
+        List<CarreraAcademia> lista = new ArrayList();
+        lista = CarreraAcademia_DAO.findAll();
+        for(CarreraAcademia aux:lista){
+            if(aux.getAcademia().getIdAcademia().equals(Integer.parseInt(id))){
+                CarreraAcademia_DAO.delete(aux.getIdCarreraAcademia());
+            }
+        }
+        
+        
+    }
 
     public boolean encontrado(Academia c){
         boolean res=true;
