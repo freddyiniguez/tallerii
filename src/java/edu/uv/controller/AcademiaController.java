@@ -5,6 +5,8 @@ import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.Personal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,17 +63,28 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 Set<ConstraintViolation<Academia>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){
-                request.setAttribute("mensajes", violations);
-                if(request.getParameter("nombreAcademia").equals("")){
-                    request.setAttribute("campos", "NOMBRE");    
-                    request.setAttribute("tipo", "INCOMPLETO");
-                }
-                
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                    request.setAttribute("mensajes", violations);
+                    if(request.getParameter("nombreAcademia").equals("") ){
+                        request.setAttribute("campos", "NOMBRE"); 
+                        request.setAttribute("tipo", "INCOMPLETO");
+                    }else{
+                         if(request.getParameter("nombreAcademia").length()<=4 && request.getParameter("nombreAcademia").length()!=0){
+                            request.setAttribute("tipo", "TAMAÑO MINIMO");
+                            request.setAttribute("campos", "NOMBRE");
+                        }
+                    }
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
                 else{
-                Academia_DAO.create(c);
-                request.getRequestDispatcher("success.jsp").forward(request, response);
+                    if(!encontrado(c)){
+                        request.setAttribute("mensajes", violations);
+                        request.setAttribute("campos", "COORDINADOR"); 
+                        request.setAttribute("tipo", "PERTENECE A OTRA ACADEMIA");
+                        request.getRequestDispatcher("error.jsp").forward(request, response); 
+                    }else{
+                        Academia_DAO.create(c);
+                        request.getRequestDispatcher("success.jsp").forward(request, response);
+                    }
                 }
                 
                 break;
@@ -122,6 +135,18 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }
         
  }
+
+    public boolean encontrado(Academia c){
+        boolean res=true;
+        AcademiaDAO Academia_DAO = new AcademiaDAO();
+        List <Academia> academias = Academia_DAO.findAll();
+        for(Academia aux:academias){
+            if(aux.getPersonal().getIdPersonal().equals(c.getPersonal().getIdPersonal())){
+                res= false;
+            }
+        }
+        return res;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
