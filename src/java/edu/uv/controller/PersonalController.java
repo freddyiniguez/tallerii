@@ -76,8 +76,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 break;
             case DELETE:
-                id= request.getParameter("id");
-                
+                id= request.getParameter("id");   
                 if(!encontrado(id)){
                       request.setAttribute("tipo", "EDITA PRIMERO AL COORDINADOR");
                       request.setAttribute("campos", "COORDINADOR");

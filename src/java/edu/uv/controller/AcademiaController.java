@@ -142,8 +142,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         AcademiaDAO Academia_DAO = new AcademiaDAO();
         List <Academia> academias = Academia_DAO.findAll();
         for(Academia aux:academias){
-            if(aux.getPersonal().getIdPersonal().equals(c.getPersonal().getIdPersonal())){
-                res= false;
+            if(aux.getPersonal()!=null){
+                if(aux.getPersonal().getIdPersonal().equals(c.getPersonal().getIdPersonal())){
+                    res= false;
+                }
             }
         }
         return res;
