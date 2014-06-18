@@ -10,7 +10,7 @@
         }
 %>
 <h2>Lista de Usuarios</h2>
-<a href="UsuariosController?accion=agregar" class="btn btn-primary">Agregar a Usuarios</a>
+<a href="UsuariosController?accion=agregar" class="btn btn-primary">Agregar Usuarios</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
   

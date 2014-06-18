@@ -11,7 +11,7 @@
 %>
 
 <h2>Lista de Temas</h2>
-<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp" >Agregar a Temas</a>
+<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp" >Agregar Temas</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
     <tr>

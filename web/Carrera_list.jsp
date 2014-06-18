@@ -11,7 +11,7 @@
 %>
 
 <h2>Lista de Carreras</h2>
-<a href="CarreraController?accion=agregar" class="btn btn-primary">Agregar carrera</a>
+<a href="CarreraController?accion=agregar" class="btn btn-primary">Agregar Carrera</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
   

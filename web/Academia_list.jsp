@@ -11,7 +11,7 @@
 %>
 
 <h2>Lista de Academias</h2>
-<a href="AcademiaController?accion=agregar" class="btn btn-primary">Agregar a Academia</a>
+<a href="AcademiaController?accion=agregar" class="btn btn-primary">Agregar Academia</a>
 
 
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
