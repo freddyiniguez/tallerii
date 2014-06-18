@@ -30,8 +30,8 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         PersonalDAO personal=new PersonalDAO();
         HttpSession session = request.getSession(true);
-        //session.invalidate();
-        //session = request.getSession(true);
+        session.invalidate();
+        session = request.getSession(true);
         if (request.getParameter("usuario")!=null) {
             
         
@@ -60,17 +60,16 @@ public class LoginController extends HttpServlet {
                 }else{/////////////////////////////////////////////////////////////////////////////////////////////////
                     int academia= buscarRol(per.getIdPersonal());
                     List<ExperieciaEducativa> mats =buscarMateriasAcademia(per.getIdPersonal());
-                   /* if (mats.size()>0) {
-                        session.setAttribute("matslist", mats);
-                    }
-                    */
-                    if (academia!=-5) {
+
+                    if (academia!=-5) {//es coordinador
                         mats = buscarMateriasAcademia(per.getIdPersonal());
                         session.setAttribute("rol", "Coordinador");
                         session.setAttribute("academia", academia);
                         session.setAttribute("matslist", mats);
-                    }else{
+                    }else{//es profesor
+                         mats =buscarMaterias(per.getIdPersonal(),1);
                         session.setAttribute("rol", "Profesor");
+                        //session.setAttribute("matslist", mats);
                     }
                 }
                 
@@ -105,6 +104,7 @@ public class LoginController extends HttpServlet {
         //ArrayList<Academia>AcademiasR=new ArrayList();
         
         for(Academia a : acs){
+            if (a.getPersonal()!=null) 
             if (a.getPersonal().getIdPersonal().equals(idPersonal)) {
                 idAcademia=a.getIdAcademia();
             }
@@ -123,6 +123,7 @@ public class LoginController extends HttpServlet {
         List <ExperieciaEducativa> resultado = new ArrayList();
         
         for(Academia aux:academias){
+            if(aux.getPersonal()!=null)
             if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
                 pertenece.add(aux);
             }
