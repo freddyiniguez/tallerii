@@ -147,9 +147,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             if(aux.getAcademia().getIdAcademia().equals(Integer.parseInt(id))){
                 CarreraAcademia_DAO.delete(aux.getIdCarreraAcademia());
             }
-        }
-        
-        
+        }  
     }
 
     public boolean encontrado(Academia c){
