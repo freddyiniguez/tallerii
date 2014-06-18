@@ -87,14 +87,23 @@
         <h5> Selecciona una Experiencia Educativa<span class="label label-default">;)</span></h5>
       <div class="modal-body">
         
+          
         <div class="list-group">
-          <c:forEach items="${listaEE}" var="itemE">
-              <a href="PreguntaController?accion=agregar&idEE=${itemE.idExperieciaEducativa}" id="" class="list-group-item" >
-                <c:out value="${itemE.nombreEe}"/>
-              </a>
-                  
+            
+            <select class="form-control"  id="mySelect">
+                                        <% 
+                                      java.util.ArrayList<edu.uv.model.pojos.ExperieciaEducativa> list = (java.util.ArrayList)session.getAttribute("matslist");
+                                      if(list!=null)
+                                      for(edu.uv.model.pojos.ExperieciaEducativa en:list){
+                                      %>
+ 
+                                      <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
+
+                                      <%};%>
+             </select>   
+          
+            
         
-            </c:forEach>
 
         </div>
         
@@ -102,10 +111,24 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-default" onclick="redirect()">Agregar</button>
+        
         
       </div>
     </div>
   </div>
 </div>
 <div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
+
+<script>
+       function redirect(){
+        
+	var x = document.getElementById("mySelect").selectedIndex;
+	var y = document.getElementById("mySelect").options;
+        var z = document.getElementById("mySelect").valueOf(x).toString();
+	location.replace("PreguntaController?accion=agregar&idEE="+y[x].value);
+
+        }
+      </script>
+      
 <%@include file="footer.jsp" %>
