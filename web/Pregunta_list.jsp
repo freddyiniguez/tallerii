@@ -20,7 +20,7 @@
         }
 %>
 <h2>Lista de Preguntas</h2>
-<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar Pregunta</a>
+<a href="PreguntaController?accion=agregar" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar Pregunta</a>
 
  <div class="row clearfix">
         <div class="col-md-2 column">
