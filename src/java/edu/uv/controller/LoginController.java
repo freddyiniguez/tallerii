@@ -68,7 +68,7 @@ public class LoginController extends HttpServlet {
                         session.setAttribute("rol", "Coordinador");
                         session.setAttribute("academia", academia);
                         session.setAttribute("matslist", mats);
-                        auxiliar3 = buscarUnidades((Integer)session.getAttribute("idpersonal"));
+                        auxiliar3 = buscarUnidades((Integer)session.getAttribute("idpersonal"),0);
                         if(auxiliar3.size()>0){
                             session.setAttribute("unidadesList", auxiliar3);    
                         }
@@ -78,6 +78,12 @@ public class LoginController extends HttpServlet {
                          mats =buscarMaterias(per.getIdPersonal(),1);
                         session.setAttribute("rol", "Profesor");
                         //session.setAttribute("matslist", mats);
+                        List<ExperieciaEducativa> LExps= buscarMaterias(per.getIdPersonal(),1);
+                        session.setAttribute("matslist", LExps);
+                        auxiliar3 = buscarUnidades((int)session.getAttribute("idpersonal"),1);
+                        if(auxiliar3.size()>0){
+                            session.setAttribute("unidadesList", auxiliar3);    
+                        }
                     }
                 }
                 
@@ -121,7 +127,7 @@ public class LoginController extends HttpServlet {
         return idAcademia;
         
     }
-    protected List buscarUnidades(int idPersonal){
+    protected List buscarUnidades(int idPersonal, int modo){
             AcademiaDAO acaDao = new AcademiaDAO(); 
             List<Academia> academias = acaDao.findAll();
             List <Academia> pertenece = new ArrayList();
@@ -133,23 +139,35 @@ public class LoginController extends HttpServlet {
             List <Unidades> listaUnidades = unidades.findAll();
             List <Unidades> resultadoUnidades = new ArrayList();
 
-
-            for(Academia aux:academias){
-                if(aux.getPersonal()!=null)
-                if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
-                    pertenece.add(aux);
-                }
-            }
-            for(ExperieciaEducativa aux:experiencias){
-                for(Academia auy:pertenece){
-                    if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
-                        for(Unidades ex:listaUnidades){
-                            if(ex.getExperieciaEducativa().getIdExperieciaEducativa().equals(aux.getIdExperieciaEducativa())){
-                                resultadoUnidades.add(ex);
+            if(modo==0){//es coordinador
+                    for(Academia aux:academias){
+                        if(aux.getPersonal()!=null)
+                        if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
+                            pertenece.add(aux);
+                        }
+                    }
+                    for(ExperieciaEducativa aux:experiencias){
+                        for(Academia auy:pertenece){
+                            if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
+                                for(Unidades ex:listaUnidades){
+                                    if(ex.getExperieciaEducativa().getIdExperieciaEducativa().equals(aux.getIdExperieciaEducativa())){
+                                        resultadoUnidades.add(ex);
+                                    }
+                                }
                             }
                         }
                     }
+            }else{//es profesor
+                List<ExperieciaEducativa> Mats=buscarMaterias(idPersonal,1);
+                
+                for(ExperieciaEducativa exp:Mats){
+                    for(Unidades u:listaUnidades){
+                        if (exp.getIdExperieciaEducativa().equals(u.getExperieciaEducativa().getIdExperieciaEducativa())) {
+                            resultadoUnidades.add(u);
+                        }
+                    }
                 }
+                
             }
             return resultadoUnidades;
         }
