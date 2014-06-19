@@ -54,14 +54,19 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new Pregunta();
-                
-                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
+                //Linea corrección NullPointerException
+                if (!request.getParameter("tema").equals("")){
+                    c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
+                }else{
+                    c.setTemas(null);
+                }
+                //c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
                 c.setTipoPregunta(request.getParameter("tipoPregunta"));
                 c.setDescripcionPregunta(new String(request.getParameter("descripcionPregunta").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setModalidadPregunta(new String(request.getParameter("modalidadPregunta").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setComplejidadPregunta(Integer.parseInt(request.getParameter("complejidadPregunta")));
                 c.setPuntuacionPregunta(Integer.parseInt(request.getParameter("puntuacionPregunta")));
-                c.setComentRetroalimentacion(new String(request.getParameter("ComentRetroalimentacion").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setComentRetroalimentacion(new String(request.getParameter("comentRetroalimentacion").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setEstado("NoAprobado");
                 Pregunta_DAO.create(c);
                 // se agregan las respuestas

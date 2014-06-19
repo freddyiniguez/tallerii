@@ -170,9 +170,9 @@
             <!--comentarios -->
             <div class="clearfix"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="ComentRetroalimentacion">Comentarios:<span class="required"></span></label>
+                <label class="col-sm-3 control-label" for="comentRetroalimentacion">Comentarios:<span class="required"></span></label>
                 <div class="col-sm-12">                                
-                <textarea required class="form-control" id="ComentRetroalimentacion" name="ComentRetroalimentacion"></textarea>
+                <textarea required class="form-control" id="comentRetroalimentacion" name="comentRetroalimentacion"></textarea>
             </div>
             </div>
             
@@ -215,7 +215,7 @@
                 //obtiene los objetos productCode, y obtiene el valor del objeto
                 var uni=$("#cunidades").val(); //ya se tiene el objeto select
                 //llama al servlet con el parametro seleccionado
-                $("#ctemas").load("PreguntaControoller?accion=temas", {cunidades:uni})
+                $("#ctemas").load("PreguntaController?accion=temas", {cunidades:uni})
             }
         });
         </script>
