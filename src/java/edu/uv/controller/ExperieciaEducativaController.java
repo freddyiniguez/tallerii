@@ -59,6 +59,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             Validator validator = factory.getValidator();
         if (accion == null) {
             request.setAttribute("list",ExperieciaEducativa_DAO.findAll());
+            List<ExperieciaEducativa> mats =buscarMaterias(-50,0);
+                    request.removeAttribute("matslist");
+                    request.setAttribute("matslist", mats); 
+                    request.removeAttribute("list");
+                    request.setAttribute("list",mats);
             request.getRequestDispatcher("ExperieciaEducativa_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERT:
@@ -76,15 +81,20 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 else{
                     ExperieciaEducativa_DAO.create(c);
-                    if(request.getParameter("rol").equals("Coordinador")){
+                    
+                    List<ExperieciaEducativa> mats =buscarMaterias(-50,0);
+                    request.removeAttribute("matslist");
+                    request.setAttribute("matslist", mats); 
+                    
+                    /*if(request.getAttribute("rol").equals("Coordinador")){
                         List<ExperieciaEducativa> mats =buscarMateriasAcademia((Integer)session.getAttribute("idpersonal"));
                         request.setAttribute("matslist", mats);   
                     }else{
-                        if (request.getParameter("rol").equals("Administrador")) {
+                        if (request.getAttribute("rol").equals("Administrador")) {
                              List<ExperieciaEducativa> mats =buscarMaterias(-50,0);
                              request.setAttribute("matslist", mats);   
                         }
-                    }
+                    }*/
                     request.getRequestDispatcher("success.jsp").forward(request, response);
                 }
                 
@@ -92,7 +102,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case DELETE:
                 id= request.getParameter("id");
                 ExperieciaEducativa_DAO.delete(Integer.parseInt(id));
-                if(session.getAttribute("rol").equals("Coordinador")){
+                /*if(session.getAttribute("rol").equals("Coordinador")){
                     List<ExperieciaEducativa> mats =buscarMateriasAcademia((Integer)session.getAttribute("idpersonal"));
                     request.setAttribute("matslist", mats);   
                 }else{
@@ -100,7 +110,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                          List<ExperieciaEducativa> mats =buscarMaterias(-50,0);
                          request.setAttribute("matslist", mats);   
                     }
-                }
+                }*/
                 request.setAttribute("url","ExperieciaEducativaController");
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;

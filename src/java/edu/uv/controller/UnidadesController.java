@@ -1,9 +1,11 @@
 package edu.uv.controller;
 import edu.uv.model.dao.AcademiaDAO;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
+import edu.uv.model.dao.ImparteDAO;
 import edu.uv.model.dao.UnidadesDAO;
 import edu.uv.model.pojos.Academia;
 import edu.uv.model.pojos.ExperieciaEducativa;
+import edu.uv.model.pojos.Imparte;
 import edu.uv.model.pojos.Temas;
 import edu.uv.model.pojos.Unidades;
 import java.io.IOException;
@@ -64,7 +66,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
         if (accion == null) {
-            request.setAttribute("list",Unidades_DAO.findAll());
+            List<Unidades> ListU=buscarUnidades((int)session.getAttribute("idpersonal"),1);
+            request.setAttribute("unidadesList", ListU);
+            request.setAttribute("list",ListU);
+            
+            
             request.getRequestDispatcher("Unidades_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERT:
@@ -95,7 +101,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                         i++;
                     }
                 }
-                List<Unidades> auxiliar = buscarUnidades((Integer)session.getAttribute("idpersonal"));
+                List<Unidades> auxiliar = buscarUnidades((Integer)session.getAttribute("idpersonal"),1);
                 if(auxiliar.size()>0){
                     session.setAttribute("unidadesList", auxiliar);    
                 }
@@ -109,7 +115,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 id= request.getParameter("id");
                 Unidades_DAO.delete(Integer.parseInt(id));
-                List<Unidades> auxiliar2 = buscarUnidades((Integer)session.getAttribute("idpersonal"));
+                List<Unidades> auxiliar2 = buscarUnidades((Integer)session.getAttribute("idpersonal"),1);
                 if(auxiliar2.size()>0){
                     session.setAttribute("unidadesList", auxiliar2);    
                 }
@@ -135,7 +141,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 else{
                     Unidades_DAO.update(c);
-                    List<Unidades> auxiliar3 = buscarUnidades((Integer)session.getAttribute("idpersonal"));
+                    List<Unidades> auxiliar3 = buscarUnidades((Integer)session.getAttribute("idpersonal"),1);
                     if(auxiliar3.size()>0){
                         session.setAttribute("unidadesList", auxiliar3);    
                     }
@@ -174,38 +180,77 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }
         
  }
-    protected List buscarUnidades(int idPersonal){
+    protected List buscarUnidades(int idPersonal, int modo){
             AcademiaDAO acaDao = new AcademiaDAO(); 
             List<Academia> academias = acaDao.findAll();
             List <Academia> pertenece = new ArrayList();
             ExperieciaEducativaDAO expe = new ExperieciaEducativaDAO();
             List <ExperieciaEducativa> experiencias = expe.findAll();
-            List <ExperieciaEducativa> resultado = new ArrayList();
+            
 
             UnidadesDAO unidades = new UnidadesDAO();
             List <Unidades> listaUnidades = unidades.findAll();
             List <Unidades> resultadoUnidades = new ArrayList();
 
-
-            for(Academia aux:academias){
-                if(aux.getPersonal()!=null)
-                if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
-                    pertenece.add(aux);
-                }
-            }
-            for(ExperieciaEducativa aux:experiencias){
-                for(Academia auy:pertenece){
-                    if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
-                        for(Unidades ex:listaUnidades){
-                            if(ex.getExperieciaEducativa().getIdExperieciaEducativa().equals(aux.getIdExperieciaEducativa())){
-                                resultadoUnidades.add(ex);
+            if(modo==0){//es coordinador
+                    for(Academia aux:academias){
+                        if(aux.getPersonal()!=null)
+                        if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
+                            pertenece.add(aux);
+                        }
+                    }
+                    for(ExperieciaEducativa aux:experiencias){
+                        for(Academia auy:pertenece){
+                            if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
+                                for(Unidades ex:listaUnidades){
+                                    if(ex.getExperieciaEducativa().getIdExperieciaEducativa().equals(aux.getIdExperieciaEducativa())){
+                                        resultadoUnidades.add(ex);
+                                    }
+                                }
                             }
                         }
                     }
+            }else{//es profesor
+                List<ExperieciaEducativa> Mats=buscarMaterias(idPersonal,1);
+                
+                for(ExperieciaEducativa exp:Mats){
+                    for(Unidades u:listaUnidades){
+                        if (exp.getIdExperieciaEducativa().equals(u.getExperieciaEducativa().getIdExperieciaEducativa())) {
+                            resultadoUnidades.add(u);
+                        }
+                    }
                 }
+                
             }
             return resultadoUnidades;
         }
+    
+    protected List buscarMaterias(int idPersonal, int modo){
+        ImparteDAO im=new ImparteDAO();
+        ExperieciaEducativaDAO expDAO=new ExperieciaEducativaDAO();
+        List<ExperieciaEducativa> ExpsAll=expDAO.findAll();
+        List<Imparte>imparteAll=im.findAll();
+        List<ExperieciaEducativa> mats=new ArrayList();
+        if (modo==0) {
+            //mats=matsAll;
+            mats=expDAO.findAll();
+        }else{
+        for (Imparte imp:imparteAll) {
+            if(imp.getPersonal()!=null)
+            if (imp.getPersonal().getIdPersonal().equals(idPersonal)) {
+                
+                for (ExperieciaEducativa e1:ExpsAll) {
+                    if (e1.getIdExperieciaEducativa().equals(imp.getExperieciaEducativa().getIdExperieciaEducativa())) {
+                        mats.add(e1);
+                    }
+                }
+//mats.add(imp);
+            }
+        }
+        }
+        
+        return mats;
+    }
 
     
 
