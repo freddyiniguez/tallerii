@@ -98,7 +98,7 @@ public abstract class AbstractDao {
         List objects = null;
         try {
             startOperation();
-            Query query = session.createQuery("from " + clazz.getName()+" where "+ CC +" = "+ EE);
+            Query query = session.createQuery("from " + clazz.getName()+" where "+ CC +" = "+"'"+ EE+"'");
             objects = query.list();
             tx.commit();
         } catch (HibernateException e) {

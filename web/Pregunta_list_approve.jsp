@@ -11,7 +11,6 @@
 %>
 
 
-<a href="PreguntaController?accion=aprobar" class="btn btn-primary">Aprobar Preguntas</a>
 <table class="table table-striped">
   <c:forEach items="${list}" var="item">
     <tr>
@@ -33,4 +32,5 @@
     </tr>
   </c:forEach>
 </table>
+<a href="PreguntaController?accion=list_aprobar" class="btn btn-primary">Aprobar Preguntas</a>
 <%@include file="footer.jsp" %>

@@ -20,7 +20,8 @@
         }
 %>
 <h2>Lista de Preguntas</h2>
-<a href="PreguntaController?accion=agregar" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar Pregunta</a>
+<a href="PreguntaController?accion=agregar" class="btn btn-primary">Agregar Pregunta</a>
+<a href="PreguntaController?accion=list_aprobar" class="btn btn-success">Aprobar Pregunta</a>
  <div class="row clearfix">
      <body onload="Cargar()">
         <div class="col-md-3 column">
@@ -125,11 +126,9 @@
                 <td>
                     <c:out value="${item.comentRetroalimentacion}"/>
                 </td>
-                <td><button type="button" class="btn btn-danger">Borrar</button></td>
+                <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="PreguntaController?accion=borrar&id=${item.idPregunta}" href="#">Borrar</a></td>
                 <%--Esta parte solo es para probar el envío de parametros al jsp de footer --%>
-               
                 <td><a data-toggle="modal" data-target="#myModal2" class="btn btn-primary" href="${men.mensaje}" >Ver</a></td>
-            
       
             </tr>
            </c:forEach>

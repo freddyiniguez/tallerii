@@ -117,7 +117,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("Pregunta_add.jsp").forward(request, response);
                 break;
             case LIST_APPROVE:
-                request.setAttribute("list",Pregunta_DAO.findAll());
+                request.setAttribute("list",Pregunta_DAO.findAllby("estado","NoAprobado"));
                 request.getRequestDispatcher("Pregunta_list_approve.jsp").forward(request, response);
                 break;
             default:
