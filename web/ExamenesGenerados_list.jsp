@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% if(session.getAttribute("rol")=="Coordinador"){  
 %>  
 <jsp:include page="header_COORD.jsp" flush="true" /> 
@@ -19,7 +20,7 @@
 %>--%>
 
 <h2>Lista de Exámenes</h2>
-<a href="ExamenesGeneradosController?accion=agregar" class="btn btn-primary">Agregar Examenen</a>
+<a href="ExamenesGeneradosController?accion=agregar" class="btn btn-primary">Agregar Examen</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table id="tabla" class="table table-striped sortable">
   
@@ -36,6 +37,7 @@
     
     <td class="unsortable">Borrar</td>
     <td class="unsortable">Editar</td>
+    <td class="unsortable">Ver</td>
     
     <c:forEach items="${list}" var="item">
     <tr>
@@ -53,6 +55,7 @@
       
       <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="ExamenesGeneradosController?accion=borrar&id=${item.idexamenesGenerados}" href="#">Borrar</a></td>
       <td><a class="btn btn-warning" href="ExamenesGeneradosController?accion=buscar&id=${item.idexamenesGenerados}">Editar</a></td>
+      <td><a data-toggle="modal" data-target="#myModal2" class="btn btn-success" href="${men.mensaje}">Ver</a></td>
     </tr>
   </c:forEach>
 </table>
