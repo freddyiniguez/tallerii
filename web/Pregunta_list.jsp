@@ -1,4 +1,5 @@
 <%@page import="java.util.ArrayList"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% if(session.getAttribute("rol")=="Coordinador"){  
 %>  
 <jsp:include page="header_COORD.jsp" flush="true" /> 
@@ -20,11 +21,8 @@
 %>
 <h2>Lista de Preguntas</h2>
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar Pregunta</a>
-<div class="container">
-  <div class="row clearfix">
-    <div class="col-md-12 column">
-      
-      <div class="row clearfix">
+
+ <div class="row clearfix">
         <div class="col-md-2 column">
           <h3>
             Seleccione EE Y UNIDAD
@@ -73,87 +71,62 @@
                  </div>
               
                   </div>
-                </body>
-
-            
-           
-             
-           
-             
+                </body>             
         </div>
-        <div class="col-md-3 column">
-          <h3>
-            Seleccione unidad
-          </h3>
-          
-           
+       
             
-            
-        </div>
+      
         <div class="col-md-2 column">
-           <button type="button" class="btn btn-primary">Default</button>
+           <button type="button" class="btn btn-primary">Mostrar</button>
         </div>
-        <div class="col-md-5 column">
-          
-        </div>
-      </div>
-      <div class="row clearfix">
-        <div class="col-md-12 column">
-        </div>
-      </div>
-      <table class="table">
+         </div>
+        
+      
+     
+<div class="container">
+<div class="row clearfix">
+<div class="col-md-12 column">
+    <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
+    <table id="tabla" class="table table-striped sortable">
         <thead>
           <tr>
-            <th>
-              Tema
-            </th>
-<th>
-              Subtema
-            </th>
-<th>
-              #
-            </th>
-<th>
-              Pregunta
-            </th>
-<th>
-              Comentarios
-            </th>
-<th>
-              Borrar
-            </th>
-<th>
-              Ver
-            </th>
-<th>
-              Aprobar
-            </th>
+            <th>Num.tema</th>
+            <th>Tema</th>
+            <th>Número</th>
+            <th>Pregunta</th>
+            <th>Comentarios</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Tema 1</td>
-            <td>subtema 1</td>
-            <td>1</td>
-            <td>pregunta1</td>
-            <td>mmmkkjdpdjo</td>
-            <td><button type="button" class="btn btn-danger">Borrar</button></td>
-            <%--Esta parte solo es para probar el envío de parametros al jsp de footer --%>
-            <c: var="mensaje" items="${men.mensaje}">
-                    <c:out value="${hola}"/> 0
-            </c:>
-            <td><a data-toggle="modal" data-target="#myModal2" class="btn btn-primary" href="${men.mensaje}" >Ver</a></td>
-            <td><button type="button" class="btn btn-success">Aprobar</button></td>
-
-          </tr>
-        </tbody>
-      </table>
-    
-    </div>
-  </div>
-
-</div>
-
+        <c:forEach items="${list}" var="item">
+            <tr>
+             
+            <div class="row clearfix">
+                <td><c:out value="${item.temas.idTema}"/></td>
+                <td>
+                    <c:out value="${item.temas.nombreTema}"/>
+                </td>
+                
+                <td>
+                    <c:out value="${item.idPregunta}"/>
+                </td>
+                <td>
+                    <c:out value="${item.descripcionPregunta}"/>
+                </td>
+                <td>
+                    <c:out value="${item.comentRetroalimentacion}"/>
+                </td>
+                <td><button type="button" class="btn btn-danger toDelete">Borrar</button>
+                <td><button type="button" class="btn btn-info">Ver</button>
+                <td><button type="button" class="btn btn-success">Aprobar</button>
+      
+            </tr>
+           </c:forEach>
+       
+     
+       </table>
+    <div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
+ </div>
+            </div></div>
 
 
 <script>
