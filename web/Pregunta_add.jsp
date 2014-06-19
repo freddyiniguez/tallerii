@@ -37,7 +37,9 @@
                     <%};%>
                    </select>
                    <span class="input-group-btn">
+                       <%--
                     <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
+                       --%>
                    </span>
                    </div>
                 </div>
@@ -61,7 +63,7 @@
                                         
                                                 <option value="5">PythonInLove</option>
                                         
-                                                <option value="6">mierdaLover</option>
+                                                <option value="6">Algoritmo del amor</option>
                                         
                                                 <option value="7">lola1</option>
                                         
