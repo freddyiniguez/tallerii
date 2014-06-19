@@ -42,7 +42,6 @@ for(edu.uv.model.pojos.ExperieciaEducativa en:list){
 
 <h3>DEBUG de Unidades ${idpersonal}</h3>
 <select name="tabla1" id="tabla2">
- 
 <% 
 java.util.ArrayList<edu.uv.model.pojos.Unidades> list2 = (java.util.ArrayList)session.getAttribute("unidadesList");
 if(list2!=null)

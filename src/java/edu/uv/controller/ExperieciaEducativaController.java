@@ -174,6 +174,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         return resultado;
     }
      
+ 
  protected List buscarMaterias(int idPersonal, int modo){
         ImparteDAO im=new ImparteDAO();
         ExperieciaEducativaDAO expDAO=new ExperieciaEducativaDAO();

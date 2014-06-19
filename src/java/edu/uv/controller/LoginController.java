@@ -27,7 +27,6 @@ import javax.servlet.http.HttpSession;
 public class LoginController extends HttpServlet {
 
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PersonalDAO personal=new PersonalDAO();
