@@ -115,9 +115,13 @@
                 <td>
                     <c:out value="${item.comentRetroalimentacion}"/>
                 </td>
-                <td><button type="button" class="btn btn-danger toDelete">Borrar</button>
-                <td><button type="button" class="btn btn-info">Ver</button>
-                <td><button type="button" class="btn btn-success">Aprobar</button>
+                <td><button type="button" class="btn btn-danger">Borrar</button></td>
+                <%--Esta parte solo es para probar el envío de parametros al jsp de footer --%>
+                <c: var="mensaje" items="${men.mensaje}">
+                    <c:out value="${hola}"/> 0
+                </c:>
+                <td><a data-toggle="modal" data-target="#myModal2" class="btn btn-primary" href="${men.mensaje}" >Ver</a></td>
+                <td><button type="button" class="btn btn-success">Aprobar</button></td>
       
             </tr>
            </c:forEach>
