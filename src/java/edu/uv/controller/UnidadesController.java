@@ -51,6 +51,14 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             return;
             }
             
+            int modo=-5;
+            
+            if (session.getAttribute("rol").equals("Coordinador")) {
+                modo=0;
+            }
+            if (session.getAttribute("rol").equals("Profesor")) {
+                modo=1;
+            }
             
             String accion = request.getParameter("accion");
             String id ="";
@@ -66,7 +74,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
         if (accion == null) {
-            List<Unidades> ListU=buscarUnidades((int)session.getAttribute("idpersonal"),1);
+            List<Unidades> ListU=buscarUnidades((int)session.getAttribute("idpersonal"),modo);
             request.setAttribute("unidadesList", ListU);
             request.setAttribute("list",ListU);
             
@@ -101,7 +109,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                         i++;
                     }
                 }
-                List<Unidades> auxiliar = buscarUnidades((Integer)session.getAttribute("idpersonal"),1);
+                List<Unidades> auxiliar = buscarUnidades((Integer)session.getAttribute("idpersonal"),modo);
                 if(auxiliar.size()>0){
                     session.setAttribute("unidadesList", auxiliar);    
                 }
@@ -115,7 +123,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 id= request.getParameter("id");
                 Unidades_DAO.delete(Integer.parseInt(id));
-                List<Unidades> auxiliar2 = buscarUnidades((Integer)session.getAttribute("idpersonal"),1);
+                List<Unidades> auxiliar2 = buscarUnidades((Integer)session.getAttribute("idpersonal"),modo);
                 if(auxiliar2.size()>0){
                     session.setAttribute("unidadesList", auxiliar2);    
                 }
@@ -141,7 +149,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 else{
                     Unidades_DAO.update(c);
-                    List<Unidades> auxiliar3 = buscarUnidades((Integer)session.getAttribute("idpersonal"),1);
+                    List<Unidades> auxiliar3 = buscarUnidades((Integer)session.getAttribute("idpersonal"),modo);
                     if(auxiliar3.size()>0){
                         session.setAttribute("unidadesList", auxiliar3);    
                     }

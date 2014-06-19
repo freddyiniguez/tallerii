@@ -23,7 +23,9 @@
                                         </c:forEach>
                                        </select>
                                        <span class="input-group-btn">
+                                           <%--
                                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
+                                           --%>
                                        </span>
                                        </div>
                                     </div>
@@ -53,7 +55,9 @@
                                         </c:forEach>
                                        </select>
                                        <span class="input-group-btn">
+                                           <%--
                                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
+                                           --%>
                                        </span>
                                        </div>
                                     </div>
