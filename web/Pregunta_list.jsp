@@ -21,32 +21,41 @@
 %>
 <h2>Lista de Preguntas</h2>
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExp">Agregar Pregunta</a>
-
+<a href="#" class="btn btn-success" data-toggle="modal" data-target="#modalExp">Aprobar Pregunta</a>
  <div class="row clearfix">
-        <div class="col-md-2 column">
+     <body onload="Cargar()">
+        <div class="col-md-3 column">
+        
           <h3>
-            Seleccione EE Y UNIDAD
+            Seleccione EE
           </h3>
-                 <body onload="Cargar()">
-                  <div id="contenidos">
-                 <div id="lista">
-                     
-                      <select class="form-control"  id="mySelect"  onchange="Seleccionar()">
-                                        <% 
-                                      java.util.ArrayList<edu.uv.model.pojos.ExperieciaEducativa> list = (java.util.ArrayList)session.getAttribute("matslist");
-                                      if(list!=null)
-                                      for(edu.uv.model.pojos.ExperieciaEducativa en:list){
-                                      %>
+          <div id="contenidos">
+             <div id="lista">
+                <select class="form-control"  id="mySelect"  onchange="Seleccionar()">
+                    <% 
+                    java.util.ArrayList<edu.uv.model.pojos.ExperieciaEducativa> list = (java.util.ArrayList)session.getAttribute("matslist");
+                        if(list!=null)
+                            for(edu.uv.model.pojos.ExperieciaEducativa en:list){
+                    %>
  
-                                      <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
+                    <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
 
-                                      <%};%>
-             </select>   
+                    <%};%>
+                </select>   
                      
-                <select class="form-control" id="listbox" >
+            
+            
+          </div>  
+         </div>
+        </div>
+                
+          <div class="col-md-3 column">
+          <h3>
+            Seleccione Unidad
+          </h3>
+            <select class="form-control" id="listbox" >
                     
-                </select>
-             
+            </select>
              <select id="unidadesActuales" hidden="True">
                                     <% 
                 java.util.ArrayList<edu.uv.model.pojos.Unidades> list2 = (java.util.ArrayList)session.getAttribute("unidadesList");
@@ -55,7 +64,7 @@
                 %>
                 <option value=<%= en.getExperieciaEducativa().getIdExperieciaEducativa() %> > <%= en.getNombreUnidad()%> </option >
                 <%};%>
-                </select>
+             </select>
                 
                  
              <select id="valores" hidden="True">
@@ -68,18 +77,17 @@
                 <%};%>
                 </select>
              
-                 </div>
-              
-                  </div>
-                </body>             
-        </div>
-       
-            
-      
-        <div class="col-md-2 column">
+                </div>
+        
+        <div class="col-md-4 column" with="200" heigt="200">
            <button type="button" class="btn btn-primary">Mostrar</button>
         </div>
-         </div>
+        
+        </body>             
+         </div>  
+    
+      
+      
         
       
      
@@ -90,10 +98,10 @@
     <table id="tabla" class="table table-striped sortable">
         <thead>
           <tr>
-            <th>Num.tema</th>
             <th>Tema</th>
             <th>Número</th>
             <th>Pregunta</th>
+            <th>Estado</th>
             <th>Comentarios</th>
           </tr>
         </thead>
@@ -101,7 +109,7 @@
             <tr>
              
             <div class="row clearfix">
-                <td><c:out value="${item.temas.idTema}"/></td>
+                
                 <td>
                     <c:out value="${item.temas.nombreTema}"/>
                 </td>
@@ -113,13 +121,16 @@
                     <c:out value="${item.descripcionPregunta}"/>
                 </td>
                 <td>
+                    <c:out value="${item.estado}"/>
+                </td>
+                <td>
                     <c:out value="${item.comentRetroalimentacion}"/>
                 </td>
                 <td><button type="button" class="btn btn-danger">Borrar</button></td>
                 <%--Esta parte solo es para probar el envío de parametros al jsp de footer --%>
                
                 <td><a data-toggle="modal" data-target="#myModal2" class="btn btn-primary" href="${men.mensaje}" >Ver</a></td>
-                <td><button type="button" class="btn btn-success">Aprobar</button></td>
+            
       
             </tr>
            </c:forEach>
