@@ -11,42 +11,44 @@
 %>
 
 <form action="PreguntaController" method="POST">  
-<div class="container">
-<div class="row clear">
-		<div class="col-md-2 column">
-			# pregunta
-		</div>
-		<div class="col-md-4 column">
-			Tema
-		</div>
-		<div class="col-md-4 column">
-			Pregunta
-		</div>
-		<div class="col-md-2 column">
-			Estado
-		</div>
-</div>
-<c:forEach items="${list}" var="item">
-	<div class="row clear">
-		<div class="col-md-2 column">
-			<input disabled="true" id="idP" name="idP2" value="${item.idPregunta}"/>
-		</div>
-		<div class="col-md-4 column">
-			<c:out value="${item.temas.nombreTema}"/>
-		</div>
-		<div class="col-md-4 column">
-			<c:out value="${item.descripcionPregunta}"/>
-		</div>
-		<div class="col-md-2 column">
-			<select name="aprobado2" id="aprobado">
-                            <option value="NoAprobado">NoAprobado</option>
-                            <option value="Aprobado">Aprobado</option>	
-                        </select>
-		</div>
-	</div>
-</c:forEach>
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th>Aprobar</th>
+          <th>Numero Pregunta</th>
+          <th>Tema</th>
+          <th>Tipo de pregunta</th>
+          <th>Descripcion Pregunta</th>
+          <th>Modalidad Pregunta</th>
+          <th>Complejidad de la pregunta</th>
+          <th>Estado</th>
+          <th>Putuacion</th>
+          <th>Retroalimentacion</th>
+          <th>Respuestas</th>
+        </tr>
+    </thead>
+ <c:forEach items="${list}" var="item">
+    <tr>
+      <td><input type="checkbox" value="${item.idPregunta}" name="aprobar"></td>
+      <td><c:out value="${item.idPregunta}"/></td>
+      <td><c:out value="${item.temas.nombreTema}"/></td>
+      <td><c:out value="${item.tipoPregunta}"/></td>
+      <td><c:out value="${item.descripcionPregunta}"/></td>
+      <td><c:out value="${item.modalidadPregunta}"/></td>
+      <td><c:out value="${item.complejidadPregunta}"/></td>
+      <td><c:out value="${item.estado}"/></td>
+      <td><c:out value="${item.puntuacionPregunta}"/></td>
+      <td><c:out value="${item.comentRetroalimentacion}"/></td>
+      <td>
+          <c:forEach items="${item.respuestases}" var="respuesta">
+              R: ${respuesta.descripcionRespuesta}<br>
+          </c:forEach>
+      </td>
+    </tr>
+  </c:forEach>
+</table>
 
-    </div>
+  
 
  <div class="col-md-12 ">
         <div class="pull-right">
