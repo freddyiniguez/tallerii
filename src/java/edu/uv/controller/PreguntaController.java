@@ -171,36 +171,30 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("Pregunta_list_approve.jsp").forward(request, response);
                 break;
             case APPROVE:
-                //recibir los valores de los parametros de id y estado
-                String[] idP = request.getParameterValues("idP");
-                String[] estado = request.getParameterValues("aprobado");
-                //obtener numero de preguntas a aprobar
-                
-                int aux2 = estado.length;
-                if (aux2 <= 0){
-                    request.setAttribute("mensajes", "no se ebvia nada");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                    break;
-                }
-                for (int i = 0; i < aux2; i++) {
-                   
-                    c = Pregunta_DAO.find(Integer.parseInt(idP[i]));
+                if(request.getParameter("aprobar") != null){
+                    String[] ItemNames;
+                    ItemNames = request.getParameterValues("aprobar");
+                    for(int i = 0; i < ItemNames.length; i++){
+                        c = Pregunta_DAO.find(Integer.parseInt(ItemNames[i]));
                     
-                    c.setEstado(estado[i]);
+                        c.setEstado("Aprobado");
 
 
-                    Set<ConstraintViolation<Pregunta>> violations3 = validator.validate(c);
-                    // enviar mensajes a jsp
-                    if (violations3.size() > 0) {
-                        request.setAttribute("mensajes", violations3);
-                        request.getRequestDispatcher("error.jsp").forward(request, response);
-                    } else {
-                        Pregunta_DAO.update(c);
-                       
+                        Set<ConstraintViolation<Pregunta>> violations3 = validator.validate(c);
+                        // enviar mensajes a jsp
+                        if (violations3.size() > 0) {
+                            request.setAttribute("mensajes", violations3);
+                            request.getRequestDispatcher("error.jsp").forward(request, response);
+                        } else {
+                            Pregunta_DAO.update(c);
+
+                        }
                     }
+                    request.setAttribute("url","PreguntaController?accion=list_aprobar");
+                    request.getRequestDispatcher("success.jsp").forward(request, response);
                 }
-                request.setAttribute("url","PreguntaController");
-                request.getRequestDispatcher("success.jsp").forward(request, response);
+                
+                
                 break;
             default:
                 
