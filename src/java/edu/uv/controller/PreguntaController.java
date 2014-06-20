@@ -173,13 +173,19 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case APPROVE:
                 //recibir los valores de los parametros de id y estado
                 String[] idP = request.getParameterValues("idP");
-                String[] estado = request.getParameterValues("aprobar");
+                String[] estado = request.getParameterValues("aprobado");
                 //obtener numero de preguntas a aprobar
-                int aux2 = idP.length;
+                
+                int aux2 = estado.length;
+                if (aux2 <= 0){
+                    request.setAttribute("mensajes", "no se ebvia nada");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    break;
+                }
                 for (int i = 0; i < aux2; i++) {
-                    System.out.println(idP[i]);   
+                   
                     c = Pregunta_DAO.find(Integer.parseInt(idP[i]));
-                    System.out.println(estado[i]);
+                    
                     c.setEstado(estado[i]);
 
 
@@ -190,6 +196,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     } else {
                         Pregunta_DAO.update(c);
+                       
                     }
                 }
                 request.setAttribute("url","PreguntaController");
@@ -225,6 +232,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             TemasDAO temas_dao = new TemasDAO();
             List <Temas> temas= temas_dao.findAll();
             List <Temas> res = new ArrayList();
+            
             
             PreguntaDAO preDao = new PreguntaDAO();
             List <Pregunta> preguntas = preDao.findAll();
