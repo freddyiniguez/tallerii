@@ -16,14 +16,10 @@
         <tr>
           <th>Aprobar</th>
           <th>Numero Pregunta</th>
-          <th>Tema</th>
-          <th>Tipo de pregunta</th>
-          <th>Descripcion Pregunta</th>
-          <th>Modalidad Pregunta</th>
-          <th>Complejidad de la pregunta</th>
+          <th>Tema</th>        
+          <th>Descripcion Pregunta</th>        
           <th>Estado</th>
-          <th>Putuacion</th>
-          <th>Retroalimentacion</th>
+          <th>Pts.</th>         
           <th>Respuestas</th>
         </tr>
     </thead>
@@ -32,13 +28,9 @@
       <td><input type="checkbox" value="${item.idPregunta}" name="aprobar"></td>
       <td><c:out value="${item.idPregunta}"/></td>
       <td><c:out value="${item.temas.nombreTema}"/></td>
-      <td><c:out value="${item.tipoPregunta}"/></td>
       <td><c:out value="${item.descripcionPregunta}"/></td>
-      <td><c:out value="${item.modalidadPregunta}"/></td>
-      <td><c:out value="${item.complejidadPregunta}"/></td>
       <td><c:out value="${item.estado}"/></td>
       <td><c:out value="${item.puntuacionPregunta}"/></td>
-      <td><c:out value="${item.comentRetroalimentacion}"/></td>
       <td>
           <c:forEach items="${item.respuestases}" var="respuesta">
               R: ${respuesta.descripcionRespuesta}<br>
