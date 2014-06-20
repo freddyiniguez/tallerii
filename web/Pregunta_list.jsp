@@ -24,6 +24,7 @@
 <a href="PreguntaController?accion=list_aprobar" class="btn btn-success">Aprobar Pregunta</a>
  <div class="row clearfix">
      <body onload="Cargar()">
+         
         <div class="col-md-3 column">
         
           <h3>
@@ -32,6 +33,7 @@
           <div id="contenidos">
              <div id="lista">
                 <select class="form-control"  id="mySelect"  onchange="Seleccionar()">
+                    <option value=0 selected="True" > Elije EE </option >
                     <% 
                     java.util.ArrayList<edu.uv.model.pojos.ExperieciaEducativa> list = (java.util.ArrayList)session.getAttribute("matslist");
                         if(list!=null)
@@ -41,10 +43,8 @@
                     <option value=<%= en.getIdExperieciaEducativa()%> > <%= en.getNombreEe()%> </option >
 
                     <%};%>
+                    
                 </select>   
-                     
-            
-            
           </div>  
          </div>
         </div>
@@ -80,7 +80,12 @@
                 </div>
         
         <div class="col-md-4 column" with="200" heigt="200">
-           <button type="button" class="btn btn-primary">Mostrar</button>
+            <button type="button" class="btn btn-primary" onClick="redirect3()">Filtrar Experiencias</button>
+           <button type="button" class="btn btn-primary" onClick="redirect()">Filtrar Unidades</button>
+           <button type="button" class="btn btn-primary" onClick="redirect2()">Mostrar todas</button>
+           
+           
+           
         </div>
         
         </body>             
@@ -145,9 +150,39 @@
         
 	var x = document.getElementById("mySelect").selectedIndex;
 	var y = document.getElementById("mySelect").options;
-        var z = document.getElementById("mySelect").valueOf(x).toString();
-	location.replace("PreguntaController?accion=agregar&idEE="+y[x].value);
-
+        var x2 = document.getElementById("listbox").selectedIndex;
+	var y2 = document.getElementById("listbox").options;
+        //var z = document.getElementById("mySelect").valueOf(x).toString();
+	//location.replace("PreguntaController?accion=filtrado&aExp="+y[x].value+"&auxUni="+y2[x2].value);
+        //location.replace("PreguntaController?accion=filtrar");
+        location.replace("PreguntaController?accion=filtrar&auxUni="+y2[x2].value);
+    
+        }
+        
+         function redirect2(){
+        
+	var x = document.getElementById("mySelect").selectedIndex;
+	var y = document.getElementById("mySelect").options;
+        var x2 = document.getElementById("listbox").selectedIndex;
+	var y2 = document.getElementById("listbox").options;
+        //var z = document.getElementById("mySelect").valueOf(x).toString();
+	//location.replace("PreguntaController?accion=filtrado&aExp="+y[x].value+"&auxUni="+y2[x2].value);
+        //location.replace("PreguntaController?accion=filtrar");
+        location.replace("PreguntaController");
+    
+        }
+        
+          function redirect3(){
+        
+	var x = document.getElementById("mySelect").selectedIndex;
+	var y = document.getElementById("mySelect").options;
+        var x2 = document.getElementById("listbox").selectedIndex;
+	var y2 = document.getElementById("listbox").options;
+        //var z = document.getElementById("mySelect").valueOf(x).toString();
+	location.replace("PreguntaController?accion=filtrarer&aExp="+y[x].value);
+        //location.replace("PreguntaController?accion=filtrar");
+        //location.replace("PreguntaController");
+    
         }
         
         function Cargar(){

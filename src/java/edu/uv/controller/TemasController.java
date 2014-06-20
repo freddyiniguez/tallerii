@@ -1,12 +1,18 @@
 package edu.uv.controller;
+import edu.uv.model.dao.AcademiaDAO;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
+import edu.uv.model.dao.ImparteDAO;
 import edu.uv.model.dao.TemasDAO;
 import edu.uv.model.dao.UnidadesDAO;
 import edu.uv.model.pojos.Academia;
+import edu.uv.model.pojos.ExperieciaEducativa;
+import edu.uv.model.pojos.Imparte;
 import edu.uv.model.pojos.Temas;
 import edu.uv.model.pojos.Unidades;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +40,16 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             //validar que el usuario tenga la sesion iniciada
             HttpSession session = request.getSession(true);
             
+            int modo=-5;
+            
+            if (session.getAttribute("rol").equals("Coordinador")) {
+                modo=0;
+            }
+            if (session.getAttribute("rol").equals("Profesor")) {
+                modo=1;
+            }
+            
+            
             if ((session.getAttribute("user") == null)) {
             request.getRequestDispatcher("login_.jsp").forward(request, response);
             return;
@@ -58,8 +74,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
         if (accion == null) {
+            List<Temas> temasD = buscarTemas((int)session.getAttribute("idpersonal"),modo);
             request.setAttribute("listaEE", EEDAO.findAll());
-            request.setAttribute("list",Temas_DAO.findAll());
+            request.setAttribute("list",temasD);
             request.getRequestDispatcher("Temas_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERTA:
@@ -211,6 +228,91 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }
         
  }
+
+    
+     protected List buscarTemas(int idPersonal, int modo){
+            AcademiaDAO acaDao = new AcademiaDAO(); 
+            List<Academia> academias = acaDao.findAll();
+            List <Academia> pertenece = new ArrayList();
+            ExperieciaEducativaDAO expe = new ExperieciaEducativaDAO();
+            List <ExperieciaEducativa> experiencias = expe.findAll();
+            
+
+            UnidadesDAO unidades = new UnidadesDAO();
+            List <Unidades> listaUnidades = unidades.findAll();
+            List <Unidades> resultadoUnidades = new ArrayList();
+            TemasDAO temas_dao = new TemasDAO();
+            List <Temas> temas= temas_dao.findAll();
+            List <Temas> res = new ArrayList();
+
+            if(modo==0){//es coordinador
+                    for(Academia aux:academias){
+                        if(aux.getPersonal()!=null)
+                        if(aux.getPersonal().getIdPersonal().equals(idPersonal)){
+                            pertenece.add(aux);
+                        }
+                    }
+                    for(ExperieciaEducativa aux:experiencias){
+                        for(Academia auy:pertenece){
+                            if(aux.getAcademia().getIdAcademia().equals(auy.getIdAcademia())){
+                                for(Unidades ex:listaUnidades){
+                                    if(ex.getExperieciaEducativa().getIdExperieciaEducativa().equals(aux.getIdExperieciaEducativa())){
+                                        //resultadoUnidades.add(ex);
+                                        for(Temas ayu:temas){
+                                            if(ayu.getUnidades().getIdUnidad().equals(ex.getIdUnidad())){
+                                                res.add(ayu);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }else{//es profesor
+                List<ExperieciaEducativa> Mats=buscarMaterias(idPersonal,1);
+                
+                for(ExperieciaEducativa exp:Mats){
+                    for(Unidades u:listaUnidades){
+                        if (exp.getIdExperieciaEducativa().equals(u.getExperieciaEducativa().getIdExperieciaEducativa())) {
+                            //resultadoUnidades.add(u
+                            for(Temas ayu:temas){
+                                if(ayu.getUnidades().getIdUnidad().equals(u.getIdUnidad())){
+                                    res.add(ayu);
+                                }
+                            }        
+                        }
+                    }
+                }
+                
+            }
+            return res;
+        }
+
+     protected List buscarMaterias(int idPersonal, int modo){
+        ImparteDAO im=new ImparteDAO();
+        ExperieciaEducativaDAO expDAO=new ExperieciaEducativaDAO();
+        List<ExperieciaEducativa> ExpsAll=expDAO.findAll();
+        List<Imparte>imparteAll=im.findAll();
+        List<ExperieciaEducativa> mats=new ArrayList();
+        if (modo==0) {
+            //mats=matsAll;
+            mats=expDAO.findAll();
+        }else{
+        for (Imparte imp:imparteAll) {
+            if(imp.getPersonal()!=null)
+            if (imp.getPersonal().getIdPersonal().equals(idPersonal)) {
+                
+                for (ExperieciaEducativa e1:ExpsAll) {
+                    if (e1.getIdExperieciaEducativa().equals(imp.getExperieciaEducativa().getIdExperieciaEducativa())) {
+                        mats.add(e1);
+                    }
+                }
+            }
+        }
+        }
+        
+        return mats;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
