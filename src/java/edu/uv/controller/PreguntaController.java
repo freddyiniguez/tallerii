@@ -25,6 +25,7 @@ public class PreguntaController extends HttpServlet {
     static final String UPDATE = "actualizar";
     static final String INSERT = "insertar";
     static final String LIST_APPROVE = "list_aprobar";
+    static final String APPROVE = "aprobar";
 
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -124,6 +125,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case LIST_APPROVE:
                 request.setAttribute("list",Pregunta_DAO.findAllby("estado","NoAprobado"));
                 request.getRequestDispatcher("Pregunta_list_approve.jsp").forward(request, response);
+                break;
+            case APPROVE:
+                
+                request.setAttribute("url","PreguntaController");
+                request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             default:
                 
