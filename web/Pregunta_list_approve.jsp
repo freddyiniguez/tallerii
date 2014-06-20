@@ -36,9 +36,9 @@
       <td><c:out value="${item.modalidadPregunta}"/></td>
       <td><c:out value="${item.complejidadPregunta}"/></td>
       <td>	
-        <select name="estado" id="estado">
-            <option value="1">NoAprobado</option>
-            <option value="2">Aprobado</option>	
+        <select name="aprobado" id="aprobado">
+            <option value="${item.idPregunta}">NoAprobado</option>
+            <option value="${item.idPregunta}">Aprobado</option>	
         </select></td>
       <td><c:out value="${item.puntuacionPregunta}"/></td>
       <td><c:out value="${item.comentRetroalimentacion}"/></td>
@@ -51,5 +51,5 @@
   </c:forEach>
 </table>
 </form>
-<a href="PreguntaController?accion=list_aprobar" class="btn btn-primary">Aprobar Preguntas</a>
+<a href="PreguntaController?accion=aprobar" class="btn btn-primary">Aprobar Preguntas</a>
 <%@include file="footer.jsp" %>
