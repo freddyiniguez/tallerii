@@ -35,6 +35,7 @@ public class PreguntaController extends HttpServlet {
     static final String UPDATE = "actualizar";
     static final String INSERT = "insertar";
     static final String LIST_APPROVE = "list_aprobar";
+    static final String APPROVE = "aprobar";
 
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -89,14 +90,19 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case INSERT:
                 c = new Pregunta();
-                
-                c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
+                //Linea corrección NullPointerException
+                if (!request.getParameter("tema").equals("")){
+                    c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
+                }else{
+                    c.setTemas(null);
+                }
+                //c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
                 c.setTipoPregunta(request.getParameter("tipoPregunta"));
                 c.setDescripcionPregunta(new String(request.getParameter("descripcionPregunta").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setModalidadPregunta(new String(request.getParameter("modalidadPregunta").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setComplejidadPregunta(Integer.parseInt(request.getParameter("complejidadPregunta")));
                 c.setPuntuacionPregunta(Integer.parseInt(request.getParameter("puntuacionPregunta")));
-                c.setComentRetroalimentacion(new String(request.getParameter("ComentRetroalimentacion").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setComentRetroalimentacion(new String(request.getParameter("comentRetroalimentacion").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setEstado("NoAprobado");
                 Pregunta_DAO.create(c);
                 // se agregan las respuestas
@@ -154,6 +160,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             case LIST_APPROVE:
                 request.setAttribute("list",Pregunta_DAO.findAllby("estado","NoAprobado"));
                 request.getRequestDispatcher("Pregunta_list_approve.jsp").forward(request, response);
+                break;
+            case APPROVE:
+                
+                request.setAttribute("url","PreguntaController");
+                request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             default:
                 
