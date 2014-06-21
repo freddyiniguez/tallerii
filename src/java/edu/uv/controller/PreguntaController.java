@@ -17,12 +17,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 @WebServlet(name = "PreguntaController", urlPatterns = {"/PreguntaController"})
 public class PreguntaController extends HttpServlet {
@@ -67,6 +72,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             UnidadesDAO Unidades_DAO = new UnidadesDAO();
             TemasDAO Temas_DAO = new TemasDAO();
             RespuestasDAO Respuestas_DAO = new RespuestasDAO();
+            
+            //crear el factory para iniciar la validacion
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
         if (accion == null) {
             List<Pregunta> lista = buscarTemasPreguntasTotal((int)session.getAttribute("idpersonal"),modo);
             request.setAttribute("listaEE", EEDAO.findAll());
@@ -162,9 +171,34 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("Pregunta_list_approve.jsp").forward(request, response);
                 break;
             case APPROVE:
+                if(request.getParameter("aprobar") != null){
+                    String[] ItemNames;
+                    ItemNames = request.getParameterValues("aprobar");
+                    for(int i = 0; i < ItemNames.length; i++){
+                        c=null;
+                        c= new Pregunta();
+                        Pregunta_DAO = new PreguntaDAO();
+                        c = Pregunta_DAO.find(Integer.parseInt(ItemNames[i]));
+                    
+                        c.setEstado("Aprobado");
+                        Pregunta_DAO.update(c);
+
+
+                        Set<ConstraintViolation<Pregunta>> violations3 = validator.validate(c);
+                        // enviar mensajes a jsp
+                        if (violations3.size() > 0) {
+                            request.setAttribute("mensajes", violations3);
+                            request.getRequestDispatcher("error.jsp").forward(request, response);
+                        } else {
+                            Pregunta_DAO.update(c);
+
+                        }
+                    }
+                    request.setAttribute("url","PreguntaController?accion=list_aprobar");
+                    request.getRequestDispatcher("success.jsp").forward(request, response);
+                }
                 
-                request.setAttribute("url","PreguntaController");
-                request.getRequestDispatcher("success.jsp").forward(request, response);
+                
                 break;
             default:
                 
@@ -196,6 +230,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             TemasDAO temas_dao = new TemasDAO();
             List <Temas> temas= temas_dao.findAll();
             List <Temas> res = new ArrayList();
+            
             
             PreguntaDAO preDao = new PreguntaDAO();
             List <Pregunta> preguntas = preDao.findAll();
