@@ -69,9 +69,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         } else switch(accion){
             case INSERT:
                 c = new ExamenPregunta();
-                c.setPuntaje(Integer.parseInt(request.getParameter("puntaje")));
-                c.setExamenesGenerados(ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("EG"))));
+                c.setExamenesGenerados(ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("tipoExa"))));
                 c.setPregunta(Pregunta_DAO.find(Integer.parseInt(request.getParameter("pregunta"))));
+                c.setPuntaje(Integer.parseInt(request.getParameter("puntaje")));
                 Set<ConstraintViolation<ExamenPregunta>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){
@@ -92,9 +92,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new ExamenPregunta();
-                c.setPuntaje(Integer.parseInt(request.getParameter("puntaje")));
-                c.setExamenesGenerados(ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("EG"))));
+                c.setExamenesGenerados(ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("tipoExa"))));
                 c.setPregunta(Pregunta_DAO.find(Integer.parseInt(request.getParameter("pregunta"))));
+                c.setPuntaje(Integer.parseInt(request.getParameter("puntaje")));
                 c.setIdExamenPregunta(Integer.parseInt(request.getParameter("idExamenPregunta")));
                 Set<ConstraintViolation<ExamenPregunta>> violations2 = validator.validate(c);
                 // enviar mensajes a jsp
@@ -117,7 +117,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("ExamenPregunta_edit.jsp").forward(request, response);
                 break;
             case ADD:
-                request.setAttribute("ExamenGenerados",ExamenesGenerados_DAO.findAll());
+                request.setAttribute("ExamenesGenerados",ExamenesGenerados_DAO.findAll());
                 request.setAttribute("Pregunta",Pregunta_DAO.findAll());
                 request.getRequestDispatcher("Pregunta_add.jsp").forward(request, response);
                 break;
