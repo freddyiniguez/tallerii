@@ -175,9 +175,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     String[] ItemNames;
                     ItemNames = request.getParameterValues("aprobar");
                     for(int i = 0; i < ItemNames.length; i++){
+                        c=null;
+                        c= new Pregunta();
+                        Pregunta_DAO = new PreguntaDAO();
                         c = Pregunta_DAO.find(Integer.parseInt(ItemNames[i]));
                     
                         c.setEstado("Aprobado");
+                        Pregunta_DAO.update(c);
 
 
                         Set<ConstraintViolation<Pregunta>> violations3 = validator.validate(c);
