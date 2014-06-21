@@ -14,7 +14,7 @@
         <property name="nombreEe" type="string">
             <column name="nombreEE" length="60" not-null="true" />
         </property>
-        <set name="unidadeses" table="Unidades" inverse="true" lazy="true" fetch="select">
+        <set name="unidadeses" table="Unidades" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="ExperieciaEducativa_idExperieciaEducativa" not-null="true" />
             </key>

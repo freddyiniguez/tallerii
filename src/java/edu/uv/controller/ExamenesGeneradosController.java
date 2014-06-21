@@ -3,12 +3,15 @@ package edu.uv.controller;
 import edu.uv.model.dao.ExamenesGeneradosDAO;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.dao.PersonalDAO;
+import edu.uv.model.dao.UnidadesDAO;
 import edu.uv.model.pojos.ExamenesGenerados;
 import edu.uv.model.pojos.ExperieciaEducativa;
 import edu.uv.model.pojos.Personal;
+import edu.uv.model.pojos.Unidades;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +32,8 @@ public class ExamenesGeneradosController extends HttpServlet {
     static final String ADD = "agregar";
     static final String UPDATE = "actualizar";
     static final String INSERT = "insertar";
+    static final String EE = "ee";
+    static final String TEMAS = "temas";
     Date date;
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -54,6 +59,8 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             response.setContentType("text/html;charset=UTF-8");
             ExamenesGeneradosDAO ExamenesGenerados_DAO = new ExamenesGeneradosDAO();
             PersonalDAO Personal_DAO = new PersonalDAO();
+            UnidadesDAO Unidades_DAO = new UnidadesDAO();
+            
             ExperieciaEducativaDAO ExperieciaEducativa_DAO = new ExperieciaEducativaDAO();
              //crear el factory para iniciar la validacion
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -130,6 +137,17 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Personal",Personal_DAO.findAll());
                 request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
                 request.getRequestDispatcher("ExamenesGenerados_add.jsp").forward(request, response);
+                break;
+            case EE:
+                request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
+                request.getRequestDispatcher("Filtra_ee.jsp").forward(request, response);
+                break;
+            case TEMAS:
+                id= request.getParameter("id");
+                ExperieciaEducativa e = ExperieciaEducativa_DAO.find(Integer.parseInt(id));
+                request.setAttribute("ee",e);
+                request.setAttribute("list",Unidades_DAO.findAllby("ExperieciaEducativa_idExperieciaEducativa",id));
+                request.getRequestDispatcher("Filtra_temas.jsp").forward(request, response);
                 break;
             default:
                 
