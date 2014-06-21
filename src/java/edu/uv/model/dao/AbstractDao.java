@@ -79,7 +79,22 @@ public abstract class AbstractDao {
         
         return obj;
     }
-
+ protected List preguntasExamen(String idEx){
+                    
+        List objects = null;
+        try {
+            startOperation();
+            Query query = session.createQuery("from ExamenPregunta RIGHT OUTER JOIN ((select * from ExamenPregunta where examenesGenerados_idexamenesGenerados = '"+idEx+ "' ) as ExPreg )on ExPreg.Pregunta_idPregunta = Pregunta.idPregunta");
+            objects = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            handleException(e);
+        } finally {
+            session.close();
+        }
+        return objects;
+        
+    }
     protected List findAll(Class clazz) {
         List objects = null;
         try {
