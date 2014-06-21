@@ -20,6 +20,9 @@ public class ExamenPreguntaDAO extends AbstractDao {
     public void update(ExamenPregunta c) throws DataAccessLayerException {
         super.update(c);
     }
+    public List preguntasExamen(String idEx){
+        return super.preguntasExamen(idEx);
+    }
     public List findAll() throws DataAccessLayerException {
         return super.findAll(ExamenPregunta.class);
     }
