@@ -11,6 +11,7 @@
 %>
 
 <form action="PreguntaController" method="POST">  
+<div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -39,7 +40,7 @@
     </tr>
   </c:forEach>
 </table>
-
+<div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
   
 
  <div class="col-md-12 ">
