@@ -1,3 +1,4 @@
+if
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% if(session.getAttribute("rol")=="Coordinador"){  
 %>  
@@ -55,7 +56,7 @@
       
       <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="ExamenesGeneradosController?accion=borrar&id=${item.idexamenesGenerados}" href="#">Borrar</a></td>
       <td><a class="btn btn-warning" href="ExamenesGeneradosController?accion=buscar&id=${item.idexamenesGenerados}">Editar</a></td>
-      <td><a data-toggle="modal" data-target="#myModal2" class="btn btn-success" href="${men.mensaje}">Ver</a></td>
+      <td><a class="btn btn-success" href="ExamenPreguntaController?idEx=${item.idexamenesGenerados}">Ver</a></td>
     </tr>
   </c:forEach>
 </table>
