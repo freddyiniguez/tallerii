@@ -64,7 +64,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
         if (accion == null) {
-            request.setAttribute("list",ExamenPregunta_DAO.findAll());
+            request.setAttribute("list",ExamenPregunta_DAO.preguntasExamen(request.getParameter("idEx")));
             request.getRequestDispatcher("ExamenPregunta_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERT:
