@@ -28,7 +28,7 @@
         <div class="col-md-3 column">
         
           <h3>
-            Seleccione EE
+            Elija EE
           </h3>
           <div id="contenidos">
              <div id="lista">
@@ -51,7 +51,7 @@
                 
           <div class="col-md-3 column">
           <h3>
-            Seleccione Unidad
+            Elija Unidad
           </h3>
             <select class="form-control" id="listbox" >
                     
@@ -79,10 +79,24 @@
              
                 </div>
         
-        <div class="col-md-4 column" with="200" heigt="200">
-            <button type="button" class="btn btn-primary" onClick="redirect3()">Filtrar Experiencias</button>
-           <button type="button" class="btn btn-primary" onClick="redirect()">Filtrar Unidades</button>
-           <button type="button" class="btn btn-primary" onClick="redirect2()">Mostrar todas</button>
+        <div class="col-md-6 column" with="200" heigt="200">
+            <h3>
+            Filtrar por:
+          </h3>
+            <div class="row clearfix">
+				<div class="col-md-4 column">
+                                    <button type="button" class="btn btn-primary" onClick="redirect3()">Experiencia Edu</button>
+				</div>
+				<div class="col-md-4 column">
+                                    <button type="button" class="btn btn-primary" onClick="redirect()">       Unidades      </button>
+				</div>
+				<div class="col-md-4 column">
+                                    <button type="button" class="btn btn-primary" onClick="redirect2()"> Mostrar todas </button>
+				</div>
+			</div>
+            
+           
+           
            
            
            
