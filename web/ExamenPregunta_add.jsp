@@ -1,66 +1,58 @@
 <%@include file="header_ADM.jsp" %>
-<h1><B><center>Elección de preguntas a examen</center></b></h1>
-        <form action="ExamenPreguntaController" method="POST">
-        
-                                    <div class="clearfix"></div>
-                                    <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="examenesGenerados_idexamenesGenerados">Examenes Generados:<span class="required">*</span></label>
-                                    
-                                    <div class="col-sm-12">
-                                      <div class="input-group">
-                                      <select class="form-control" name="EG">
-                                        <c:forEach items="${ExamenesGenerados}" var="item">
-                                                <option value="${item.idexamenesGenerados}">${item.tipoExamen}</option>
-                                                
-                                        </c:forEach>
-                                       </select>
-                                       <span class="input-group-btn">
-                                           <%--
-                                        <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
-                                           --%>
-                                       </span>
-                                       </div>
-                                    </div>
-
-                                    </div>
-                                    
-
-                                    <div class="clearfix"></div>
-                                    <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Pregunta_idPregunta">Preguntas:<span class="required">*</span></label>
-                                    
-                                    <div class="col-sm-12">
-                                      <div class="input-group">
-                                      <select class="form-control" name="personal">
-                                        <c:forEach items="${Preguntas}" var="item">
-                                                <option value="${item.idPregunta}">${item.descripcionPregunta}</option>
-                                        </c:forEach>
-                                       </select>
-                                       <span class="input-group-btn">
-                                           <%--
-                                        <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
-                                           --%>
-                                       </span>
-                                       </div>
-                                    </div>
-
-                                    </div>
-                                       
-                                    <div class="clearfix"></div>   
-                                    <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="puntaje">Puntaje
-                                        <span class="required">*</span>
-                                    </label>
-                                    <div class="col-sm-10">                       
-                                    <input required class ="form-control" id="puntaje" type="text" name="puntaje" value="" maxlength="11" />
-                                    </div>
-                                    </div>
-                                    
-        <div class="col-md-12 ">
-            <h5><p align="right"><font color="red">Los campos que están marcados con * son obligatorios para el registro  </font>  </p> </h5>
-			<div class="pull-right">
-				<input type="submit" class="btn btn-primary" name ="accion" value="insertar">
-			</div>
+<form method="POST">
+    <div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<h3>
+				Agregar Preguntas a examen
+			</h3>
 		</div>
-        </form>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
+			<table class="table">
+				<thead>
+					<tr>
+			          <th>Aprobar</th>
+			          <th>Numero Pregunta</th>
+			          <th>Tema</th>        
+			          <th>Descripcion Pregunta</th>        
+			          <th>Estado</th>
+			          <th>Pts.</th>         
+			          <th>Respuestas</th>
+				</thead>
+				<tbody>
+					<c:forEach items="${list}" var="item">
+					    <tr>
+					      <td><input type="checkbox" value="${item.idPregunta}" name="aprobar"></td>
+					      <td><c:out value="${item.idPregunta}"/></td>
+					      <td><c:out value="${item.temas.nombreTema}"/></td>
+					      <td><c:out value="${item.descripcionPregunta}"/></td>
+					      <td><c:out value="${item.estado}"/></td>
+					      <td><c:out value="${item.puntuacionPregunta}"/></td>
+					      <td>
+					          <c:forEach items="${item.respuestases}" var="respuesta">
+					              R: ${respuesta.descripcionRespuesta}<br>
+					          </c:forEach>
+					      </td>
+					    </tr>
+  					</c:forEach>
+						
+				</tbody>
+			</table>
+			<div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-2 column">
+		</div>
+		<div class="col-md-6 column">
+		</div>
+		<div class="col-md-4 column">
+			 <button type="button" class="btn btn-success">Agregar</button>
+		</div>
+	</div>
+</div>
+</form>
 <%@include file="footer.jsp" %>
