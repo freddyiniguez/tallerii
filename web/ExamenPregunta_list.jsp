@@ -2,23 +2,33 @@
 <h2>Lista de Examenes</h2>
 <a href="ExamenPreguntaController?accion=agregar" class="btn btn-primary">Agregar Preguntas a Examen</a>
 <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
-<table id="tabla" class="table table-striped sortable">
- 
-    <td>Puntaje</td>
-    <td>Tipo Examen</td>
-    <td>Preguntas</td>
-    <td class="unsortable">Borrar</td>
-    <td class="unsortable">Editar</td>
-    
-    <c:forEach items="${list}" var="item">
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th>Aprobar</th>
+          <th>Numero Pregunta</th>
+          <th>Tema</th>        
+          <th>Descripcion Pregunta</th>        
+          <th>Estado</th>
+          <th>Pts.</th>         
+          <th>Respuestas</th>
+        </tr>
+    </thead>
+ <c:forEach items="${list}" var="item">
     <tr>
-      <td><c:out value="${item.puntaje}"/></td>
-      <td><c:out value="${item.examenesGenerados.descripcionExamen}"/></td>
-      <td><c:out value="${item.preguntas.descripcionPregunta}"/></td>
-      <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="ExamenPreguntaController?accion=borrar&id=${item.idExamenPregunta}" href="#">Borrar</a></td>
-      <td><a class="btn btn-warning" href="ExamenPreguntaController?accion=buscar&id=${item.idExamenPregunta}">Editar</a></td>
+      <td><input type="checkbox" value="${item.idPregunta}" name="aprobar"></td>
+      <td><c:out value="${item.idPregunta}"/></td>
+      <td><c:out value="${item.temas.nombreTema}"/></td>
+      <td><c:out value="${item.descripcionPregunta}"/></td>
+      <td><c:out value="${item.estado}"/></td>
+      <td><c:out value="${item.puntuacionPregunta}"/></td>
+      <td>
+          <c:forEach items="${item.respuestases}" var="respuesta">
+              R: ${respuesta.descripcionRespuesta}<br>
+          </c:forEach>
+      </td>
     </tr>
   </c:forEach>
 </table>
-<div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
+<div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
 <%@include file="footer.jsp" %>
