@@ -1,4 +1,13 @@
-<%@include file="header_ADM.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% if(session.getAttribute("rol")=="Coordinador"){  
+%>  
+<jsp:include page="header_COORD.jsp" flush="true" /> 
+<%}%> 
+
+<% if(session.getAttribute("rol")=="Profesor"){  
+%>  
+<jsp:include page="header_PROF.jsp" flush="true" /> 
+<%}%>
 <div class="row">
  <form action="ExamenesGeneradosController?accion=examen" method="POST">
     <input type="hidden" name="examen" value="${examen.idexamenesGenerados}">
@@ -18,7 +27,7 @@
         </c:forEach>
   </c:forEach>
                 </div>
-<input type="submit" value="Generar">
+<input class="btn btn-primary" type="submit" value="Generar">
 </form>
 </div>
 <script>
