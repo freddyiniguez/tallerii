@@ -1,10 +1,12 @@
 
 package edu.uv.controller;
+import edu.uv.model.dao.ExamenPreguntaDAO;
 import edu.uv.model.dao.ExamenesGeneradosDAO;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.dao.PersonalDAO;
 import edu.uv.model.dao.TemasDAO;
 import edu.uv.model.dao.UnidadesDAO;
+import edu.uv.model.pojos.ExamenPregunta;
 import edu.uv.model.pojos.ExamenesGenerados;
 import edu.uv.model.pojos.ExperieciaEducativa;
 import edu.uv.model.pojos.Personal;
@@ -156,24 +158,37 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("Filtra_temas.jsp").forward(request, response);
                 break;
             case GENERA_EXAMEN:
-                String[] temas = request.getParameterValues("tema");
+                String[] temas = request.getParameterValues("tema"); 
+                // Recupera el examen que se generó previamente
+                ExamenesGeneradosDAO examenesGenerados_DAO = new ExamenesGeneradosDAO();
+                ExamenesGenerados examen = examenesGenerados_DAO.find(1);
                 
-                List<Temas> tems = Temas_DAO.findAll();
-                List<Temas> aux = new ArrayList<Temas>();
-                for(Temas t:tems){
+                ExamenPreguntaDAO ep = new ExamenPreguntaDAO(); // El DAO para hacer los insert                                
+                List<Temas> tems = Temas_DAO.findAll(); // Lista de temas en general
+                List<Temas> aux = new ArrayList<Temas>(); // Lista de temas auxiliar donde van las que el usuario ha seleccionado 
+                for(Temas t:tems){                          
                     for(int i=0;i<temas.length;i++){
                         if(t.getIdTema().equals(Integer.parseInt(temas[i]))){
-                        aux.add(t);
+                        aux.add(t); // Si el usuario la seleccionó, la agrega a la lista
                         }
                     }
                 }
+                // Se crea la lista de preguntas que va a llevar el examen por tema.
+                List<Pregunta> preguntasTema = new ArrayList<Pregunta>();
                 for(Temas t2:aux){
                     Object[] preguntas = t2.getPreguntas().toArray();
-                    for(int a=0; a<preguntas.length; a++){
-                        Pregunta p = (Pregunta)preguntas[a];
-                        System.out.println(p.getDescripcionPregunta());
-                    }
+                    // Inserta en la lista de preguntas 
+                    // Obtiene una pregunta de manera aleatoria (toma el id)
+                    int numPregunta = (int)Math.floor(Math.random()*preguntas.length);
+                    // La guarda en la base de datos con su respectivo id del examen y pregunta
+                    ExamenPregunta examenpregunta = new ExamenPregunta();
+                    examenpregunta.setExamenesGenerados(examen);
+                    examenpregunta.setPregunta((Pregunta)preguntas[numPregunta]);
+                    ep.create(examenpregunta);                    
+                    // Lo agrega a la lista de preguntas para mostrar
+                    preguntasTema.add((Pregunta)preguntas[numPregunta]);
                 }
+                request.setAttribute("list", preguntasTema);
                 request.getRequestDispatcher("ExamenesGenerados_list_preguntas.jsp").forward(request, response);
                 break;
             default:

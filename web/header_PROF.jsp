@@ -59,7 +59,7 @@
                                         <h5>Examenes<i class="glyphicon glyphicon-chevron-right"></i></h5>
                                     </a>
                                     <ul class="list-unstyled collapse in" id="examenes">
-                                        <li><a href="http://sus.bittsys.com//Statico/GenerarExamen">Generar examen</a>
+                                        <li><a href="ExamenesGeneradosController">Generar examen</a>
                                         </li>
                                     </ul>
                                 </li>
