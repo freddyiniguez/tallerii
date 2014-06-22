@@ -14,7 +14,7 @@
         <many-to-one name="pregunta" class="edu.uv.model.pojos.Pregunta" fetch="select">
             <column name="Pregunta_idPregunta" not-null="true" />
         </many-to-one>
-        <property name="puntaje" type="java.lang.Integer">
+        <property name="puntaje" type="java.lang.Double">
             <column name="puntaje" />
         </property>
     </class>

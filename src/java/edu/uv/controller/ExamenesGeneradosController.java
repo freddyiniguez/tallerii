@@ -253,9 +253,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     for(ExamenPregunta epaux: listaExamenPregunta){
                         Pregunta temp = epaux.getPregunta();
                         if(temp.getModalidadPregunta().equals("Teoria"))
-                            epaux.getPregunta().setComplejidadPregunta(/*epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoTeoria*/2);
+                            epaux.setPuntaje(epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoTeoria);
                         else
-                            epaux.getPregunta().setComplejidadPregunta(/*epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoPractica*/4);
+                            epaux.setPuntaje(epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoPractica);
                         ep.create(epaux);
                     }
                 }                      

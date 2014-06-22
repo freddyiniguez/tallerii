@@ -75,7 +75,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c = new ExamenPregunta();
                 c.setExamenesGenerados(ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("tipoExa"))));
                 c.setPregunta(Pregunta_DAO.find(Integer.parseInt(request.getParameter("pregunta"))));
-                c.setPuntaje(Integer.parseInt(request.getParameter("puntaje")));
+                c.setPuntaje(Double.parseDouble(request.getParameter("puntaje")));
                 Set<ConstraintViolation<ExamenPregunta>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){
@@ -98,7 +98,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 c = new ExamenPregunta();
                 c.setExamenesGenerados(ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("tipoExa"))));
                 c.setPregunta(Pregunta_DAO.find(Integer.parseInt(request.getParameter("pregunta"))));
-                c.setPuntaje(Integer.parseInt(request.getParameter("puntaje")));
+                c.setPuntaje(Double.parseDouble(request.getParameter("puntaje")));
                 c.setIdExamenPregunta(Integer.parseInt(request.getParameter("idExamenPregunta")));
                 Set<ConstraintViolation<ExamenPregunta>> violations2 = validator.validate(c);
                 // enviar mensajes a jsp

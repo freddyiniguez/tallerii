@@ -15,9 +15,7 @@ public class ExamenPregunta  implements java.io.Serializable {
      private Integer idExamenPregunta;
      private ExamenesGenerados examenesGenerados;
      private Pregunta pregunta;
-     @Min(1)
-     @Max(100)
-     private Integer puntaje;
+     private Double puntaje;
 
     public ExamenPregunta() {
     }
@@ -27,7 +25,7 @@ public class ExamenPregunta  implements java.io.Serializable {
         this.examenesGenerados = examenesGenerados;
         this.pregunta = pregunta;
     }
-    public ExamenPregunta(ExamenesGenerados examenesGenerados, Pregunta pregunta, Integer puntaje) {
+    public ExamenPregunta(ExamenesGenerados examenesGenerados, Pregunta pregunta, Double puntaje) {
        this.examenesGenerados = examenesGenerados;
        this.pregunta = pregunta;
        this.puntaje = puntaje;
@@ -54,17 +52,11 @@ public class ExamenPregunta  implements java.io.Serializable {
     public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
     }
-    public Integer getPuntaje() {
+    public Double getPuntaje() {
         return this.puntaje;
     }
     
-    public void setPuntaje(Integer puntaje) {
+    public void setPuntaje(Double puntaje) {
         this.puntaje = puntaje;
     }
-
-
-
-
 }
-
-
