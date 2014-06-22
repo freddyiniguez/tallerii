@@ -15,6 +15,8 @@ import edu.uv.model.pojos.ExamenesGenerados;
 import edu.uv.model.pojos.Pregunta;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,8 +66,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
         if (accion == null) {
-            request.setAttribute("list",ExamenPregunta_DAO.preguntasExamen(request.getParameter("idEx")));
-            request.getRequestDispatcher("ExamenPregunta_list.jsp").forward(request, response); 
+            //request.setAttribute("list",ExamenPregunta_DAO.preguntasExamen(request.getParameter("idEx")));
+            //request.getRequestDispatcher("ExamenPregunta_list.jsp").forward(request, response); 
+            request.setAttribute("list",preguntasList(Integer.parseInt(request.getParameter("idEx"))));
+            request.getRequestDispatcher("ExamenPregunta_list.jsp").forward(request, response);
         } else switch(accion){
             case INSERT:
                 c = new ExamenPregunta();
@@ -126,6 +130,44 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }
         
  }
+protected List preguntasDisponibles(int id, List <Pregunta> actuales){ 
+    List <Pregunta> resultado = new ArrayList(); 
+    PreguntaDAO preDao = new PreguntaDAO();
+    List <Pregunta> preTotales = preDao.findAll(); 
+    ExamenPreguntaDAO exaGe = new ExamenPreguntaDAO(); 
+    List <ExamenPregunta> totExa = exaGe.findAll(); 
+    for(ExamenPregunta aux:totExa){ 
+        if(aux.getExamenesGenerados().getIdexamenesGenerados().equals(id)){ 
+            int y = aux.getPregunta().getIdPregunta();
+            for(Pregunta todas:preTotales){ 
+                if((todas.getIdPregunta().equals(y))&&(todas.getEstado().equals("Aprobado"))){ 
+                    resultado.add(todas); 
+                } 
+            } 
+        } 
+    } 
+    return resultado; 
+}
+
+//Mostrar preguntas 
+protected List preguntasList(int id){ 
+    List <Pregunta> resultado = new ArrayList(); 
+    PreguntaDAO preDao = new PreguntaDAO(); 
+    List <Pregunta> preTotales = preDao.findAll();
+    ExamenPreguntaDAO exaGe = new ExamenPreguntaDAO();
+    List <ExamenPregunta> totExa = exaGe.findAll();
+    for(ExamenPregunta aux:totExa){ 
+        if(aux.getExamenesGenerados().getIdexamenesGenerados().equals(id)){ 
+            int y = aux.getPregunta().getIdPregunta(); 
+            for(Pregunta todas:preTotales){
+                if(todas.getIdPregunta().equals(y)){ 
+                    resultado.add(todas); 
+                } 
+            } 
+        } 
+    } 
+    return resultado; 
+}
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
