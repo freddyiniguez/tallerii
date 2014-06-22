@@ -28,5 +28,13 @@
         </c:forEach>
     </td>
 </table>
+<table>
+    <td>
+        <c:forEach items="${listaExamenPregunta}" var="item">
+            <c:out value="${item.puntaje}"/>
+            <br>
+        </c:forEach>
+    </td>
+</table>
 <div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
 <%@include file="footer.jsp" %>

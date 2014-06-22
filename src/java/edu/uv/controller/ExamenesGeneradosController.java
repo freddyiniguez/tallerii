@@ -168,11 +168,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 String[] temas = request.getParameterValues("tema"); 
                 // Recupera el examen que se generó previamente
                 ExamenesGeneradosDAO examenesGenerados_DAO = new ExamenesGeneradosDAO();
-                ExamenesGenerados examen = examenesGenerados_DAO.find(Integer.parseInt(examen_id));
-                
-                // Almacena el porcentaje de teoría y de práctica que tiene el examen
-                //int iPorcTeoria = examen.getPorcTeoria();
-                //int iPorcPractica = examen.getPorcPractica();
+                ExamenesGenerados examen = examenesGenerados_DAO.find(Integer.parseInt(examen_id));                
                 
                 ExamenPreguntaDAO ep = new ExamenPreguntaDAO(); // El DAO para hacer los insert                                
                 List<Temas> tems = Temas_DAO.findAll(); // Lista de temas en general
@@ -189,6 +185,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 List<Pregunta> preguntasTemaTeoria = new ArrayList();
                 List<Pregunta> preguntasTemaPractica = new ArrayList();
                 List<Pregunta> preguntasTema = new ArrayList();
+                List<ExamenPregunta> listaExamenPregunta = new ArrayList();
                 for(Temas t2:aux){
                     // Se obtiene por tema todas las preguntas (teóricas y prácticas)
                     Object[] preguntas = t2.getPreguntas().toArray();                    
@@ -205,13 +202,14 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     // Se elige una pregunta de teoría y otra de práctica para cada tema.
                     // Se crea un ExamenPregunta para registrar la pregunta de Teoría y
                     // Se crea un ExamenPregunta para registrar la pregunta de Práctica
-                   
+                                       
                     // Pregunta de Teoría
                     ExamenPregunta epTeoria = new ExamenPregunta();
                     epTeoria.setExamenesGenerados(examen);
                     int getRandom = (int)Math.floor(Math.random()*preguntasTemaTeoria.size());
                     epTeoria.setPregunta(preguntasTemaTeoria.get(getRandom));
-                    ep.create(epTeoria);
+                    listaExamenPregunta.add(epTeoria);
+                    //ep.create(epTeoria);
                     // Agrega la pregunta a la lista para mostrarlo en pantalla
                     preguntasTema.add(preguntasTemaTeoria.get(getRandom));
                     
@@ -219,11 +217,49 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     ExamenPregunta epPractica = new ExamenPregunta();
                     epPractica.setExamenesGenerados(examen);
                     getRandom = (int)Math.floor(Math.random()*preguntasTemaPractica.size());
-                    epPractica.setPregunta(preguntasTemaPractica.get(getRandom));
-                    ep.create(epPractica); 
+                    epPractica.setPregunta(preguntasTemaPractica.get(getRandom)); 
+                    listaExamenPregunta.add(epPractica);
+                    //ep.create(epPractica); 
                     // Agrega la pregunta a la lista para mostrarlo en pantalla
                     preguntasTema.add(preguntasTemaPractica.get(getRandom));
-                }    
+                    
+                    // Almacena el porcentaje de teoría y de práctica que tiene el examen
+                    double iPorcTeoriaExamen = examen.getPorcTeoria();
+                    double iPorcPracticaExamen = examen.getPorcPractica();
+                    // Crea una variable para el porcentaje de teoría de las preguntas seleccionadas
+                    double iTotalPTSTeoriaReal=0.0;                    
+                    // Crea una variable para el porcentaje de práctica de las preguntas seleccionadas
+                    double iTotalPTSPracticaReal=0.0;
+                    // Crea una variable para el cálculo del porcentaje ponderado
+                    double iPorcPonderadoTeoria = 0.0;
+                    double iPorcPonderadoPractica = 0.0;
+                    
+                    for(Pregunta p: preguntasTemaTeoria)
+                        iTotalPTSTeoriaReal+=p.getPuntuacionPregunta();
+                    
+                    for(Pregunta p: preguntasTemaPractica)
+                        iTotalPTSPracticaReal+=p.getPuntuacionPregunta();
+                    
+                    iPorcPonderadoTeoria=iPorcTeoriaExamen/iTotalPTSTeoriaReal;
+                    iPorcPonderadoPractica=iPorcPracticaExamen/iTotalPTSPracticaReal;
+                    
+                    System.out.println("iPorcTeoriaExamen: "+iPorcTeoriaExamen);
+                    System.out.println("iPorcPracticaExamen: "+iPorcPracticaExamen);
+                    System.out.println("iTotalPTSTeoriaReal: "+iTotalPTSTeoriaReal);
+                    System.out.println("iTotalPTSPracticaReal: "+iTotalPTSPracticaReal);
+                    System.out.println("iPorcPonderadoTeoria: "+iPorcPonderadoTeoria);
+                    System.out.println("iPorcPonderadoPractica: "+iPorcPonderadoPractica);
+                    
+                    for(ExamenPregunta epaux: listaExamenPregunta){
+                        Pregunta temp = epaux.getPregunta();
+                        if(temp.getModalidadPregunta().equals("Teoria"))
+                            epaux.getPregunta().setComplejidadPregunta(/*epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoTeoria*/2);
+                        else
+                            epaux.getPregunta().setComplejidadPregunta(/*epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoPractica*/4);
+                        ep.create(epaux);
+                    }
+                }                      
+                request.setAttribute("listaExamenPregunta", listaExamenPregunta);
                 request.setAttribute("list", preguntasTema);
                 request.getRequestDispatcher("ExamenesGenerados_list_preguntas.jsp").forward(request, response);
                 break;
