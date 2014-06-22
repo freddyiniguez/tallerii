@@ -1,5 +1,4 @@
-<%@include file="header_ADM.jsp" %>
-<%--
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% if(session.getAttribute("rol")=="Coordinador"){  
 %>  
 <jsp:include page="header_COORD.jsp" flush="true" /> 
@@ -9,7 +8,7 @@
 %>  
 <jsp:include page="header_PROF.jsp" flush="true" /> 
 <%}%>
-
+ 
 <%    if ((session.getAttribute("user") == null)) {
         request.getRequestDispatcher("login_.jsp").forward(request, response);
     } else {
@@ -19,7 +18,6 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 %>
---%>
 <script>
 var array =[];
 <c:forEach items="${Unidades}" var="unidad">
