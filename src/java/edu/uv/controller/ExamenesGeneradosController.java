@@ -173,22 +173,41 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                         }
                     }
                 }
-                // Se crea la lista de preguntas que va a llevar el examen por tema.
-                List<Pregunta> preguntasTema = new ArrayList<Pregunta>();
+                // Se crean las listas de preguntas por tema que llevará el examen
+                // considerando que una es para preguntas teóricas y otro para las prácticas.
+                List<Pregunta> preguntasTemaTeoria = new ArrayList<Pregunta>();
+                List<Pregunta> preguntasTemaPractica = new ArrayList<Pregunta>();
                 for(Temas t2:aux){
-                    Object[] preguntas = t2.getPreguntas().toArray();
-                    // Inserta en la lista de preguntas 
-                    // Obtiene una pregunta de manera aleatoria (toma el id)
-                    int numPregunta = (int)Math.floor(Math.random()*preguntas.length);
-                    // La guarda en la base de datos con su respectivo id del examen y pregunta
-                    ExamenPregunta examenpregunta = new ExamenPregunta();
-                    examenpregunta.setExamenesGenerados(examen);
-                    examenpregunta.setPregunta((Pregunta)preguntas[numPregunta]);
-                    ep.create(examenpregunta);                    
-                    // Lo agrega a la lista de preguntas para mostrar
-                    preguntasTema.add((Pregunta)preguntas[numPregunta]);
-                }
-                request.setAttribute("list", preguntasTema);
+                    // Se obtiene por tema todas las preguntas (teóricas y prácticas)
+                    Object[] preguntas = t2.getPreguntas().toArray();                    
+                    // Se hace un recorrido por todas las preguntas de ese tema y se van
+                    // clasificando según sean preguntas de teoría o de práctica.
+                    // Se registran en las listas correspondientes.                    
+                    for(int x =0; x<preguntas.length; x++){
+                        Pregunta auxiliar = (Pregunta)preguntas[x];
+                        if(auxiliar.getModalidadPregunta().equals("Teoria"))
+                            preguntasTemaTeoria.add(auxiliar);
+                        else
+                            preguntasTemaPractica.add(auxiliar);
+                    }
+                    // Se elige una pregunta de teoría y otra de práctica para cada tema.
+                    // Se crea un ExamenPregunta para registrar la pregunta de Teoría y
+                    // Se crea un ExamenPregunta para registrar la pregunta de Práctica
+                   
+                    // Pregunta de Teoría
+                    ExamenPregunta epTeoria = new ExamenPregunta();
+                    epTeoria.setExamenesGenerados(examen);
+                    int getRandom = (int)Math.floor(Math.random()*preguntasTemaTeoria.size());
+                    epTeoria.setPregunta(preguntasTemaTeoria.get(getRandom));
+                    ep.create(epTeoria);
+                    
+                    //Pregunta de Práctica
+                    ExamenPregunta epPractica = new ExamenPregunta();
+                    epPractica.setExamenesGenerados(examen);
+                    getRandom = (int)Math.floor(Math.random()*preguntasTemaPractica.size());
+                    epPractica.setPregunta(preguntasTemaPractica.get(getRandom));
+                    ep.create(epPractica);                                      
+                }               
                 request.getRequestDispatcher("ExamenesGenerados_list_preguntas.jsp").forward(request, response);
                 break;
             default:
