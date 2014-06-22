@@ -32,7 +32,11 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="tipoExamen">Tipo de exámen:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="tipoExamen" type="text" name="tipoExamen" value=""  />
+                                        <select name="tipoExamen" class="form-control">
+                                            <option value="Parcial">Parcial</option>
+                                            <option value="Parcial">Ordinario</option>
+                                            <option value="Parcial">Extra</option>
+                                        </select>
                                     </div>
                                     </div>
                                     
@@ -67,25 +71,17 @@
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="estadoExamen">Estado:<span class="required">*</span></label>
-                                    <div class="col-sm-12">  
-                                    <input required class ="form-control" id="estadoExamen" type="text" name="estadoExamen" value=""  />
+                                    <div class="col-sm-12">
+                                    <input required class ="form-control" id="estadoExamen" type="hidden" name="estadoExamen" value="NoAprobado"  />
                                     </div>
                                     </div>
                                     
 
                                     <div class="clearfix"></div>
                                     <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="Personal_idPersonal">Personal:<span class="required">*</span></label>
-                                    
                                     <div class="col-sm-12">
                                       <div class="input-group">
-                                      <select class="form-control" name="personal">
-                                          
-                                        <c:forEach items="${Personal}" var="item">
-                                                <option value="${item.idPersonal}">${item.idPersonal}</option>
-                                        </c:forEach>
-                                       </select>
+                                      <input type="hidden" name="personal" value="<%=session.getAttribute("idusuario")%>">
                                        <span class="input-group-btn">
                                            <%--
                                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>

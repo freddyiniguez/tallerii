@@ -14,7 +14,7 @@
         <property name="nombreUnidad" type="string">
             <column name="nombreUnidad" length="60" not-null="true" />
         </property>
-        <set name="temases" table="Temas" inverse="true" lazy="false" fetch="select">
+        <set name="temases" table="Temas" inverse="true" lazy="false" fetch="select" order-by="idTema">
             <key>
                 <column name="Unidades_idUnidad" not-null="true" />
             </key>
