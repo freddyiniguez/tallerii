@@ -1,3 +1,5 @@
+<%@include file="header_ADM.jsp" %>
+<%--
 <% if(session.getAttribute("rol")=="Coordinador"){  
 %>  
 <jsp:include page="header_COORD.jsp" flush="true" /> 
@@ -17,30 +19,48 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 %>
-
-
+--%>
+<script>
+var array =[];
+<c:forEach items="${Unidades}" var="unidad">
+<c:forEach items="${unidad.temases}" var="tema">
+    <c:if test="${tema.temas != null}">
+var obj = [];
+obj["unidad"] ="${unidad.idUnidad}";
+obj["tema"]="${tema.nombreTema}";
+obj["id_tema"]="${tema.idTema}";
+array.push(obj);
+    </c:if>
+</c:forEach>
+</c:forEach>
+$(document).on('change','#unidad',function(){
+    $("#tema").empty();
+    for(var i=0;i<array.length;i++){
+        if(array[i]["unidad"]==$(this).find('option:selected').val()){
+            console.log(array[i]["tema"]);
+            $("#tema").append("<option value='"+array[i]["id_tema"]+"'>"+array[i]["tema"]+"</option>");
+        }
+    }
+    //console.log($(this).find('option:selected').val());
+    
+});
+</script>
 <h1><B><center>Registro de pregunta </center></b></h1>
         <form action="PreguntaController" method="POST">
+            
             <div class="clearfix"></div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="Unidades_idUnidad">De la unidad<span class="required">*</span></label>
-                <!--combo unidades --> 
-                <div class="col-sm-10">
+                <label class="col-sm-2 control-label" for="unidad">De la unidad<span class="required">*</span></label>
+                <div class="col-sm-12">
                   <div class="input-group">
-                  <select id="cunidades" onchange="verTemas()" class="form-control" name="unidad">
-                    <% 
-                    java.util.ArrayList<edu.uv.model.pojos.Unidades> list2 = (java.util.ArrayList)session.getAttribute("unidadesList");
-                    if(list2!=null)
-                    for(edu.uv.model.pojos.Unidades en:list2){
-                    %>
-                    <option value=<%= en.getIdUnidad()%> > <%= en.getNombreUnidad()%> </option >
-                    <%};%>
-                   </select>
-                   <span class="input-group-btn">
-                       <%--
-                    <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
-                       --%>
-                   </span>
+                        <select id="unidad"  class="form-control" name="unidad">
+                            <c:forEach items="${Unidades}" var="unidad">
+                                <option value="${unidad.idUnidad}">${unidad.nombreUnidad}</option>
+                            </c:forEach>
+                           </select>
+                        <span class="input-group-btn">
+                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
+                        </span>
                    </div>
                 </div>
             </div>
@@ -50,54 +70,9 @@
                 <label class="col-sm-3 control-label" for="temas_idtemas">Tema:<span class="required">*</span></label>
                 <div class="col-sm-12">
                   <div class="input-group">
-                        <select name="tema" class="form-control">
-                                        <option value=""></option>
-                                        
-                                                <option value="1">tema 1</option>
-                                        
-                                                <option value="2">tema 4</option>
-                                        
-                                                <option value="3">Loving Script</option>
-                                        
-                                                <option value="4">script del amor</option>
-                                        
-                                                <option value="5">PythonInLove</option>
-                                        
-                                                <option value="6">Algoritmo del amor</option>
-                                        
-                                                <option value="7">lola1</option>
-                                        
-                                                <option value="8">lola2</option>
-                                        
-                                                <option value="9">lola3</option>
-                                        
-                                                <option value="10">lolalab1</option>
-                                        
-                                                <option value="11">lolalab2</option>
-                                        
-                                                <option value="12">lolalab3</option>
-                                        
-                                                <option value="13">llla2</option>
-                                        
-                                                <option value="14">llla3</option>
-                                        
-                                                <option value="15">tema1</option>
-                                        
-                                                <option value="16">tema2</option>
-                                        
-                                                <option value="17">tema3</option>
-                                        
-                                                <option value="18">dsdsdsdsds</option>
-                                        
-                                                <option value="19">sdsdsdsdsdd</option>
-                                        
-                                                <option value="20">jojojo1</option>
-                                        
-                                                <option value="21">jojojo2</option>
-                                        
-                                                <option value="22">jojojo3</option>
-                                        
-                                       </select>
+                        <select name="tema" id="tema" class="form-control">
+                            <option></option>
+                        </select>
                         <span class="input-group-btn">
                          <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
                         </span>
@@ -135,7 +110,7 @@
                 <div class="col-sm-12">                                
                 <select class="form-control" name="modalidadPregunta" id="modalidadPregunta">
                     <option value=""></option>
-                    <option value="Teorica">Teórica</option>
+                    <option value="Teoria">Teórica</option>
                     <option value="Practica">Practica</option>
                 </select>
             </div>

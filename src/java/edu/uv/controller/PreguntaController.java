@@ -41,7 +41,7 @@ public class PreguntaController extends HttpServlet {
     static final String INSERT = "insertar";
     static final String LIST_APPROVE = "list_aprobar";
     static final String APPROVE = "aprobar";
-
+    static final String EE = "ee";
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -68,7 +68,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             Temas T = new Temas();
             response.setContentType("text/html;charset=UTF-8");
             PreguntaDAO Pregunta_DAO = new PreguntaDAO();
-            ExperieciaEducativaDAO EEDAO =new ExperieciaEducativaDAO();
+            ExperieciaEducativaDAO ExperieciaEducativa_DAO =new ExperieciaEducativaDAO();
             UnidadesDAO Unidades_DAO = new UnidadesDAO();
             TemasDAO Temas_DAO = new TemasDAO();
             RespuestasDAO Respuestas_DAO = new RespuestasDAO();
@@ -78,21 +78,21 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             Validator validator = factory.getValidator();
         if (accion == null) {
             List<Pregunta> lista = buscarTemasPreguntasTotal((int)session.getAttribute("idpersonal"),modo);
-            request.setAttribute("listaEE", EEDAO.findAll());
+            request.setAttribute("listaEE", ExperieciaEducativa_DAO.findAll());
             request.setAttribute("list",lista);
             request.getRequestDispatcher("Pregunta_list.jsp").forward(request, response); 
         } else switch(accion){
             case FILTRADO:
                 //String aExp = request.getParameter("auxExp");
                 String aUnidad = request.getParameter("auxUni");
-                request.setAttribute("listaEE", EEDAO.findAll());
+                request.setAttribute("listaEE", ExperieciaEducativa_DAO.findAll());
                 List<Pregunta> lista = buscarTemasPreguntas((int)session.getAttribute("idpersonal"),modo,Integer.parseInt(aUnidad));
                 request.setAttribute("list",lista);
                 request.getRequestDispatcher("Pregunta_list.jsp").forward(request, response);    
                 break;
             case FILTRADOER:
                 String aExp = request.getParameter("aExp");
-                request.setAttribute("listaEE", EEDAO.findAll());
+                request.setAttribute("listaEE", ExperieciaEducativa_DAO.findAll());
                 List<Pregunta> lista2 = buscarTemasPreguntasER((int)session.getAttribute("idpersonal"),modo,Integer.parseInt(aExp));
                 request.setAttribute("list",lista2);
                 request.getRequestDispatcher("Pregunta_list.jsp").forward(request, response);    
@@ -160,9 +160,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("Temas",Temas_DAO.findAll());
                 request.getRequestDispatcher("Pregunta_edit.jsp").forward(request, response);
                 break;
+            case EE:
+                request.setAttribute("ExperieciaEducativa",ExperieciaEducativa_DAO.findAll());
+                request.getRequestDispatcher("Pregunta_list_ee.jsp").forward(request, response);
+                break;
             case ADD:
-                String exp =request.getParameter("idEE");
-                request.setAttribute("Temas",Temas_DAO.findAll());
+                String exp =request.getParameter("id");
                 request.setAttribute("Unidades",Unidades_DAO.findAllby("ExperieciaEducativa_idExperieciaEducativa",exp));
                 request.getRequestDispatcher("Pregunta_add.jsp").forward(request, response);
                 break;

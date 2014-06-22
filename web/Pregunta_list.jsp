@@ -20,7 +20,7 @@
         }
 %>
 <h2>Lista de Preguntas</h2>
-<a href="PreguntaController?accion=agregar" class="btn btn-primary">Agregar Pregunta</a>
+<a href="PreguntaController?accion=ee" class="btn btn-primary">Agregar Pregunta</a>
 <a href="PreguntaController?accion=list_aprobar" class="btn btn-success">Aprobar Pregunta</a>
  <div class="row clearfix">
      <body onload="Cargar()">
