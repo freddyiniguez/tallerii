@@ -170,9 +170,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 ExamenesGeneradosDAO examenesGenerados_DAO = new ExamenesGeneradosDAO();
                 ExamenesGenerados examen = examenesGenerados_DAO.find(Integer.parseInt(examen_id));
                 
+                // Almacena el porcentaje de teoría y de práctica que tiene el examen
+                //int iPorcTeoria = examen.getPorcTeoria();
+                //int iPorcPractica = examen.getPorcPractica();
+                
                 ExamenPreguntaDAO ep = new ExamenPreguntaDAO(); // El DAO para hacer los insert                                
                 List<Temas> tems = Temas_DAO.findAll(); // Lista de temas en general
-                List<Temas> aux = new ArrayList<Temas>(); // Lista de temas auxiliar donde van las que el usuario ha seleccionado 
+                List<Temas> aux = new ArrayList(); // Lista de temas auxiliar donde van las que el usuario ha seleccionado 
                 for(Temas t:tems){                          
                     for(int i=0;i<temas.length;i++){
                         if(t.getIdTema().equals(Integer.parseInt(temas[i]))){
@@ -182,8 +186,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 // Se crean las listas de preguntas por tema que llevará el examen
                 // considerando que una es para preguntas teóricas y otro para las prácticas.
-                List<Pregunta> preguntasTemaTeoria = new ArrayList<Pregunta>();
-                List<Pregunta> preguntasTemaPractica = new ArrayList<Pregunta>();
+                List<Pregunta> preguntasTemaTeoria = new ArrayList();
+                List<Pregunta> preguntasTemaPractica = new ArrayList();
+                List<Pregunta> preguntasTema = new ArrayList();
                 for(Temas t2:aux){
                     // Se obtiene por tema todas las preguntas (teóricas y prácticas)
                     Object[] preguntas = t2.getPreguntas().toArray();                    
@@ -207,20 +212,24 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     int getRandom = (int)Math.floor(Math.random()*preguntasTemaTeoria.size());
                     epTeoria.setPregunta(preguntasTemaTeoria.get(getRandom));
                     ep.create(epTeoria);
+                    // Agrega la pregunta a la lista para mostrarlo en pantalla
+                    preguntasTema.add(preguntasTemaTeoria.get(getRandom));
                     
                     //Pregunta de Práctica
                     ExamenPregunta epPractica = new ExamenPregunta();
                     epPractica.setExamenesGenerados(examen);
                     getRandom = (int)Math.floor(Math.random()*preguntasTemaPractica.size());
                     epPractica.setPregunta(preguntasTemaPractica.get(getRandom));
-                    ep.create(epPractica);                                      
-                }               
+                    ep.create(epPractica); 
+                    // Agrega la pregunta a la lista para mostrarlo en pantalla
+                    preguntasTema.add(preguntasTemaPractica.get(getRandom));
+                }    
+                request.setAttribute("list", preguntasTema);
                 request.getRequestDispatcher("ExamenesGenerados_list_preguntas.jsp").forward(request, response);
                 break;
             default:
-                
-        }
-        
+               ;
+        }        
  }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

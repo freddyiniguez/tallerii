@@ -19,7 +19,14 @@
         }
 %>--%>
 
-<h2>Examen Generado</h2>
-<h1>Pollos</h1>
+<h2>Examen Generado con éxito</h2>
+<table>
+    <td>
+        <c:forEach items="${list}" var="item">
+            <c:out value="${item.descripcionPregunta}"/>
+            <br>
+        </c:forEach>
+    </td>
+</table>
 <div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
 <%@include file="footer.jsp" %>
