@@ -1,6 +1,7 @@
 <%@include file="header_ADM.jsp" %>
  <form action="ExamenesGeneradosController?accion=examen" method="POST">
 <table id="tabla"  class="table table-striped sortable">
+    <input type="hidden" name="examen" value="${examen.idexamenesGenerados}">
     ${ee.nombreEe}
     <td>Subtemas</td>
     <c:forEach items="${ee.unidadeses}" var="item">

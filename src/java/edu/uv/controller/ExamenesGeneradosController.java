@@ -88,7 +88,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 date = new Date();
                 c.setFechaCreacion(date);
                 c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
-                c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("ee"))));
+                E = ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("ee")));
+                c.setExperieciaEducativa(E);
+
                 Set<ConstraintViolation<ExamenesGenerados>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){
@@ -98,7 +100,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 else{
                 request.setAttribute("url","ExamenesGeneradosController");
                 ExamenesGenerados_DAO.create(c);
-                request.getRequestDispatcher("success.jsp").forward(request, response);
+                request.setAttribute("ee",E);
+                List<ExamenesGenerados> eg =  ExamenesGenerados_DAO.findAll();
+                c = eg.get(eg.size()-1);
+                request.setAttribute("examen",c);
+                request.getRequestDispatcher("Filtra_temas.jsp").forward(request, response);
                 }
                 break;
             case DELETE:
@@ -158,10 +164,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("Filtra_temas.jsp").forward(request, response);
                 break;
             case GENERA_EXAMEN:
+                String examen_id = request.getParameter("examen");
                 String[] temas = request.getParameterValues("tema"); 
                 // Recupera el examen que se generó previamente
                 ExamenesGeneradosDAO examenesGenerados_DAO = new ExamenesGeneradosDAO();
-                ExamenesGenerados examen = examenesGenerados_DAO.find(1);
+                ExamenesGenerados examen = examenesGenerados_DAO.find(Integer.parseInt(examen_id));
                 
                 ExamenPreguntaDAO ep = new ExamenPreguntaDAO(); // El DAO para hacer los insert                                
                 List<Temas> tems = Temas_DAO.findAll(); // Lista de temas en general

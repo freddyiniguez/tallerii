@@ -1,27 +1,24 @@
-<% if(session.getAttribute("rol")=="Coordinador"){  
-%>  
-<jsp:include page="header_COORD.jsp" flush="true" /> 
-<%}%> 
-
-<% if(session.getAttribute("rol")=="Profesor"){  
-%>  
-<jsp:include page="header_PROF.jsp" flush="true" /> 
-<%}%>
-
-<%--<%    if ((session.getAttribute("user") == null)) {
-        request.getRequestDispatcher("login_.jsp").forward(request, response);
-    } else {
-
-    }
-    if (session.getAttribute("rol").equals("Administrador")) {
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
-%>--%>
-
-
+<%@include file="header_ADM.jsp" %>
+<script>
+    
+     function redirect(){
+         
+         var valor = document.getElementById("porcTeoria").value;
+         document.getElementById("porcPractica").value = 100-valor;
+         //alert(valor);
+        
+     }
+      function redirect2(){
+         
+         var valor = document.getElementById("porcPractica").value;
+         document.getElementById("porcTeoria").value = 100-valor;
+         //alert(valor);
+        
+     }
+    
+</script>
 <h1><B><center>Registro de los exámenes generados </center></b></h1>
         <form action="ExamenesGeneradosController" method="POST">
-        
                                     <div class="clearfix"></div>
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="periodo">Periodo escolar:<span class="required">*</span></label>
@@ -54,7 +51,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="porcTeoria">Porcentaje Teórico:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="porcTeoria" type="number" name="porcTeoria" value=""  />
+                                    <input required class ="form-control" id="porcTeoria" type="number" name="porcTeoria" value="" onChange="redirect()"  />
                                     </div>
                                     </div>
                                     
@@ -63,7 +60,7 @@
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="porcPractica">Porcentaje Práctico:<span class="required">*</span></label>
                                     <div class="col-sm-12">  
-                                    <input required class ="form-control" id="porcPractica" type="number" name="porcPractica" value=""  />
+                                    <input required class ="form-control" id="porcPractica" type="number" name="porcPractica" value="" onChange="redirect2()" />
                                     </div>
                                     </div>
                                     
@@ -84,6 +81,7 @@
                                     <div class="col-sm-12">
                                       <div class="input-group">
                                       <select class="form-control" name="personal">
+                                          
                                         <c:forEach items="${Personal}" var="item">
                                                 <option value="${item.idPersonal}">${item.idPersonal}</option>
                                         </c:forEach>
