@@ -3,13 +3,17 @@ package edu.uv.controller;
 import edu.uv.model.dao.ExamenesGeneradosDAO;
 import edu.uv.model.dao.ExperieciaEducativaDAO;
 import edu.uv.model.dao.PersonalDAO;
+import edu.uv.model.dao.TemasDAO;
 import edu.uv.model.dao.UnidadesDAO;
 import edu.uv.model.pojos.ExamenesGenerados;
 import edu.uv.model.pojos.ExperieciaEducativa;
 import edu.uv.model.pojos.Personal;
+import edu.uv.model.pojos.Pregunta;
+import edu.uv.model.pojos.Temas;
 import edu.uv.model.pojos.Unidades;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +38,7 @@ public class ExamenesGeneradosController extends HttpServlet {
     static final String INSERT = "insertar";
     static final String EE = "ee";
     static final String TEMAS = "temas";
+    static final String GENERA_EXAMEN = "examen";
     Date date;
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -60,6 +65,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ExamenesGeneradosDAO ExamenesGenerados_DAO = new ExamenesGeneradosDAO();
             PersonalDAO Personal_DAO = new PersonalDAO();
             UnidadesDAO Unidades_DAO = new UnidadesDAO();
+            TemasDAO Temas_DAO = new TemasDAO();
             
             ExperieciaEducativaDAO ExperieciaEducativa_DAO = new ExperieciaEducativaDAO();
              //crear el factory para iniciar la validacion
@@ -148,6 +154,27 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.setAttribute("ee",e);
                 request.setAttribute("list",Unidades_DAO.findAllby("ExperieciaEducativa_idExperieciaEducativa",id));
                 request.getRequestDispatcher("Filtra_temas.jsp").forward(request, response);
+                break;
+            case GENERA_EXAMEN:
+                String[] temas = request.getParameterValues("tema");
+                
+                List<Temas> tems = Temas_DAO.findAll();
+                List<Temas> aux = new ArrayList<Temas>();
+                for(Temas t:tems){
+                    for(int i=0;i<temas.length;i++){
+                        if(t.getIdTema().equals(Integer.parseInt(temas[i]))){
+                        aux.add(t);
+                        }
+                    }
+                }
+                for(Temas t2:aux){
+                    Object[] preguntas = t2.getPreguntas().toArray();
+                    for(int a=0; a<preguntas.length; a++){
+                        Pregunta p = (Pregunta)preguntas[a];
+                        System.out.println(p.getDescripcionPregunta());
+                    }
+                }
+                request.getRequestDispatcher("ExamenesGenerados_list_preguntas.jsp").forward(request, response);
                 break;
             default:
                 

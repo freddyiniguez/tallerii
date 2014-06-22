@@ -1,11 +1,18 @@
 <%@include file="header_ADM.jsp" %>
+ <form action="ExamenesGeneradosController?accion=examen" method="POST">
+<table id="tabla"  class="table table-striped sortable">
     ${ee.nombreEe}
-    Experiencia educativa<br>
-    <c:forEach items="${list}" var="item">
-        <c:out value="${item.nombreUnidad}"/><br>
-    
+    <td>Subtemas</td>
+    <c:forEach items="${ee.unidadeses}" var="item">
         <c:forEach items="${item.temases}" var="tema">
-            ${tema.nombreTema}<br>
+        <tr>
+            <td>
+            <input type="checkbox" name="tema" value="${tema.idTema}">${tema.nombreTema}<br>
+            </td>
+        </tr>
         </c:forEach>
   </c:forEach>
+</table>
+<input type="submit" value="Generar">
+</form>
 <%@include file="footer.jsp" %>
