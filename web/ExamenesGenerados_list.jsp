@@ -1,4 +1,3 @@
-if
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% if(session.getAttribute("rol")=="Coordinador"){  
 %>  

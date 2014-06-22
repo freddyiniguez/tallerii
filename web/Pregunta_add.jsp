@@ -57,7 +57,6 @@ $(document).on('change','#unidad',function(){
                             </c:forEach>
                            </select>
                         <span class="input-group-btn">
-                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
                         </span>
                    </div>
                 </div>
@@ -72,7 +71,6 @@ $(document).on('change','#unidad',function(){
                             <option></option>
                         </select>
                         <span class="input-group-btn">
-                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
                         </span>
                    </div>
                 </div>

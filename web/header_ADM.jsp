@@ -61,9 +61,6 @@
                                 <li>
                                     <a href="UsuariosController">Usuarios</a>
                                 </li>
-                                <li>
-                                    <a href="ExamenPreguntaController">ExamenPregunta</a>
-                                </li>
 
                             </ul>
                             <hr>
