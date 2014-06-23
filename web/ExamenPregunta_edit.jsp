@@ -19,7 +19,7 @@
         }
 %>--%>
 
-<h2><B><center>Edición de la adignacion de preguntas a examen</center></b></h2>
+<h2><B><center>Edición de la asignación de preguntas a examen</center></b></h2>
 <form action="ExamenPreguntaController?accion=actualizar" method="POST">
 <input type="hidden" value="${ExamenPregunta.idExamenPregunta}" name="id">
 <input type="hidden" value="${ExamenPregunta.examenesGenerados.idexamenesGenerados}" name="id_examen">
@@ -27,6 +27,7 @@
     <thead>
         <tr>
             <td>seleccion</td>
+            <td>Tema</td>
             <td>Pregunta</td>
             <td>Respuestas
             </td>
@@ -37,6 +38,7 @@
     <tbody>
         <tr>
             <td><input type="radio" name="pregunta" value="${item.idPregunta}"</td>
+            <td>${item.temas.nombreTema}</td>
             <td>${item.descripcionPregunta}</td>
             <td>
                 <c:forEach items="${item.respuestases}" var="respuesta">
