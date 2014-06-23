@@ -35,7 +35,7 @@
         <property name="estadoExamen" type="string">
             <column name="estadoExamen" length="15" not-null="true" />
         </property>
-        <set name="examenPreguntas" table="ExamenPregunta" inverse="true" lazy="true" fetch="select">
+        <set name="examenPreguntas" table="ExamenPregunta" inverse="true" lazy="false" fetch="select" order-by="idExamenPregunta">
             <key>
                 <column name="examenesGenerados_idexamenesGenerados" not-null="true" />
             </key>

@@ -20,7 +20,11 @@
                     <label><input type="checkbox" id="select_all" name="tema_1" value="${tema.idTema}">${tema.nombreTema}</label><br>
 
                     <c:forEach items="${tema.temases}" var="subtema">
-                        <label><input type="checkbox" name="tema" value="${subtema.idTema}" style="margin-left:6px;">${subtema.nombreTema}</label><br>
+                        <label>
+                            <c:if test="${subtema.preguntas != null}">
+                                <input type="checkbox" name="tema" value="${subtema.idTema}" style="margin-left:6px;">
+                            </c:if>
+                            ${subtema.nombreTema}</label><br>
                     </c:forEach>
                 </div>
             </c:if>

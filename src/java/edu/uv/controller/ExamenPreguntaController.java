@@ -10,9 +10,12 @@ package edu.uv.controller;
 import edu.uv.model.dao.ExamenPreguntaDAO;
 import edu.uv.model.dao.ExamenesGeneradosDAO;
 import edu.uv.model.dao.PreguntaDAO;
+import edu.uv.model.dao.TemasDAO;
 import edu.uv.model.pojos.ExamenPregunta;
 import edu.uv.model.pojos.ExamenesGenerados;
 import edu.uv.model.pojos.Pregunta;
+import edu.uv.model.pojos.Respuestas;
+import edu.uv.model.pojos.Temas;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -61,14 +64,15 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             response.setContentType("text/html;charset=UTF-8");
             ExamenPreguntaDAO ExamenPregunta_DAO = new ExamenPreguntaDAO();
             PreguntaDAO Pregunta_DAO = new PreguntaDAO();
+            TemasDAO Temas_DAO = new TemasDAO();
             ExamenesGeneradosDAO ExamenesGenerados_DAO = new ExamenesGeneradosDAO();
             //crear el factory para iniciar la validacion
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
         if (accion == null) {
-            //request.setAttribute("list",ExamenPregunta_DAO.preguntasExamen(request.getParameter("idEx")));
+            request.setAttribute("Examen",ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("idEx"))));
             //request.getRequestDispatcher("ExamenPregunta_list.jsp").forward(request, response); 
-            request.setAttribute("list",preguntasList(Integer.parseInt(request.getParameter("idEx"))));
+            //request.setAttribute("list",preguntasList(Integer.parseInt(request.getParameter("idEx"))));
             request.getRequestDispatcher("ExamenPregunta_list.jsp").forward(request, response);
         } else switch(accion){
             case INSERT:
@@ -96,10 +100,14 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new ExamenPregunta();
+                c = ExamenPregunta_DAO.find(Integer.parseInt(request.getParameter("id")));
+                c.setPregunta(Pregunta_DAO.find(Integer.parseInt(request.getParameter("pregunta"))));
+                /*
                 c.setExamenesGenerados(ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("tipoExa"))));
                 c.setPregunta(Pregunta_DAO.find(Integer.parseInt(request.getParameter("pregunta"))));
                 c.setPuntaje(Double.parseDouble(request.getParameter("puntaje")));
                 c.setIdExamenPregunta(Integer.parseInt(request.getParameter("idExamenPregunta")));
+                */
                 Set<ConstraintViolation<ExamenPregunta>> violations2 = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations2.size()>0){
@@ -113,12 +121,23 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 break;
             case FIND:
-                id= request.getParameter("id");
-                c = ExamenPregunta_DAO.find(Integer.parseInt(id));           
+                
+                List<Pregunta> preg = Pregunta_DAO.findAll();
+                List<Pregunta> aux = new ArrayList<Pregunta>();
+                id= request.getParameter("pregunta");
+                c = ExamenPregunta_DAO.find(Integer.parseInt(id));
+                for(Pregunta p:preg){
+                    if(p.getTemas().getNombreTema().equals(c.getPregunta().getTemas().getNombreTema())){
+                        if(p.getModalidadPregunta().equals(c.getPregunta().getModalidadPregunta())){
+                        aux.add(p);
+                        }
+                    }
+                }
                 request.setAttribute("ExamenPregunta",c);
-                request.setAttribute("ExamenesGenerados",ExamenesGenerados_DAO.findAll());
-                request.setAttribute("Pregunta",Pregunta_DAO.findAll());
+                //request.setAttribute("ExamenesGenerados",ExamenesGenerados_DAO.findAll());
+                request.setAttribute("Pregunta",aux);
                 request.getRequestDispatcher("ExamenPregunta_edit.jsp").forward(request, response);
+                
                 break;
             case ADD:
                 request.setAttribute("ExamenesGenerados",ExamenesGenerados_DAO.findAll());

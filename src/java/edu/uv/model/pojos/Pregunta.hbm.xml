@@ -38,7 +38,7 @@
             </key>
             <one-to-many class="edu.uv.model.pojos.ExamenPregunta" />
         </set>
-        <set name="respuestases" table="Respuestas" inverse="true" lazy="false" fetch="select">
+        <set name="respuestases" table="Respuestas" inverse="true" lazy="false" fetch="select" order-by="idRespuesta">
             <key>
                 <column name="Pregunta_idPregunta" not-null="true" />
             </key>
