@@ -212,10 +212,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
 
 protected void contenido(Document pdfExamen,Document clave,ExamenesGenerados examen){
    Set<ExamenPregunta> todas = examen.getExamenPreguntas();
+   numPre =0;
    for(ExamenPregunta x:todas){
        try {
-           pdfExamen.add(new Paragraph(numPre+"-. "+x.getPregunta().getDescripcionPregunta()));
-           clave.add(new Paragraph(numPre+"-. "+x.getPregunta().getDescripcionPregunta()));
+           pdfExamen.add(new Paragraph(numPre+"-. "+x.getPregunta().getDescripcionPregunta()+" "+x.getPuntaje()+"Pts"));
+           clave.add(new Paragraph(numPre+"-. "+x.getPregunta().getDescripcionPregunta()+" "+x.getPuntaje()+"Pts"));
            numPre++;
            if(x.getPregunta().getTipoPregunta().equals("VF")){
                     pdfExamen.add(new Paragraph("a) Verdadero"));

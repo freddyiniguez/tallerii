@@ -11,7 +11,7 @@
 
 <h2>Examen Generado con éxito</h2>
 
-<a href="${pageContext.request.contextPath}/assets/examen.pdf">Descargar </a>
-<a href="${pageContext.request.contextPath}/assets/clave.pdf">Descargar </a>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/assets/examen.pdf">Descargar examen </a>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/assets/clave.pdf">Descargar clave</a>
 <div align = "center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla2"></div>
 <%@include file="footer.jsp" %>
