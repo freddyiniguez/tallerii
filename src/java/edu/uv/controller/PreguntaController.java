@@ -141,6 +141,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new Pregunta();
+                c.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
                 c.setTemas(Temas_DAO.find(Integer.parseInt(request.getParameter("tema"))));
                 c.setTipoPregunta(request.getParameter("tipoPregunta"));
                 c.setDescripcionPregunta(new String(request.getParameter("descripcionPregunta").getBytes("ISO-8859-1"),"UTF-8"));
