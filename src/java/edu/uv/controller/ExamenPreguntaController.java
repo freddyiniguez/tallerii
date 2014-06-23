@@ -100,6 +100,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new ExamenPregunta();
+                String id_examn = request.getParameter("id_examen");
                 c = ExamenPregunta_DAO.find(Integer.parseInt(request.getParameter("id")));
                 c.setPregunta(Pregunta_DAO.find(Integer.parseInt(request.getParameter("pregunta"))));
                 /*
@@ -116,7 +117,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 }
                 else{
                 ExamenPregunta_DAO.update(c);
-                request.setAttribute("url","ExamenPreguntaController");
+                request.setAttribute("url","ExamenPreguntaController?idEx="+id_examn);
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 }
                 break;

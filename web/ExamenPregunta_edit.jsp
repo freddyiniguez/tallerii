@@ -1,7 +1,28 @@
-<%@include file="header_ADM.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% if(session.getAttribute("rol")=="Coordinador"){  
+%>  
+<jsp:include page="header_COORD.jsp" flush="true" /> 
+<%}%> 
+
+<% if(session.getAttribute("rol")=="Profesor"){  
+%>  
+<jsp:include page="header_PROF.jsp" flush="true" /> 
+<%}%>
+
+<%--<%    if ((session.getAttribute("user") == null)) {
+        request.getRequestDispatcher("login_.jsp").forward(request, response);
+    } else {
+
+    }
+    if (session.getAttribute("rol").equals("Administrador")) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+%>--%>
+
 <h2><B><center>Edición de la adignacion de preguntas a examen</center></b></h2>
 <form action="ExamenPreguntaController?accion=actualizar" method="POST">
-<input type="text" value="${ExamenPregunta.idExamenPregunta}" name="id">
+<input type="hidden" value="${ExamenPregunta.idExamenPregunta}" name="id">
+<input type="hidden" value="${ExamenPregunta.examenesGenerados.idexamenesGenerados}" name="id_examen">
 <table class="table table-striped">
     <thead>
         <tr>
@@ -19,7 +40,7 @@
             <td>${item.descripcionPregunta}</td>
             <td>
                 <c:forEach items="${item.respuestases}" var="respuesta">
-                    ${respuesta.descripcionRespuesta}
+                    R: ${respuesta.descripcionRespuesta}
                     <c:if test="${respuesta.tipoResp=='Correcta'}">
                         *
                     </c:if>

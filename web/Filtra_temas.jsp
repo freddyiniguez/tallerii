@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <% if(session.getAttribute("rol")=="Coordinador"){  
 %>  
 <jsp:include page="header_COORD.jsp" flush="true" /> 
@@ -20,9 +21,9 @@
                     <label><input type="checkbox" id="select_all" name="tema_1" value="${tema.idTema}">${tema.nombreTema}</label><br>
 
                     <c:forEach items="${tema.temases}" var="subtema">
-                        <label>
-                            <c:if test="${subtema.preguntas != null}">
-                                <input type="checkbox" name="tema" value="${subtema.idTema}" style="margin-left:6px;">
+                        <label style="margin-left:6px;">
+                            <c:if test="${fn:length(subtema.preguntas) > 0}">
+                                <input type="checkbox" name="tema" value="${subtema.idTema}" >
                             </c:if>
                             ${subtema.nombreTema}</label><br>
                     </c:forEach>

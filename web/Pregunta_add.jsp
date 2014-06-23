@@ -143,7 +143,7 @@ $(document).on('change','#unidad',function(){
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="comentRetroalimentacion">Comentarios:<span class="required"></span></label>
                 <div class="col-sm-12">                                
-                <textarea required class="form-control" id="comentRetroalimentacion" name="comentRetroalimentacion"></textarea>
+                <textarea  class="form-control" id="comentRetroalimentacion" name="comentRetroalimentacion"></textarea>
             </div>
             </div>
             
