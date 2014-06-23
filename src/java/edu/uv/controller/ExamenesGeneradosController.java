@@ -1,6 +1,9 @@
 package edu.uv.controller;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import edu.uv.model.dao.ExamenPreguntaDAO;
@@ -14,6 +17,7 @@ import edu.uv.model.pojos.ExamenesGenerados;
 import edu.uv.model.pojos.ExperieciaEducativa;
 import edu.uv.model.pojos.Personal;
 import edu.uv.model.pojos.Pregunta;
+import edu.uv.model.pojos.Respuestas;
 import edu.uv.model.pojos.Temas;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -48,7 +52,14 @@ public class ExamenesGeneradosController extends HttpServlet {
     static final String TEMAS = "temas";
     static final String GENERA_EXAMEN = "examen";
     private Document pdfExamen;
+    private Document clave;
     Date date;
+    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,Font.BOLD);
+    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
+    private static Font correcta = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD,BaseColor.RED);
+    
+    public int numPre=0;
+    public String letras[]= {"a","b","c","d","e","f","g","h","i","j","k","l"};
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -265,20 +276,54 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     try{
                         // Crea una referencia a un documento PDF en el que se va a guardar el examen
                         pdfExamen = new Document();
+                        clave = new Document();
                         URL resource = getClass().getResource("/");
                         String path = resource.getPath();
                         path = path.replace("WEB-INF/classes/", "assets/");
                         PdfWriter.getInstance(pdfExamen, new FileOutputStream(path+"examen.pdf"));
-                        pdfExamen.open();                
+                        PdfWriter.getInstance(clave, new FileOutputStream(path+"clave.pdf"));
+                        pdfExamen.open(); 
+                        clave.open();
                     }catch(DocumentException xd){
                         System.out.println(xd.getMessage());
                     }
+                    encabezado(pdfExamen,examen);
+                    encabezado(clave,examen);
                     for(ExamenPregunta epaux: listaExamenPreguntaTeoria){
                         Pregunta temp = epaux.getPregunta();
                         epaux.setPuntaje(epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoTeoria);                            
                         try {
-                                pdfExamen.add(new Paragraph(String.valueOf(epaux.getPregunta().getDescripcionPregunta())));
-                                pdfExamen.add(new Paragraph(String.valueOf(epaux.getPuntaje())));
+                                pdfExamen.add(new Paragraph(numPre+"-. "+String.valueOf(epaux.getPregunta().getDescripcionPregunta())));
+                                clave.add(new Paragraph(numPre+"-. "+String.valueOf(epaux.getPregunta().getDescripcionPregunta())));
+                                numPre++;
+                                
+                                 int a=0;
+                                 if(epaux.getPregunta().getTipoPregunta().equals("VF")){
+                                        pdfExamen.add(new Paragraph("a) Verdadero"));
+                                        pdfExamen.add(new Paragraph("b) Falso"));
+                                        clave.add(new Paragraph("a) Verdadero"));
+                                        clave.add(new Paragraph("b) Falso"));
+                                 }else{
+                                     if(epaux.getPregunta().getTipoPregunta().equals("Acompletar")){
+                                        pdfExamen.add(new Paragraph("a)________________")); 
+                                        clave.add(new Paragraph("a)________________")); 
+                                     }else{
+                                        Set <Respuestas> set  = epaux.getPregunta().getRespuestases();
+                                        for(Respuestas r:set){
+                                            if(r.getTipoResp().equals("Correcta")){
+                                                pdfExamen.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                                                clave.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta(),correcta));    
+                                            }else{
+                                                pdfExamen.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                                                clave.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                                            }
+                                            a++;
+                                        }
+                                        pdfExamen.add(new Paragraph(" "));
+                                        clave.add(new Paragraph(" "));
+                                    }
+                                }
+                                
                         } catch (DocumentException ex) {
                                 Logger.getLogger(ExamenesGeneradosController.class.getName()).log(Level.SEVERE, null, ex);
                         } 
@@ -288,15 +333,55 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                         Pregunta temp = epaux.getPregunta();
                         epaux.setPuntaje(epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoPractica);                            
                         try {
-                                pdfExamen.add(new Paragraph(String.valueOf(epaux.getPregunta().getDescripcionPregunta())));
-                                pdfExamen.add(new Paragraph(String.valueOf(epaux.getPuntaje())));
+                                pdfExamen.add(new Paragraph(numPre+"-. "+String.valueOf(epaux.getPregunta().getDescripcionPregunta())));
+                                clave.add(new Paragraph(numPre+"-. "+String.valueOf(epaux.getPregunta().getDescripcionPregunta())));
+                                numPre++;
+                                
+                                
+                                int a=0;
+                                 if(epaux.getPregunta().getTipoPregunta().equals("VF")){
+                                        pdfExamen.add(new Paragraph("a) Verdadero"));
+                                        pdfExamen.add(new Paragraph("b) Falso"));
+                                        clave.add(new Paragraph("a) Verdadero"));
+                                        clave.add(new Paragraph("b) Falso"));
+                                 }else{
+                                     if(epaux.getPregunta().getTipoPregunta().equals("Acompletar")){
+                                        pdfExamen.add(new Paragraph("a)________________")); 
+                                        clave.add(new Paragraph("a)________________")); 
+                                     }else{
+                                        Set <Respuestas> set  = epaux.getPregunta().getRespuestases();
+                                        for(Respuestas r:set){
+                                            if(r.getTipoResp().equals("Correcta")){
+                                                pdfExamen.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                                                clave.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta(),correcta));    
+                                            }else{
+                                                pdfExamen.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                                                clave.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                                            }
+                                            a++;
+                                        }
+                                        pdfExamen.add(new Paragraph(" "));
+                                        clave.add(new Paragraph(" "));
+                                    }
+                                }
+                                
+                                
                         } catch (DocumentException ex) {
                                 Logger.getLogger(ExamenesGeneradosController.class.getName()).log(Level.SEVERE, null, ex);
                         } 
                         ep.create(epaux);
                     }
                 // Cierra la instancia del PDF
+                 try {
+                    pdfExamen.add(new Paragraph("__________________________",smallBold));
+                    pdfExamen.add(new Paragraph("Fecha de elaboracion:  " + new Date(),smallBold));
+                    clave.add(new Paragraph("__________________________",smallBold));
+                    clave.add(new Paragraph("Fecha de elaboracion:  " + new Date(),smallBold));
+                    } catch (DocumentException ex) {
+                                
+                } 
                 pdfExamen.close();
+                clave.close();
                 // Envía la lista de los ExamenPregunta y las preguntas seleccionadas al JSP.
                 listaExamenPreguntaPractica.addAll(listaExamenPreguntaTeoria);
                 request.setAttribute("listaExamenPregunta", listaExamenPreguntaPractica);
@@ -307,6 +392,31 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                ;
         }        
  }
+
+protected void encabezado(Document pdfExamen,ExamenesGenerados examen){
+    
+    try {
+       Paragraph titulo = new Paragraph("UNIVERSIDAD VERACRUZANA", catFont);
+       titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        pdfExamen.add(titulo);
+        titulo = new Paragraph(examen.getPeriodo(), smallBold);
+        titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        pdfExamen.add(titulo);
+        titulo = new Paragraph("Examen "+examen.getTipoExamen(), smallBold);
+        titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        pdfExamen.add(titulo);
+        titulo = new Paragraph(examen.getExperieciaEducativa().getNombreEe(),smallBold);
+         titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        pdfExamen.add(titulo);
+        pdfExamen.add(new Paragraph("Porcentajes : Teoria "+examen.getPorcTeoria() + "%  Practica "+examen.getPorcPractica()+" %",smallBold));
+        pdfExamen.add(new Paragraph("Profesor: ________________________________________________________________________ ",smallBold));
+        pdfExamen.add(new Paragraph("Alumno: __________________________________________________________________________ ",smallBold));
+        pdfExamen.add(new Paragraph(" ",smallBold));
+    } catch (DocumentException ex) {
+                                
+    } 
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
