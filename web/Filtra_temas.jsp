@@ -15,14 +15,14 @@
     ${ee.nombreEe}</h4>
     <c:forEach items="${ee.unidadeses}" var="item">
         <c:forEach items="${item.temases}" var="tema">
-            <c:if test="${tema.temas != null}">
-                <label><input type="checkbox" name="tema" value="${tema.idTema}" style="margin-left:6px;">${tema.nombreTema}</label><br>
-            </c:if>
             <c:if test="${tema.temas == null}">
-                </div>
                 <div class="grupo">
                     <label><input type="checkbox" id="select_all" name="tema_1" value="${tema.idTema}">${tema.nombreTema}</label><br>
-               
+
+                    <c:forEach items="${tema.temases}" var="subtema">
+                        <label><input type="checkbox" name="tema" value="${subtema.idTema}" style="margin-left:6px;">${subtema.nombreTema}</label><br>
+                    </c:forEach>
+                </div>
             </c:if>
         </c:forEach>
   </c:forEach>
