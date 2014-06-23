@@ -259,12 +259,12 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     double iPorcPonderadoPractica = 0.0;
                     // Realiza la suma de los puntos de teoría
                     for(ExamenPregunta p: listaExamenPreguntaTeoria){
-                        iTotalPTSTeoriaReal+=p.getPregunta().getPuntuacionPregunta();
+                        iTotalPTSTeoriaReal+=p.getPregunta().getComplejidadPregunta();
                         System.out.println(p.getPregunta().getTemas().getNombreTema()+p.getPregunta().getDescripcionPregunta()+p.getPregunta().getModalidadPregunta());
                     }
                     // Realiza la suma de los puntos de práctica
                     for(ExamenPregunta p: listaExamenPreguntaPractica){
-                        iTotalPTSPracticaReal+=p.getPregunta().getPuntuacionPregunta();
+                        iTotalPTSPracticaReal+=p.getPregunta().getComplejidadPregunta();
                         System.out.println(p.getPregunta().getTemas().getNombreTema()+p.getPregunta().getDescripcionPregunta()+p.getPregunta().getModalidadPregunta());
                     }
                     // Calcula el índice ponderado por el que se vana a multiplicar cada pregunta
