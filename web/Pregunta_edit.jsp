@@ -57,12 +57,12 @@
                                     <option value="VF">Falso-Verdadero</option>
                                     <option value="Abierta'">Abierta</option>
                                     <option value="Multiple Respuesta">Multiple Respuesta</option>
-                                    <option value="Acompletar">Acompletar</option>
+                                    <option value="Acompletar">Completar</option>
                                     </select>
                                     </div>
                                     </div>
                                     
-
+                                    <input type="hidden" name="idPregunta" value="${Pregunta.idPregunta}" />
                                     <div class="clearfix"></div>
                                     <div class="form-group">
                                     <label class="col-sm-3 control-label" for="descripcionPregunta">Pregunta:<span class="required">*</span></label>
@@ -90,7 +90,7 @@
                                     <label class="col-sm-3 control-label" for="complejidadPregunta">Complejidad:<span class="required">*</span></label>
                                     <div class="col-sm-12">                                
                                     <select class="form-control" type="number"  name="complejidadPregunta" id="complejidadPregunta">
-                                    <option value="">${Pregunta.complejidadPregunta}</option>
+                                    <option value="${Pregunta.complejidadPregunta}">${Pregunta.complejidadPregunta}</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
