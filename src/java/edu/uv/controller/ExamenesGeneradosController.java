@@ -184,6 +184,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     for(int i=0;i<temas.length;i++){
                         if(t.getIdTema().equals(Integer.parseInt(temas[i]))){
                         aux.add(t); // Si el usuario la seleccionó, la agrega a la lista
+                        
                         }
                     }
                 }
@@ -191,21 +192,14 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 // considerando que una es para preguntas teóricas y otro para las prácticas.
                 List<Pregunta> preguntasTemaTeoria = new ArrayList();
                 List<Pregunta> preguntasTemaPractica = new ArrayList();
-                List<Pregunta> preguntasTema = new ArrayList();
-                List<ExamenPregunta> listaExamenPregunta = new ArrayList();
+                //List<Pregunta> preguntasTema = new ArrayList();
+                List<ExamenPregunta> listaExamenPreguntaTeoria = new ArrayList();
+                List<ExamenPregunta> listaExamenPreguntaPractica = new ArrayList();
                 
-                try{
-                    // Crea una referencia a un documento PDF en el que se va a guardar el examen
-                    pdfExamen = new Document();
-                    URL resource = getClass().getResource("/");
-                    String path = resource.getPath();
-                    path = path.replace("WEB-INF/classes/", "assets/");
-                    PdfWriter.getInstance(pdfExamen, new FileOutputStream(path+"examen.pdf"));
-                    pdfExamen.open();                
-                }catch(DocumentException xd){
-                    System.out.println(xd.getMessage());
-                }
                 for(Temas t2:aux){
+                    preguntasTemaTeoria.clear();
+                    preguntasTemaPractica.clear();
+                    System.out.println(t2.getNombreTema());
                     // Se obtiene por tema todas las preguntas (teóricas y prácticas)
                     Object[] preguntas = t2.getPreguntas().toArray();                    
                     // Se hace un recorrido por todas las preguntas de ese tema y se van
@@ -227,21 +221,21 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     epTeoria.setExamenesGenerados(examen);
                     int getRandom = (int)Math.floor(Math.random()*preguntasTemaTeoria.size());
                     epTeoria.setPregunta(preguntasTemaTeoria.get(getRandom));
-                    listaExamenPregunta.add(epTeoria);
+                    listaExamenPreguntaTeoria.add(epTeoria);
                     //ep.create(epTeoria);
                     // Agrega la pregunta a la lista para mostrarlo en pantalla
-                    preguntasTema.add(preguntasTemaTeoria.get(getRandom));
+                    //preguntasTema.add(preguntasTemaTeoria.get(getRandom));
                     
                     //Pregunta de Práctica
                     ExamenPregunta epPractica = new ExamenPregunta();
                     epPractica.setExamenesGenerados(examen);
                     getRandom = (int)Math.floor(Math.random()*preguntasTemaPractica.size());
                     epPractica.setPregunta(preguntasTemaPractica.get(getRandom)); 
-                    listaExamenPregunta.add(epPractica);
+                    listaExamenPreguntaPractica.add(epPractica);
                     //ep.create(epPractica); 
                     // Agrega la pregunta a la lista para mostrarlo en pantalla
-                    preguntasTema.add(preguntasTemaPractica.get(getRandom));
-                    
+                    //preguntasTema.add(preguntasTemaPractica.get(getRandom));
+                }    
                     // Almacena el porcentaje de teoría y de práctica que tiene el examen
                     double iPorcTeoriaExamen = examen.getPorcTeoria();
                     double iPorcPracticaExamen = examen.getPorcPractica();
@@ -253,23 +247,35 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                     double iPorcPonderadoTeoria = 0.0;
                     double iPorcPonderadoPractica = 0.0;
                     // Realiza la suma de los puntos de teoría
-                    for(Pregunta p: preguntasTemaTeoria)
-                        iTotalPTSTeoriaReal+=p.getPuntuacionPregunta();
+                    for(ExamenPregunta p: listaExamenPreguntaTeoria){
+                        iTotalPTSTeoriaReal+=p.getPregunta().getPuntuacionPregunta();
+                        System.out.println(p.getPregunta().getTemas().getNombreTema()+p.getPregunta().getDescripcionPregunta()+p.getPregunta().getModalidadPregunta());
+                    }
                     // Realiza la suma de los puntos de práctica
-                    for(Pregunta p: preguntasTemaPractica)
-                        iTotalPTSPracticaReal+=p.getPuntuacionPregunta();
+                    for(ExamenPregunta p: listaExamenPreguntaPractica){
+                        iTotalPTSPracticaReal+=p.getPregunta().getPuntuacionPregunta();
+                        System.out.println(p.getPregunta().getTemas().getNombreTema()+p.getPregunta().getDescripcionPregunta()+p.getPregunta().getModalidadPregunta());
+                    }
                     // Calcula el índice ponderado por el que se vana a multiplicar cada pregunta
                     // para obtener el puntaje
                     iPorcPonderadoTeoria=iPorcTeoriaExamen/iTotalPTSTeoriaReal;
                     iPorcPonderadoPractica=iPorcPracticaExamen/iTotalPTSPracticaReal;                    
                     // Realiza una recorrido asignándoles el correspondiente puntaje según sean 
                     // preguntas de teoría o de práctica y lo hace persistente en la BD.                    
-                    for(ExamenPregunta epaux: listaExamenPregunta){
+                    try{
+                        // Crea una referencia a un documento PDF en el que se va a guardar el examen
+                        pdfExamen = new Document();
+                        URL resource = getClass().getResource("/");
+                        String path = resource.getPath();
+                        path = path.replace("WEB-INF/classes/", "assets/");
+                        PdfWriter.getInstance(pdfExamen, new FileOutputStream(path+"examen.pdf"));
+                        pdfExamen.open();                
+                    }catch(DocumentException xd){
+                        System.out.println(xd.getMessage());
+                    }
+                    for(ExamenPregunta epaux: listaExamenPreguntaTeoria){
                         Pregunta temp = epaux.getPregunta();
-                        if(temp.getModalidadPregunta().equals("Teoria"))
-                            epaux.setPuntaje(epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoTeoria);                                           
-                        else
-                            epaux.setPuntaje(epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoPractica);                            
+                        epaux.setPuntaje(epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoTeoria);                            
                         try {
                                 pdfExamen.add(new Paragraph(String.valueOf(epaux.getPregunta().getDescripcionPregunta())));
                                 pdfExamen.add(new Paragraph(String.valueOf(epaux.getPuntaje())));
@@ -278,12 +284,23 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                         } 
                         ep.create(epaux);
                     }
-                } 
+                    for(ExamenPregunta epaux: listaExamenPreguntaPractica){
+                        Pregunta temp = epaux.getPregunta();
+                        epaux.setPuntaje(epaux.getPregunta().getComplejidadPregunta()*iPorcPonderadoPractica);                            
+                        try {
+                                pdfExamen.add(new Paragraph(String.valueOf(epaux.getPregunta().getDescripcionPregunta())));
+                                pdfExamen.add(new Paragraph(String.valueOf(epaux.getPuntaje())));
+                        } catch (DocumentException ex) {
+                                Logger.getLogger(ExamenesGeneradosController.class.getName()).log(Level.SEVERE, null, ex);
+                        } 
+                        ep.create(epaux);
+                    }
                 // Cierra la instancia del PDF
                 pdfExamen.close();
                 // Envía la lista de los ExamenPregunta y las preguntas seleccionadas al JSP.
-                request.setAttribute("listaExamenPregunta", listaExamenPregunta);
-                request.setAttribute("list", preguntasTema);
+                listaExamenPreguntaPractica.addAll(listaExamenPreguntaTeoria);
+                request.setAttribute("listaExamenPregunta", listaExamenPreguntaPractica);
+                //request.setAttribute("list", preguntasTema);
                 request.getRequestDispatcher("ExamenesGenerados_list_preguntas.jsp").forward(request, response);
                 break;
             default:

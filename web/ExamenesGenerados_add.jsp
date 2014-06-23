@@ -90,7 +90,7 @@
                                     <div class="form-group">
                                     <div class="col-sm-12">
                                       <div class="input-group">
-                                      <input type="hidden" name="personal" value="<%=session.getAttribute("idusuario")%>">
+                                      <input type="hidden" name="personal" value="<%=session.getAttribute("idpersonal")%>">
                                        <span class="input-group-btn">
                                            <%--
                                         <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-question-sign"></span></a>
