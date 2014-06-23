@@ -7,6 +7,12 @@
 package edu.uv.controller;
 
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import edu.uv.model.dao.ExamenPreguntaDAO;
 import edu.uv.model.dao.ExamenesGeneradosDAO;
 import edu.uv.model.dao.PreguntaDAO;
@@ -16,11 +22,17 @@ import edu.uv.model.pojos.ExamenesGenerados;
 import edu.uv.model.pojos.Pregunta;
 import edu.uv.model.pojos.Respuestas;
 import edu.uv.model.pojos.Temas;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,6 +56,17 @@ public class ExamenPreguntaController extends HttpServlet {
     static final String ADD = "agregar";
     static final String UPDATE = "actualizar";
     static final String INSERT = "insertar";
+    
+    private Document pdfExamen;
+    private Document clave;
+    
+    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,Font.BOLD);
+    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
+    private static Font correcta = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD,BaseColor.RED);
+    
+    public int numPre=0;
+    public String letras[]= {"a","b","c","d","e","f","g","h","i","j","k","l"};
+    
 
 
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -70,7 +93,42 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
         if (accion == null) {
-            request.setAttribute("Examen",ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("idEx"))));
+            
+            ExamenesGenerados peto = ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("idEx")));
+            
+            try{
+            // Crea una referencia a un documento PDF en el que se va a guardar el examen
+            pdfExamen = new Document();
+            clave = new Document();
+            
+            URL resource = getClass().getResource("/");
+            String path = resource.getPath();
+            path = path.replace("WEB-INF/classes/", "assets/");
+            PdfWriter.getInstance(pdfExamen, new FileOutputStream(path+"examen.pdf"));
+            PdfWriter.getInstance(clave, new FileOutputStream(path+"clave.pdf"));
+            
+            pdfExamen.open(); 
+            clave.open();
+            
+            
+            
+            //pdfExamen.add(new Paragraph(x));
+            encabezado(pdfExamen,peto);
+            encabezado(clave,peto);
+            contenido(pdfExamen,clave,peto);
+            
+             //encabezado(pdfExamen,examen);
+            //encabezado(clave,examen);
+        }catch(DocumentException xd){
+            System.out.println(xd.getMessage());
+        }
+        
+         pdfExamen.close();
+         clave.close();
+             
+            
+            
+            request.setAttribute("Examen",peto);
             //request.getRequestDispatcher("ExamenPregunta_list.jsp").forward(request, response); 
             //request.setAttribute("list",preguntasList(Integer.parseInt(request.getParameter("idEx"))));
             request.getRequestDispatcher("ExamenPregunta_list.jsp").forward(request, response);
@@ -150,6 +208,73 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         }
         
  }
+
+
+protected void contenido(Document pdfExamen,Document clave,ExamenesGenerados examen){
+   Set<ExamenPregunta> todas = examen.getExamenPreguntas();
+   for(ExamenPregunta x:todas){
+       try {
+           pdfExamen.add(new Paragraph(numPre+"-. "+x.getPregunta().getDescripcionPregunta()));
+           clave.add(new Paragraph(numPre+"-. "+x.getPregunta().getDescripcionPregunta()));
+           numPre++;
+           if(x.getPregunta().getTipoPregunta().equals("VF")){
+                    pdfExamen.add(new Paragraph("a) Verdadero"));
+                    pdfExamen.add(new Paragraph("b) Falso"));
+                    clave.add(new Paragraph("a) Verdadero"));
+                    clave.add(new Paragraph("b) Falso"));
+             }else{
+                 if(x.getPregunta().getTipoPregunta().equals("Acompletar")){
+                    pdfExamen.add(new Paragraph("a)________________")); 
+                    clave.add(new Paragraph("a)________________")); 
+                 }else{
+                        Set <Respuestas> set  = x.getPregunta().getRespuestases();
+                        int a=0;
+                        for(Respuestas r:set){
+                            if(r.getTipoResp().equals("Correcta")){
+                                pdfExamen.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                                clave.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta(),correcta));    
+                            }else{
+                                pdfExamen.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                                clave.add(new Paragraph(letras[a]+") "+r.getDescripcionRespuesta()));    
+                            }
+                            a++;
+                        }
+                        pdfExamen.add(new Paragraph("\n"));
+                        clave.add(new Paragraph("\n"));
+                 }
+           }  
+        } catch (DocumentException ex) {
+                                
+    }     
+   }
+}
+
+protected void encabezado(Document pdfExamen,ExamenesGenerados examen){
+    
+    try {
+       Paragraph titulo = new Paragraph("UNIVERSIDAD VERACRUZANA", catFont);
+       titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        pdfExamen.add(titulo);
+        titulo = new Paragraph(examen.getPeriodo(), smallBold);
+        titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        pdfExamen.add(titulo);
+        titulo = new Paragraph("Examen "+examen.getTipoExamen(), smallBold);
+        titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        pdfExamen.add(titulo);
+        titulo = new Paragraph(examen.getExperieciaEducativa().getNombreEe(),smallBold);
+         titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        pdfExamen.add(titulo);
+        pdfExamen.add(new Paragraph("Porcentajes : Teoria "+examen.getPorcTeoria() + "%  Practica "+examen.getPorcPractica()+" %",smallBold));
+        pdfExamen.add(new Paragraph("Profesor: ________________________________________________________________________ ",smallBold));
+        pdfExamen.add(new Paragraph("Alumno: __________________________________________________________________________ ",smallBold));
+        pdfExamen.add(new Paragraph(" ",smallBold));
+    } catch (DocumentException ex) {
+                                
+    } 
+}
+
+
+
 protected List preguntasDisponibles(int id, List <Pregunta> actuales){ 
     List <Pregunta> resultado = new ArrayList(); 
     PreguntaDAO preDao = new PreguntaDAO();

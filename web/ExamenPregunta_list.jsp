@@ -32,6 +32,8 @@
         <div class="col-md-12 column">
             <form action="ExamenPreguntaController" method="POST">
             <div class="row">
+                    <a class="btn btn-warning " href="${pageContext.request.contextPath}/assets/examen.pdf">Descargar </a>
+                    <a class="btn btn-warning " href="${pageContext.request.contextPath}/assets/clave.pdf">Descargar CLave </a>
                     <div class="col-md-4"><input type="submit" class="btn btn-warning " value="Cambiar pregunta"></div>
             </div>
             <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
