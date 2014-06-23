@@ -35,9 +35,9 @@
     <td>% Práctica</td>
     <td>Estado</td>
     
-    <td class="unsortable">Borrar</td>
-    <td class="unsortable">Editar</td>
-    <td class="unsortable">EditarPreguta</td>
+    <td class="unsortable">BorrarExamen</td>
+    <td class="unsortable">EditarExamen</td>
+    <td class="unsortable">EditarPreguntas</td>
     
     <c:forEach items="${list}" var="item">
     <tr>
@@ -54,8 +54,8 @@
       
       
       <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="ExamenesGeneradosController?accion=borrar&id=${item.idexamenesGenerados}" href="#">Borrar</a></td>
-      <td><a class="btn btn-warning" href="ExamenesGeneradosController?accion=buscar&id=${item.idexamenesGenerados}">Examen</a></td>
-      <td><a class="btn btn-success" href="ExamenPreguntaController?idEx=${item.idexamenesGenerados}">Preguntas</a></td>
+      <td><a class="btn btn-warning" href="ExamenesGeneradosController?accion=buscar&id=${item.idexamenesGenerados}">Editar</a></td>
+      <td><a class="btn btn-success" href="ExamenPreguntaController?idEx=${item.idexamenesGenerados}">Editar/Imprimir</a></td>
     </tr>
   </c:forEach>
 </table>

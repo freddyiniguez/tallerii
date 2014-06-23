@@ -132,16 +132,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 request.getRequestDispatcher("success.jsp").forward(request, response);
                 break;
             case UPDATE:
-                c = new ExamenesGenerados();
+                c = ExamenesGenerados_DAO.find(Integer.parseInt(request.getParameter("idexamenesGenerados")));
                 c.setPeriodo(new String(request.getParameter("periodo").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setTipoExamen(new String(request.getParameter("tipoExamen").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setDescripcionExamen(new String(request.getParameter("descripcionExamen").getBytes("ISO-8859-1"),"UTF-8"));
-                c.setPorcTeoria(Integer.parseInt(request.getParameter("porcTeoria")));
-                c.setPorcPractica(Integer.parseInt(request.getParameter("porcPractica")));
                 c.setEstadoExamen(new String(request.getParameter("estadoExamen").getBytes("ISO-8859-1"),"UTF-8"));
-                c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
-                c.setExperieciaEducativa(ExperieciaEducativa_DAO.find(Integer.parseInt(request.getParameter("ee"))));
-                c.setIdexamenesGenerados(Integer.parseInt(request.getParameter("idexamenesGenerados")));
                 date = new Date();
                 c.setFechaCreacion(date);
                 request.setAttribute("url","ExamenesGeneradosController");
