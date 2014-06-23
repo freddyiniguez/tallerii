@@ -113,6 +113,11 @@
 <div class="container">
 <div class="row clearfix">
 <div class="col-md-12 column">
+    <br/>
+    <div class="col-md-3 column"></div>
+    <div class="col-md-3 column"></div>
+    <div class="col-md-3 column"></div>
+    <td><a data-toggle="modal" data-target="#myModal2" class="btn btn-primary" href="${item}" align="left">Ver preguntas a detalle</a></td>
     <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
     <table id="tabla" class="table table-striped sortable">
         <thead>
@@ -147,7 +152,7 @@
                 </td>
                 <td><a class="btn btn-danger toDelete" data-toggle="modal" data-target="#myModal" id="PreguntaController?accion=borrar&id=${item.idPregunta}" href="#">Borrar</a></td>
                 <%--Esta parte solo es para probar el envío de parametros al jsp de footer --%>
-                <td><a data-toggle="modal" data-target="#myModal2" class="btn btn-primary" href="${men.mensaje}" >Ver</a></td>
+                
       
             </tr>
            </c:forEach>
@@ -244,6 +249,57 @@
          
         
       </script>
-      
+<div class="modal" id="myModal2" style="size: letter">
+  <div class="modal-content" style="size: auto">
+        <div class="modal-header" style="background-color:#317eac;border-radius: 4px; size: auto"  >
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:cornsilk; size: auto">&times;</button>
+            <h4 class="modal-title" id="myModalLabel" style="color: white" >Detalles pregunta</h4>
+        </div>
+        <div class="modal-body" style="overflow-y:auto;max-height: 400px">
+            
+            <div align="center" style="border: 1px; color: white; background-color:#00AB4F;" id="NavTabla"></div>
+                <table id="tabla" class="table table-striped sortable">
+  
+                    <td>No. Preg.</td>
+                    <td>Tema</td>
+                    <td>Tipo</td>
+                    <td>Descripción</td>
+                    <td>Modalidad</td>
+                    <td>Complejidad</td>
+                    <td>Estado</td>
+                    <td>Puntuación</td>
+                    <td>Retroalimentación</td>
+                    <td>Respuesta</td>
+                    <td/>
+                    <c:forEach items="${list}" var="item">
+    <tr>
+      <td><c:out value="${item.idPregunta}"/></td>
+      <td><c:out value="${item.temas.nombreTema}"/></td>
+      <td><c:out value="${item.tipoPregunta}"/></td>
+      <td><c:out value="${item.descripcionPregunta}"/></td>
+      <td><c:out value="${item.modalidadPregunta}"/></td>
+      <td><c:out value="${item.complejidadPregunta}"/></td>
+      <td><c:out value="${item.estado}"/></td>
+      <td><c:out value="${item.puntuacionPregunta}"/></td>
+      <td><c:out value="${item.comentRetroalimentacion}"/></td>
+      <td>
+          <c:forEach items="${item.respuestases}" var="respuesta">
+              R: ${respuesta.descripcionRespuesta}<br>
+          </c:forEach>
+      </td>
+      <td><a class="btn btn-warning" href="PreguntaController?accion=buscar&id=${item.idPregunta}">Editar</a></td>
+                    </tr>
+  </c:forEach>
+                
+                </table>
+        </div>  
+            
+            <div class="modal-footer">
+        
+        
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>      
       
 <%@include file="footer.jsp" %>
