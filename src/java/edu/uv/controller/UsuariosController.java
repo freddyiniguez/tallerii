@@ -53,12 +53,14 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             request.getRequestDispatcher("Usuarios_list.jsp").forward(request, response); 
         } else switch(accion){
             case INSERT:
+                PersonalDAO Personal_DAO2 = new PersonalDAO();
                 c = new Usuarios();
                 c.setLoginUsuario(new String(request.getParameter("loginUsuario").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setPasswordUsuario(new String(request.getParameter("passwordUsuario").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setEstadoUsuario(new String(request.getParameter("estadoUsuario").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setRol(request.getParameter("rol"));
-                c.setPersonal(Personal_DAO.find(Integer.parseInt(request.getParameter("personal"))));
+                int exp= Integer.parseInt(request.getParameter("personal"));
+                c.setPersonal(Personal_DAO2.find(exp));
                 Set<ConstraintViolation<Usuarios>> violations = validator.validate(c);
                 // enviar mensajes a jsp
                 if (violations.size()>0){
@@ -79,8 +81,9 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 break;
             case UPDATE:
                 c = new Usuarios();
+                String aux=request.getParameter("passwordUsuario");
                 c.setLoginUsuario(new String(request.getParameter("loginUsuario").getBytes("ISO-8859-1"),"UTF-8"));
-                c.setPasswordUsuario(new String(request.getParameter("paswordUsuario").getBytes("ISO-8859-1"),"UTF-8"));
+                c.setPasswordUsuario(aux);
                 c.setEstadoUsuario(new String(request.getParameter("estadoUsuario").getBytes("ISO-8859-1"),"UTF-8"));
                 c.setRol(request.getParameter("rol"));
                 int ass = Integer.parseInt(request.getParameter("personal"));
